@@ -8,7 +8,7 @@
     <string name="line_separator">line separator</string>
     <string name="overview_text">Overview</string>
     <string name="template_genre_title_text">Genre</string>
-    <string name="template_genre_text">Action, Drama</string>
+    <string name="template_genre_text">Action</string>
     <string name="template_status_title_text">Status</string>
     <string name="template_status_text">Released</string>
     <string name="template_score_title_text">Score</string>

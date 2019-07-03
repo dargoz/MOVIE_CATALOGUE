@@ -54,16 +54,17 @@
 
             <TextView
                 android:id="@+id/desc_detail_text_view"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/medium_margin"
                 android:layout_marginTop="@dimen/small_margin"
+                android:layout_marginEnd="@dimen/medium_margin"
                 android:text="@string/template_movie_desc"
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/desc_title_text_view"
 
-                />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/desc_title_text_view" />
 
             <ImageView
                 android:id="@+id/line1"
@@ -77,13 +78,15 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/desc_detail_text_view"
-                app:srcCompat="@android:color/darker_gray" />
+                app:srcCompat="@color/grey" />
 
             <TextView
                 android:id="@+id/genre_title_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/medium_margin"
+                android:layout_marginStart="@dimen/small_margin"
+                android:layout_marginEnd="@dimen/small_margin"
                 android:text="@string/template_genre_title_text"
                 android:textSize="@dimen/title_text_size"
                 android:textStyle="bold"
@@ -91,15 +94,20 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/desc_detail_text_view" />
 
-            <TextView
-                android:id="@+id/genre_text_view"
+            <LinearLayout
+                android:id="@+id/genre_grid_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/small_margin"
-                android:text="@string/template_genre_text"
+                android:layout_marginTop="@dimen/small_margin"
+                android:layout_marginStart="@dimen/medium_margin"
+                android:layout_marginEnd="@dimen/medium_margin"
+                android:orientation="horizontal"
+                android:gravity="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/genre_title_text_view" />
+                app:layout_constraintTop_toBottomOf="@id/genre_title_text_view" >
+
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/line2"
@@ -112,8 +120,8 @@
                 app:layout_constraintBottom_toTopOf="@id/status_title_text_view"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/genre_text_view"
-                app:srcCompat="@android:color/darker_gray" />
+                app:layout_constraintTop_toBottomOf="@id/genre_grid_view"
+                app:srcCompat="@color/grey" />
 
             <TextView
                 android:id="@+id/status_title_text_view"
@@ -125,7 +133,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/genre_text_view" />
+                app:layout_constraintTop_toBottomOf="@id/genre_grid_view" />
 
             <TextView
                 android:id="@+id/status_text_view"
@@ -149,7 +157,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/status_text_view"
-                app:srcCompat="@android:color/darker_gray" />
+                app:srcCompat="@color/grey" />
 
             <LinearLayout
                 android:id="@+id/score_runtime_container"
@@ -193,7 +201,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0"
                     android:contentDescription="@string/line_separator"
-                    app:srcCompat="@android:color/darker_gray" />
+                    app:srcCompat="@color/grey" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -232,7 +240,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/score_runtime_container"
-                app:srcCompat="@android:color/darker_gray" />
+                app:srcCompat="@color/grey" />
         </android.support.constraint.ConstraintLayout>
 
 </ScrollView>

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -54,30 +55,35 @@ public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecycl
         private final ImageView imageView;
         private final TextView movieTitleText;
         private final TextView movieReleaseDateText;
-        private final TextView movieDescText;
-        private final Button movieDetailPageButton;
+        private final FrameLayout imageContainer;
+        private final TextView scoreText;
 
         public MovieViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.movie_image_view);
             movieTitleText = itemView.findViewById(R.id.movie_title_text_view);
             movieReleaseDateText = itemView.findViewById(R.id.movie_release_date_text_view);
-            movieDescText = itemView.findViewById(R.id.movie_desc_text_view);
-            movieDetailPageButton = itemView.findViewById(R.id.detail_button);
+            imageContainer = itemView.findViewById(R.id.movie_image_container);
+            scoreText = itemView.findViewById(R.id.rating_text_view);
         }
 
         void bindData(final Movies movie){
             Glide.with(context)
                     .load(movie.getImage())
                     .apply(new RequestOptions()
-                            .override(100,300)
+                            .override(context
+                                            .getResources()
+                                            .getDimensionPixelSize(R.dimen.main_poster_width),
+                                    context
+                                            .getResources()
+                                            .getDimensionPixelSize(R.dimen.main_poster_height))
                             .transform(new RoundedCorners(Utils.convertDpToPixel(10,context))))
                     .into(imageView);
             movieTitleText.setText(movie.getTitle());
             movieReleaseDateText.setText(movie.getReleaseDate());
-            movieDescText.setText(movie.getDesc());
+            scoreText.setText(String.format("%.1f", movie.getScore()));
 
-            movieDetailPageButton.setOnClickListener(new View.OnClickListener() {
+            imageContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     moviesPresenter.navigateView(movie);

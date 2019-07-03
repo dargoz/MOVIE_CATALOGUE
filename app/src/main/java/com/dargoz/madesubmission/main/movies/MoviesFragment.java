@@ -3,6 +3,7 @@ package com.dargoz.madesubmission.main.movies;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -47,7 +48,7 @@ public class MoviesFragment extends Fragment implements MoviesContract.View {
     @Override
     public void showMovieList() {
         ArrayList<Movies> movieList = mPresenter.addDataToList();
-        moviesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        moviesRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
 
         MoviesRecyclerViewAdapter moviesRecyclerViewAdapter =
                 new MoviesRecyclerViewAdapter(getContext(), (MoviesPresenter) mPresenter);

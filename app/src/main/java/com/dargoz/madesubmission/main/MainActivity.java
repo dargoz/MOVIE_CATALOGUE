@@ -19,9 +19,42 @@ public class MainActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         mainTabLayout = findViewById(R.id.main_tab_layout);
         mainViewPager = findViewById(R.id.main_view_pager);
-        mainViewPager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(),1));
+
+        mainTabLayout.addTab(mainTabLayout.newTab().setText("Movies"));
+        mainTabLayout.addTab(mainTabLayout.newTab().setText("Tv Shows"));
+        mainViewPager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(),
+                mainTabLayout.getTabCount()));
+        mainTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                mainViewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) { }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) { }
+        });
+        mainViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                mainTabLayout.getTabAt(i).select();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
     }
 
     @Override

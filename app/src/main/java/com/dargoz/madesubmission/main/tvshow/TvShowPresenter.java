@@ -3,6 +3,7 @@ package com.dargoz.madesubmission.main.tvshow;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.support.v4.app.Fragment;
 
 import com.dargoz.madesubmission.R;
 import com.dargoz.madesubmission.detailmovielist.DetailMovieActivity;
@@ -30,15 +31,15 @@ public class TvShowPresenter implements TvShowContract.Presenter {
 
     @Override
     public void prepareData() {
-        dataTvShowTitle = ((Context)mainView).getResources().getStringArray(R.array.tv_title);
-        dataTvShowReleaseDate = ((Context)mainView).getResources().getStringArray(R.array.tv_release_date);
-        dataTvShowDesc = ((Context)mainView).getResources().getStringArray(R.array.tv_desc);
-        dataTvShowGenre = ((Context)mainView).getResources().getStringArray(R.array.tv_genre);
-        dataTvShowStatus = ((Context)mainView).getResources().getStringArray(R.array.tv_release_status);
-        dataTvShowScore = ((Context)mainView).getResources().getStringArray(R.array.tv_score);
-        dataTvShowRuntime = ((Context)mainView).getResources().getStringArray(R.array.tv_runtime);
-        dataTvShowTotalEps = ((Context)mainView).getResources().getStringArray(R.array.tv_total_episode);
-        dataPoster = ((Context)mainView).getResources().obtainTypedArray(R.array.tv_image);
+        dataTvShowTitle = ((Fragment)mainView).getResources().getStringArray(R.array.tv_title);
+        dataTvShowReleaseDate = ((Fragment)mainView).getResources().getStringArray(R.array.tv_release_date);
+        dataTvShowDesc = ((Fragment)mainView).getResources().getStringArray(R.array.tv_desc);
+        dataTvShowGenre = ((Fragment)mainView).getResources().getStringArray(R.array.tv_genre);
+        dataTvShowStatus = ((Fragment)mainView).getResources().getStringArray(R.array.tv_release_status);
+        dataTvShowScore = ((Fragment)mainView).getResources().getStringArray(R.array.tv_score);
+        dataTvShowRuntime = ((Fragment)mainView).getResources().getStringArray(R.array.tv_runtime);
+        dataTvShowTotalEps = ((Fragment)mainView).getResources().getStringArray(R.array.tv_total_episode);
+        dataPoster = ((Fragment)mainView).getResources().obtainTypedArray(R.array.tv_image);
     }
 
     @Override
@@ -61,8 +62,8 @@ public class TvShowPresenter implements TvShowContract.Presenter {
 
     @Override
     public void navigateView(TvShow tvShowData) {
-        Intent intent = new Intent((Context)mainView, DetailMovieActivity.class);
+        Intent intent = new Intent(((Fragment)mainView).getContext(), DetailMovieActivity.class);
         intent.putExtra(DetailMovieActivity.EXTRA_MOVIE, tvShowData);
-        ((Context) mainView).startActivity(intent);
+        ((Fragment) mainView).startActivity(intent);
     }
 }

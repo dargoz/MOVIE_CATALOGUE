@@ -8,6 +8,7 @@ import android.support.v4.view.PagerAdapter;
 import android.view.View;
 
 import com.dargoz.madesubmission.main.movies.MoviesFragment;
+import com.dargoz.madesubmission.main.tvshow.TvShowFragment;
 
 public class MainPagerAdapter extends FragmentStatePagerAdapter {
     private int pageCount;
@@ -22,7 +23,15 @@ public class MainPagerAdapter extends FragmentStatePagerAdapter {
     }
 
     @Override
-    public Fragment getItem(int i) {
-        return new MoviesFragment();
+    public Fragment getItem(int position) {
+        switch (position){
+            case 0:
+                return new MoviesFragment();
+            case 1:
+                return new TvShowFragment();
+                default:
+                    return null;
+        }
+
     }
 }
