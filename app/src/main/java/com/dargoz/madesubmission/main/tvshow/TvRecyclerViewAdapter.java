@@ -1,5 +1,6 @@
 package com.dargoz.madesubmission.main.tvshow;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -15,15 +16,13 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.dargoz.madesubmission.R;
 import com.dargoz.madesubmission.Utils;
-import com.dargoz.madesubmission.main.movies.MoviesRecyclerViewAdapter;
-import com.dargoz.madesubmission.main.movies.model.Movies;
 import com.dargoz.madesubmission.main.tvshow.model.TvShow;
 
 import java.util.ArrayList;
 
 public class TvRecyclerViewAdapter extends RecyclerView.Adapter<TvRecyclerViewAdapter.TvViewHolder> {
-    private Context context;
-    private TvShowPresenter tvShowPresenter;
+    private final Context context;
+    private final TvShowPresenter tvShowPresenter;
     private ArrayList<TvShow> tvShowsList = new ArrayList<>();
 
     TvRecyclerViewAdapter(Context context, TvShowPresenter tvShowPresenter){
@@ -59,7 +58,7 @@ public class TvRecyclerViewAdapter extends RecyclerView.Adapter<TvRecyclerViewAd
         private final FrameLayout imageContainer;
         private final TextView scoreText;
 
-        public TvViewHolder(@NonNull View itemView) {
+        TvViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.movie_image_view);
             movieTitleText = itemView.findViewById(R.id.movie_title_text_view);
@@ -68,6 +67,7 @@ public class TvRecyclerViewAdapter extends RecyclerView.Adapter<TvRecyclerViewAd
             scoreText = itemView.findViewById(R.id.rating_text_view);
         }
 
+        @SuppressLint("DefaultLocale")
         void bindData(final TvShow tvShow){
             Glide.with(context)
                     .load(tvShow.getImage())

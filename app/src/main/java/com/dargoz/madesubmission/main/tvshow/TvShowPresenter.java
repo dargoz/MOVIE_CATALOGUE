@@ -1,6 +1,5 @@
 package com.dargoz.madesubmission.main.tvshow;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.support.v4.app.Fragment;
@@ -12,7 +11,7 @@ import com.dargoz.madesubmission.main.tvshow.model.TvShow;
 import java.util.ArrayList;
 
 public class TvShowPresenter implements TvShowContract.Presenter {
-    private TvShowContract.View mainView;
+    private final TvShowContract.View mainView;
 
     private String[] dataTvShowTitle;
     private String[] dataTvShowReleaseDate;
@@ -55,6 +54,7 @@ public class TvShowPresenter implements TvShowContract.Presenter {
             tvShow.setScore(Double.parseDouble(dataTvShowScore[idx]));
             tvShow.setRuntime(dataTvShowRuntime[idx]);
             tvShow.setImage(dataPoster.getResourceId(idx,-1));
+            tvShow.setTotalEpisode(dataTvShowTotalEps[idx]);
             tvShowsList.add(tvShow);
         }
         return tvShowsList;
@@ -63,7 +63,7 @@ public class TvShowPresenter implements TvShowContract.Presenter {
     @Override
     public void navigateView(TvShow tvShowData) {
         Intent intent = new Intent(((Fragment)mainView).getContext(), DetailMovieActivity.class);
-        intent.putExtra(DetailMovieActivity.EXTRA_MOVIE, tvShowData);
+        intent.putExtra(DetailMovieActivity.EXTRA_TV_SHOWS, tvShowData);
         ((Fragment) mainView).startActivity(intent);
     }
 }

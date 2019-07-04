@@ -42,6 +42,7 @@ public class GenreTextView extends android.support.v7.widget.AppCompatTextView {
         ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) getLayoutParams();
         marginLayoutParams.leftMargin = 8;
         marginLayoutParams.rightMargin = 8;
+        marginLayoutParams.bottomMargin = 16;
         setLayoutParams(marginLayoutParams);
     }
 }

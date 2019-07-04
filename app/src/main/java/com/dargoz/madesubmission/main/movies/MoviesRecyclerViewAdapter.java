@@ -1,12 +1,12 @@
 package com.dargoz.madesubmission.main.movies;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,8 +21,8 @@ import com.dargoz.madesubmission.main.movies.model.Movies;
 import java.util.ArrayList;
 
 public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecyclerViewAdapter.MovieViewHolder> {
-    private Context context;
-    private MoviesPresenter moviesPresenter;
+    private final Context context;
+    private final MoviesPresenter moviesPresenter;
     private ArrayList<Movies> moviesArrayList = new ArrayList<>();
 
     MoviesRecyclerViewAdapter(Context context, MoviesPresenter moviesPresenter){
@@ -58,7 +58,7 @@ public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecycl
         private final FrameLayout imageContainer;
         private final TextView scoreText;
 
-        public MovieViewHolder(@NonNull View itemView) {
+        MovieViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.movie_image_view);
             movieTitleText = itemView.findViewById(R.id.movie_title_text_view);
@@ -67,6 +67,7 @@ public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecycl
             scoreText = itemView.findViewById(R.id.rating_text_view);
         }
 
+        @SuppressLint("DefaultLocale")
         void bindData(final Movies movie){
             Glide.with(context)
                     .load(movie.getImage())

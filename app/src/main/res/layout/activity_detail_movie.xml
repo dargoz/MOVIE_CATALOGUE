@@ -39,18 +39,32 @@
                 app:srcCompat="@drawable/poster_avengerinfinity" />
 
             <TextView
+                android:id="@+id/episode_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/detail_poster_footer_bg"
+                android:padding="@dimen/small_margin"
+                android:text="@string/template_episode_text"
+                android:textColor="@android:color/white"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/movie_detail_image"
+                app:layout_constraintEnd_toEndOf="@+id/movie_detail_image"
+                app:layout_constraintStart_toStartOf="@+id/movie_detail_image"
+                app:layout_constraintTop_toBottomOf="@+id/movie_detail_image" />
+
+            <TextView
                 android:id="@+id/desc_title_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/small_margin"
-                android:layout_marginTop="@dimen/medium_margin"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="@dimen/small_margin"
                 android:text="@string/overview_text"
                 android:textSize="@dimen/title_text_size"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/movie_detail_image" />
+                app:layout_constraintTop_toBottomOf="@+id/episode_text_view" />
 
             <TextView
                 android:id="@+id/desc_detail_text_view"
@@ -95,17 +109,17 @@
                 app:layout_constraintTop_toBottomOf="@id/desc_detail_text_view" />
 
             <LinearLayout
-                android:id="@+id/genre_grid_view"
+                android:id="@+id/genre_container_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/small_margin"
                 android:layout_marginStart="@dimen/medium_margin"
+                android:layout_marginTop="@dimen/small_margin"
                 android:layout_marginEnd="@dimen/medium_margin"
-                android:orientation="horizontal"
                 android:gravity="center"
+                android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/genre_title_text_view" >
+                app:layout_constraintTop_toBottomOf="@id/genre_title_text_view">
 
             </LinearLayout>
 
@@ -120,7 +134,7 @@
                 app:layout_constraintBottom_toTopOf="@id/status_title_text_view"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/genre_grid_view"
+                app:layout_constraintTop_toBottomOf="@id/genre_container_view"
                 app:srcCompat="@color/grey" />
 
             <TextView
@@ -133,7 +147,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/genre_grid_view" />
+                app:layout_constraintTop_toBottomOf="@id/genre_container_view" />
 
             <TextView
                 android:id="@+id/status_text_view"

@@ -4,12 +4,10 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.ViewParent;
-import android.widget.ListView;
 
 import com.dargoz.madesubmission.R;
 
-import java.util.ArrayList;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity  {
     private TabLayout mainTabLayout;
@@ -39,29 +37,7 @@ public class MainActivity extends AppCompatActivity  {
             @Override
             public void onTabReselected(TabLayout.Tab tab) { }
         });
-        mainViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int i, float v, int i1) {
-
-            }
-
-            @Override
-            public void onPageSelected(int i) {
-                mainTabLayout.getTabAt(i).select();
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) {
-
-            }
-        });
+        mainViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mainTabLayout));
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-    }
-
 
 }

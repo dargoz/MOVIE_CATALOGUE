@@ -1,6 +1,5 @@
 package com.dargoz.madesubmission.main.movies;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.support.v4.app.Fragment;
@@ -10,6 +9,7 @@ import com.dargoz.madesubmission.detailmovielist.DetailMovieActivity;
 import com.dargoz.madesubmission.main.movies.model.Movies;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class MoviesPresenter implements MoviesContract.Presenter {
     private final MoviesContract.View mainView;
@@ -31,13 +31,20 @@ public class MoviesPresenter implements MoviesContract.Presenter {
     @Override
     public void prepareData() {
         dataMovieTitle = ((Fragment)mainView).getResources().getStringArray(R.array.movie_title);
-        dataMovieReleaseDate = (((Fragment)mainView).getContext()).getResources().getStringArray(R.array.movie_release_date);
-        dataMovieDesc = (((Fragment)mainView).getContext()).getResources().getStringArray(R.array.movie_desc);
-        dataMovieGenre = (((Fragment)mainView).getContext()).getResources().getStringArray(R.array.movie_genre);
-        dataMovieStatus =(((Fragment)mainView).getContext()).getResources().getStringArray(R.array.movie_release_status);
-        dataMovieScore = (((Fragment)mainView).getContext()).getResources().getStringArray(R.array.movie_score);
-        dataMovieRuntime = (((Fragment)mainView).getContext()).getResources().getStringArray(R.array.movie_runtime);
-        dataPoster = (((Fragment)mainView).getContext()).getResources().obtainTypedArray(R.array.movie_image);
+        dataMovieReleaseDate = (Objects.requireNonNull(((Fragment) mainView).getContext()))
+                .getResources().getStringArray(R.array.movie_release_date);
+        dataMovieDesc = (Objects.requireNonNull(((Fragment) mainView).getContext()))
+                .getResources().getStringArray(R.array.movie_desc);
+        dataMovieGenre = (Objects.requireNonNull(((Fragment) mainView).getContext()))
+                .getResources().getStringArray(R.array.movie_genre);
+        dataMovieStatus =(Objects.requireNonNull(((Fragment) mainView).getContext()))
+                .getResources().getStringArray(R.array.movie_release_status);
+        dataMovieScore = (Objects.requireNonNull(((Fragment) mainView).getContext()))
+                .getResources().getStringArray(R.array.movie_score);
+        dataMovieRuntime = (Objects.requireNonNull(((Fragment) mainView).getContext()))
+                .getResources().getStringArray(R.array.movie_runtime);
+        dataPoster = (Objects.requireNonNull(((Fragment) mainView).getContext()))
+                .getResources().obtainTypedArray(R.array.movie_image);
     }
 
     @Override

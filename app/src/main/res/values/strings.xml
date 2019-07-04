@@ -4,7 +4,6 @@
     <string name="template_movie_title">Avenger: Infinity War</string>
     <string name="template_movie_release_date">April 27, 2018</string>
     <string name="template_movie_desc">As the Avengers and their allies have continued to protect the world from threats too large for any one hero to handle, a new danger has emerged from the cosmic shadows: Thanos. A despot of intergalactic infamy…</string>
-    <string name="template_button_name">more info</string>
     <string name="line_separator">line separator</string>
     <string name="overview_text">Overview</string>
     <string name="template_genre_title_text">Genre</string>
@@ -63,26 +62,26 @@
     </array>
 
     <string-array name="movie_release_date">
-        <item>October 3, 2018</item>
-        <item>December 7, 2018</item>
-        <item>April 27, 2018</item>
-        <item>December 13, 2018</item>
-        <item>October 24, 2018</item>
-        <item>December 15, 2018</item>
-        <item>November 21, 2018</item>
-        <item>December 11, 2018</item>
-        <item>February 22, 2019</item>
-        <item>December 14, 2018</item>
-        <item>January 16, 2019</item>
-        <item>October 19, 2018</item>
-        <item>December 13, 2018</item>
-        <item>December 14, 2018</item>
-        <item>January 17, 2019</item>
-        <item>November 21, 2018</item>
-        <item>December 14, 2018</item>
-        <item>November 9, 2018</item>
-        <item>December 14, 2018</item>
-        <item>October 5, 2018</item>
+        <item>3 October 2018</item>
+        <item>7 December 2018</item>
+        <item>27 April 2018</item>
+        <item>13 December 2018</item>
+        <item>24 October 2018</item>
+        <item>15 December 2018</item>
+        <item>21 November 2018</item>
+        <item>11 December 2018</item>
+        <item>22 February 2019</item>
+        <item>14 December 2018</item>
+        <item>16 January 2019</item>
+        <item>19 October 2018</item>
+        <item>13 December 2018</item>
+        <item>14 December 2018</item>
+        <item>17 January 2019</item>
+        <item>21 November 2018</item>
+        <item>14 December 2018</item>
+        <item>9 November 2018</item>
+        <item>14 December 2018</item>
+        <item>5 October 2018</item>
     </string-array>
 
     <string-array name="movie_desc">
@@ -226,16 +225,16 @@
     </array>
 
     <string-array name="tv_release_date">
-        <item>April 9, 2019</item>
-        <item>October 7, 2014.</item>
-        <item>October 10, 2012.</item>
-        <item>August 23, 2015</item>
-        <item>September 24, 2013</item>
-        <item>February 26, 1986</item>
-        <item>March 27, 2005</item>
-        <item>April 6, 2013</item>
-        <item>April 17, 2011</item>
-        <item>October 12, 2009</item>
+        <item>9 April 2019</item>
+        <item>7 October 2014</item>
+        <item>10 October 2012</item>
+        <item>23 August 2015</item>
+        <item>24 September 2013</item>
+        <item>26 February 1986</item>
+        <item>27 March 2005</item>
+        <item>6 April 2013</item>
+        <item>17 April 2011</item>
+        <item>12 October 2009</item>
     </string-array>
 
     <string-array name="tv_desc">
@@ -319,5 +318,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="star_icon_text_desc">star icon</string>
+    <string name="template_episode_text">Tv Shows / Total : 22 Episodes</string>
 
 </resources>
