@@ -23,7 +23,6 @@ public class MoviesFragment extends Fragment implements MoviesContract.View {
 
     public MoviesFragment() {
         // Required empty public constructor
-        mPresenter = new MoviesPresenter(this);
     }
 
 
@@ -33,6 +32,7 @@ public class MoviesFragment extends Fragment implements MoviesContract.View {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_movie, container, false);
         moviesRecyclerView = root.findViewById(R.id.movie_recycler_view);
+        mPresenter = new MoviesPresenter(this, getContext());
         return root;
     }
 

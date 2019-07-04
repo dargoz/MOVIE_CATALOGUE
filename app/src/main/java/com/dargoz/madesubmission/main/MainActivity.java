@@ -1,28 +1,33 @@
 package com.dargoz.madesubmission.main;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.dargoz.madesubmission.R;
 
-import java.util.Objects;
-
 public class MainActivity extends AppCompatActivity  {
-    private TabLayout mainTabLayout;
-    private ViewPager mainViewPager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mainTabLayout = findViewById(R.id.main_tab_layout);
-        mainViewPager = findViewById(R.id.main_view_pager);
+        TabLayout mainTabLayout = findViewById(R.id.main_tab_layout);
+        final ViewPager mainViewPager = findViewById(R.id.main_view_pager);
 
-        mainTabLayout.addTab(mainTabLayout.newTab().setText("Movies"));
-        mainTabLayout.addTab(mainTabLayout.newTab().setText("Tv Shows"));
+        mainTabLayout.addTab(mainTabLayout.newTab()
+                .setText(getResources()
+                .getString(R.string.tab_title_movie)));
+        mainTabLayout.addTab(mainTabLayout.newTab()
+                .setText(getResources()
+                .getString(R.string.tab_title_tv_show)));
         mainViewPager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(),
                 mainTabLayout.getTabCount()));
         mainTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -40,4 +45,18 @@ public class MainActivity extends AppCompatActivity  {
         mainViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mainTabLayout));
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.language_setting){
+            Intent intent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
