@@ -5,6 +5,9 @@ import android.content.Intent;
 import com.dargoz.madesubmission.BasePresenter;
 import com.dargoz.madesubmission.BaseView;
 import com.dargoz.madesubmission.main.movies.model.Movies;
+import com.dargoz.madesubmission.main.tvshow.model.TvShow;
+
+import java.util.ArrayList;
 
 public interface DetailMovieContract {
     interface View extends BaseView<Presenter>{
@@ -13,5 +16,7 @@ public interface DetailMovieContract {
 
     interface Presenter extends BasePresenter{
         Movies retrieveIntentMovieData(Intent intent);
+        TvShow retrieveIntentTvShowData(Intent intent);
+        ArrayList<String> getListGenre(String genres);
     }
 }

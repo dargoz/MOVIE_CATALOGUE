@@ -3,9 +3,8 @@ package com.dargoz.madesubmission.main.movies;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +23,6 @@ public class MoviesFragment extends Fragment implements MoviesContract.View {
 
     public MoviesFragment() {
         // Required empty public constructor
-        mPresenter = new MoviesPresenter(this);
     }
 
 
@@ -34,6 +32,7 @@ public class MoviesFragment extends Fragment implements MoviesContract.View {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_movie, container, false);
         moviesRecyclerView = root.findViewById(R.id.movie_recycler_view);
+        mPresenter = new MoviesPresenter(this, getContext());
         return root;
     }
 
@@ -47,7 +46,7 @@ public class MoviesFragment extends Fragment implements MoviesContract.View {
     @Override
     public void showMovieList() {
         ArrayList<Movies> movieList = mPresenter.addDataToList();
-        moviesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        moviesRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
 
         MoviesRecyclerViewAdapter moviesRecyclerViewAdapter =
                 new MoviesRecyclerViewAdapter(getContext(), (MoviesPresenter) mPresenter);

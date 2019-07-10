@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">MADE SUBMISSION</string>
     <string name="movie_image_text_desc">movie image</string>
@@ -316,11 +317,4 @@
         <item>13 Episodes</item>
         <item>250 Episodes</item>
     </string-array>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="star_icon_text_desc">star icon</string>
-    <string name="template_episode_text">Tv Shows / Total : 22 Episodes</string>
-    <string name="language_setting_text">Language Setting</string>
-
 </resources>

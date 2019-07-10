@@ -3,7 +3,6 @@ package com.dargoz.madesubmission.main.movies;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
-import android.support.v4.app.Fragment;
 
 import com.dargoz.madesubmission.R;
 import com.dargoz.madesubmission.detailmovielist.DetailMovieActivity;
@@ -12,7 +11,7 @@ import com.dargoz.madesubmission.main.movies.model.Movies;
 import java.util.ArrayList;
 
 public class MoviesPresenter implements MoviesContract.Presenter {
-    private final MoviesContract.View mainView;
+    private final Context context;
 
     private String[] dataMovieTitle;
     private String[] dataMovieReleaseDate;
@@ -23,21 +22,29 @@ public class MoviesPresenter implements MoviesContract.Presenter {
     private String[] dataMovieRuntime;
     private TypedArray dataPoster;
 
-    MoviesPresenter(MoviesContract.View mainView){
-        this.mainView = mainView;
-        this.mainView.setPresenter(this);
+    MoviesPresenter(MoviesContract.View mainView, Context context){
+        this.context = context;
+        mainView.setPresenter(this);
     }
 
     @Override
     public void prepareData() {
-        dataMovieTitle = ((Fragment)mainView).getResources().getStringArray(R.array.movie_title);
-        dataMovieReleaseDate = (((Fragment)mainView).getContext()).getResources().getStringArray(R.array.movie_release_date);
-        dataMovieDesc = (((Fragment)mainView).getContext()).getResources().getStringArray(R.array.movie_desc);
-        dataMovieGenre = (((Fragment)mainView).getContext()).getResources().getStringArray(R.array.movie_genre);
-        dataMovieStatus =(((Fragment)mainView).getContext()).getResources().getStringArray(R.array.movie_release_status);
-        dataMovieScore = (((Fragment)mainView).getContext()).getResources().getStringArray(R.array.movie_score);
-        dataMovieRuntime = (((Fragment)mainView).getContext()).getResources().getStringArray(R.array.movie_runtime);
-        dataPoster = (((Fragment)mainView).getContext()).getResources().obtainTypedArray(R.array.movie_image);
+        dataMovieTitle = context
+                .getResources().getStringArray(R.array.movie_title);
+        dataMovieReleaseDate = context
+                .getResources().getStringArray(R.array.movie_release_date);
+        dataMovieDesc = context
+                .getResources().getStringArray(R.array.movie_desc);
+        dataMovieGenre = context
+                .getResources().getStringArray(R.array.movie_genre);
+        dataMovieStatus =context
+                .getResources().getStringArray(R.array.movie_release_status);
+        dataMovieScore = context
+                .getResources().getStringArray(R.array.movie_score);
+        dataMovieRuntime = context
+                .getResources().getStringArray(R.array.movie_runtime);
+        dataPoster = context
+                .getResources().obtainTypedArray(R.array.movie_image);
     }
 
     @Override
@@ -60,8 +67,8 @@ public class MoviesPresenter implements MoviesContract.Presenter {
 
     @Override
     public void navigateView(Movies movieData) {
-        Intent intent = new Intent(((Fragment)mainView).getContext(), DetailMovieActivity.class);
+        Intent intent = new Intent(context, DetailMovieActivity.class);
         intent.putExtra(DetailMovieActivity.EXTRA_MOVIE, movieData);
-        ((Fragment)mainView).startActivity(intent);
+        context.startActivity(intent);
     }
 }
