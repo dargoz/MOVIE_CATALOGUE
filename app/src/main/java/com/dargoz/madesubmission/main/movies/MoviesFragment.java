@@ -33,13 +33,13 @@ public class MoviesFragment extends Fragment implements MoviesContract.View {
         View root = inflater.inflate(R.layout.fragment_movie, container, false);
         moviesRecyclerView = root.findViewById(R.id.movie_recycler_view);
         mPresenter = new MoviesPresenter(this, getContext());
+        mPresenter.prepareData();
         return root;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mPresenter.prepareData();
     }
 
     @Override

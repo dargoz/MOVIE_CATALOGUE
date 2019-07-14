@@ -10,11 +10,11 @@ import com.dargoz.madesubmission.main.tvshow.model.TvShow;
 public interface DetailMovieContract {
     interface View extends BaseView<Presenter>{
         void showMovieDetailInfo();
-        void showMovieDetailsData(Movies movie);
+        void showFilmDetailsData(Object filmData);
     }
 
     interface Presenter extends BasePresenter{
-        void prepareMovieDetails(final Movies movie);
+        void prepareFilmDetails(final Movies movie, String category);
         Movies retrieveIntentMovieData(Intent intent);
         TvShow retrieveIntentTvShowData(Intent intent);
     }

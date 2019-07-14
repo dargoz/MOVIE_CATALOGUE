@@ -82,6 +82,8 @@
         android:text="@string/template_movie_title"
         android:textAlignment="center"
         android:textSize="@dimen/title_text_size"
+        android:gravity="top"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/movie_image_container"
         app:layout_constraintStart_toStartOf="@+id/movie_image_container"

@@ -80,7 +80,9 @@ public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecycl
                                     context
                                             .getResources()
                                             .getDimensionPixelSize(R.dimen.main_poster_height))
-                            .transform(new RoundedCorners(Utils.convertDpToPixel(10,context))))
+                            .transform(new RoundedCorners(context
+                                            .getResources()
+                                            .getDimensionPixelSize(R.dimen.poster_corner))))
                     .into(imageView);
             movieTitleText.setText(movie.getTitle());
             movieReleaseDateText.setText(Utils.formatDate(movie.getReleaseDate()));

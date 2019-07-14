@@ -38,8 +38,12 @@ public class MoviesPresenter implements MoviesContract.Presenter {
     @Override
     public void prepareData() {
         moviesItemList.clear();
-        String url =  "https://api.themoviedb.org/3/discover/movie?api_key=" +
-                Constant.API_KEY + "&language=en-US";
+         String url =  Constant.getUrlOf(
+                Constant.URL_TYPE_DISCOVER,
+                Constant.URL_MOVIES,
+                0,
+                ((MoviesFragment)mView).getContext());
+         Log.i("DRG","movie url : " + url);
         AndroidNetworking.get(url)
                 .setTag("movies")
                 .setPriority(Priority.HIGH)

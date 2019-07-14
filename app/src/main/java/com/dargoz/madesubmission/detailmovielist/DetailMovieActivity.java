@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.androidnetworking.AndroidNetworking;
+import com.dargoz.madesubmission.Constant;
 import com.dargoz.madesubmission.R;
 import com.dargoz.madesubmission.Utils;
 import com.dargoz.madesubmission.customview.GenreTextView;
@@ -50,6 +51,12 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
         runtimeText = findViewById(R.id.runtime_text_view);
         AndroidNetworking.initialize(this);
         mPresenter = new DetailMoviePresenter(this);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         showMovieDetailInfo();
     }
 
@@ -58,14 +65,15 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
     public void showMovieDetailInfo() {
         Movies movie = mPresenter.retrieveIntentMovieData(getIntent());
         TvShow tvShow = mPresenter.retrieveIntentTvShowData(getIntent());
-
+        String category = Constant.URL_MOVIES;
         if(tvShow == null) episodeText.setVisibility(View.GONE);
         else {
             movie = tvShow;
+            category = Constant.URL_TV;
             episodeText.setText(String.format("Tv Shows | %s", tvShow.getTotalEpisode()));
         }
 
-        mPresenter.prepareMovieDetails(movie);
+        mPresenter.prepareFilmDetails(movie,category);
         moviePoster.setImageBitmap(Utils.getImageBitmap(movie));
         titleText.setText(movie.getTitle());
         descText.setText(movie.getDesc());
@@ -74,10 +82,15 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
     }
 
     @Override
-    public void showMovieDetailsData(Movies movie) {
-        statusReleaseText.setText(movie.getStatus());
-        runtimeText.setText(movie.getRuntime());
-        showGenreList(movie.getGenres());
+    public void showFilmDetailsData(Object filmData) {
+        if(filmData instanceof TvShow){
+            episodeText.setText(String.format("Tv Shows | %s Episode",
+                    ((TvShow) filmData).getTotalEpisode()));
+        }
+        statusReleaseText.setText(((Movies)filmData).getStatus());
+        runtimeText.setText(((Movies)filmData).getRuntime());
+        showGenreList(((Movies)filmData).getGenres());
+
     }
 
     @Override

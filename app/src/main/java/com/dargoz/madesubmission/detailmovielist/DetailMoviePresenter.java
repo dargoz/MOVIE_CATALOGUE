@@ -1,5 +1,6 @@
 package com.dargoz.madesubmission.detailmovielist;
 
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
@@ -21,19 +22,21 @@ import java.util.ArrayList;
 
 
 public class DetailMoviePresenter implements DetailMovieContract.Presenter {
-    DetailMovieContract.View mView;
+    private DetailMovieContract.View mView;
     DetailMoviePresenter(DetailMovieContract.View view){
         mView = view;
         mView.setPresenter(this);
     }
 
     @Override
-    public void prepareMovieDetails(final Movies movie) {
+    public void prepareFilmDetails(final Movies movie, final String category) {
         String DETAIL_MOVIE_URL =
-                "https://api.themoviedb.org/3/movie/"+
-                        movie.getId() + "?language=en-US&api_key=" + Constant.API_KEY;
-        Log.i("DRG","url : " + DETAIL_MOVIE_URL);
-
+                Constant.getUrlOf(
+                        Constant.URL_TYPE_DETAIL,
+                        category,
+                        movie.getId(),
+                        (DetailMovieActivity)mView);
+        Log.i("DRG","url detail movie : " + DETAIL_MOVIE_URL);
         AndroidNetworking.get(DETAIL_MOVIE_URL)
                 .setTag("test")
                 .setPriority(Priority.HIGH)
@@ -52,10 +55,28 @@ public class DetailMoviePresenter implements DetailMovieContract.Presenter {
                             }
                             movie.setGenres(genresList);
                             movie.setStatus(response.getString("status"));
-                            movie.setRuntime(Utils.formatRuntime(response.getInt("runtime")));
-                            mView.showMovieDetailsData(movie);
+                            switch (category){
+                                case Constant.URL_TV:
+                                    TvShow tvShow = (TvShow) movie;
+                                    JSONArray runtimeResponse =
+                                            response.getJSONArray(Constant.TV_KEY_RUNTIME);
+                                    movie.setRuntime(Utils.formatRuntime(
+                                            runtimeResponse.getInt(0)));
+                                    tvShow.setTotalEpisode(String.valueOf(
+                                            response.getInt(Constant.KEY_TOTAL_EPISODE)
+                                    ));
+                                    mView.showFilmDetailsData(tvShow);
+                                    break;
+                                    default:
+                                        movie.setRuntime(Utils.formatRuntime(
+                                                response.getInt(Constant.MOVIES_KEY_RUNTIME)));
+                                        mView.showFilmDetailsData(movie);
+                                        break;
+                            }
+
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            Log.w("DRG","exception detail : " + e);
                         }
                     }
 

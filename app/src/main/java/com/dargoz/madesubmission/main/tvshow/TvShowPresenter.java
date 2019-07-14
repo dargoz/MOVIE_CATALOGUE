@@ -1,5 +1,6 @@
 package com.dargoz.madesubmission.main.tvshow;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -39,8 +40,11 @@ public class TvShowPresenter implements TvShowContract.Presenter {
     @Override
     public void prepareData() {
         tvShowsList.clear();
-        String url =  "https://api.themoviedb.org/3/discover/tv?api_key=" +
-                Constant.API_KEY + "&language=en-US";
+        String url =  Constant.getUrlOf(
+                Constant.URL_TYPE_DISCOVER,
+                Constant.URL_TV,
+                0,
+                ((TvShowFragment)mainView).getContext());
         AndroidNetworking.get(url)
                 .setTag("test")
                 .setPriority(Priority.HIGH)

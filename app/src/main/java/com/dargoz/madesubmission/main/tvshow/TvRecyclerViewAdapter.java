@@ -78,7 +78,9 @@ public class TvRecyclerViewAdapter extends RecyclerView.Adapter<TvRecyclerViewAd
                                     context
                                             .getResources()
                                             .getDimensionPixelSize(R.dimen.main_poster_height))
-                            .transform(new RoundedCorners(Utils.convertDpToPixel(10,context))))
+                            .transform(new RoundedCorners(context
+                                    .getResources()
+                                    .getDimensionPixelSize(R.dimen.poster_corner))))
                     .into(imageView);
             movieTitleText.setText(tvShow.getTitle());
             movieReleaseDateText.setText(Utils.formatDate(tvShow.getReleaseDate()));

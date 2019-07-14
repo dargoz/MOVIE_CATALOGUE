@@ -1,10 +1,13 @@
 package com.dargoz.madesubmission;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.WindowManager;
 
 import com.dargoz.madesubmission.main.movies.model.Movies;
 import com.dargoz.madesubmission.repository.FilmImageRepository;
@@ -16,9 +19,7 @@ import java.util.Locale;
 
 public class Utils {
     public static int convertDpToPixel(float dp, Context context) {
-        Resources resources = context.getResources();
-        DisplayMetrics metrics = resources.getDisplayMetrics();
-        return (int) (dp * (metrics.densityDpi / 160f));
+        return (int) (dp * context.getResources().getDisplayMetrics().density);
     }
 
     public static String getObjectImageUrl(String url, String imageSize, String path){

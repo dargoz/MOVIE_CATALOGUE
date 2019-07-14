@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">MADE SUBMISSION</string>
     <string name="movie_image_text_desc">movie image</string>
-    <string name="template_movie_title">Avenger: Infinity War</string>
+    <string name="template_movie_title">Arrow</string>
     <string name="template_movie_release_date">April 27, 2018</string>
     <string name="template_movie_desc">As the Avengers and their allies have continued to protect the world from threats too large for any one hero to handle, a new danger has emerged from the cosmic shadows: Thanos. A despot of intergalactic infamy…</string>
     <string name="line_separator">line separator</string>
@@ -69,7 +69,7 @@
         <item>13 Episodes</item>
         <item>250 Episodes</item>
     </string-array>
-
+    <string name="default_language">en-US</string>
     <string name="language_setting_text">Language Setting</string>
     <string name="star_icon_text_desc">star icon</string>
     <string name="template_episode_text">Tv Shows / Total : 22 Episodes</string>

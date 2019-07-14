@@ -29,13 +29,13 @@ public class TvShowFragment extends Fragment implements TvShowContract.View {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_tv_show, container, false);
         tvRecyclerView = root.findViewById(R.id.tv_recycler_view);
+        mPresenter.prepareData();
         return root;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mPresenter.prepareData();
     }
 
     @Override

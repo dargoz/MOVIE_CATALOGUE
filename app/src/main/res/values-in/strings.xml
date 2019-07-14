@@ -70,7 +70,7 @@
         <item>13 Episodes</item>
         <item>250 Episodes</item>
     </string-array>
-
+    <string name="default_language">id</string>
     <string name="language_setting_text">Pengaturan Bahasa</string>
     <string name="star_icon_text_desc">star icon</string>
     <string name="template_episode_text">Tv Shows / Total : 22 Episodes</string>
