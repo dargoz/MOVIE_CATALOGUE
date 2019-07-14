@@ -27,12 +27,12 @@ public class GenreTextView extends android.support.v7.widget.AppCompatTextView {
         super.onDraw(canvas);
         setBackground(getResources().getDrawable(R.drawable.genre_border_bg));
         setPadding(Utils.convertDpToPixel(8,getContext()),
-                Utils.convertDpToPixel(2,getContext()),
+                Utils.convertDpToPixel(4,getContext()),
                 Utils.convertDpToPixel(8,getContext()),
-                Utils.convertDpToPixel(2,getContext())
+                Utils.convertDpToPixel(4,getContext())
                 );
-        setTextSize(12);
-
+        setTextSize(14);
+        setTextColor(getResources().getColor(R.color.white));
 
     }
 

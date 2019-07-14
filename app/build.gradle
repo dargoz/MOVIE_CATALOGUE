@@ -34,4 +34,5 @@ dependencies {
     implementation 'com.android.support:gridlayout-v7:28.0.0'
     implementation 'com.loopj.android:android-async-http:1.4.9'
     implementation 'com.amitshekhar.android:android-networking:1.0.2'
+    implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
 }

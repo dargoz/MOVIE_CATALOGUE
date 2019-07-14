@@ -73,5 +73,8 @@
     <string name="language_setting_text">Language Setting</string>
     <string name="star_icon_text_desc">star icon</string>
     <string name="template_episode_text">Tv Shows / Total : 22 Episodes</string>
+    <string name="runtime_icon_text">runtime icon</string>
+    <string name="background_desc">background</string>
+    <string name="bottom_margin_desc">bottom margin</string>
 
 </resources>
