@@ -9,10 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.androidnetworking.AndroidNetworking;
 import com.dargoz.madesubmission.R;
 
-public class MainActivity extends AppCompatActivity  {
-
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity  {
             public void onTabReselected(TabLayout.Tab tab) { }
         });
         mainViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mainTabLayout));
+        AndroidNetworking.initialize(getApplicationContext());
     }
 
     @Override

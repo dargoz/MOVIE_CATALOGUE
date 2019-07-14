@@ -36,7 +36,6 @@ public class TvShowFragment extends Fragment implements TvShowContract.View {
     public void onResume() {
         super.onResume();
         mPresenter.prepareData();
-        showTvList();
     }
 
     @Override

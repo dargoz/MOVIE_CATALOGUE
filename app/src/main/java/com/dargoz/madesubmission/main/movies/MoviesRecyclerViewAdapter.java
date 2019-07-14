@@ -2,6 +2,7 @@ package com.dargoz.madesubmission.main.movies;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.dargoz.madesubmission.R;
 import com.dargoz.madesubmission.Utils;
 import com.dargoz.madesubmission.main.movies.model.Movies;
+import com.dargoz.madesubmission.repository.FilmImageRepository;
 
 import java.util.ArrayList;
 
@@ -70,7 +72,7 @@ public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecycl
         @SuppressLint("DefaultLocale")
         void bindData(final Movies movie){
             Glide.with(context)
-                    .load(movie.getImage())
+                    .load(Utils.getImageBitmap(movie))
                     .apply(new RequestOptions()
                             .override(context
                                             .getResources()
@@ -81,7 +83,7 @@ public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecycl
                             .transform(new RoundedCorners(Utils.convertDpToPixel(10,context))))
                     .into(imageView);
             movieTitleText.setText(movie.getTitle());
-            movieReleaseDateText.setText(movie.getReleaseDate());
+            movieReleaseDateText.setText(Utils.formatDate(movie.getReleaseDate()));
             scoreText.setText(String.format("%.1f", movie.getScore()));
 
             imageContainer.setOnClickListener(new View.OnClickListener() {

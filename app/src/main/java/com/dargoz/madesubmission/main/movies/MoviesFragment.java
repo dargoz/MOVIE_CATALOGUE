@@ -40,17 +40,14 @@ public class MoviesFragment extends Fragment implements MoviesContract.View {
     public void onResume() {
         super.onResume();
         mPresenter.prepareData();
-        showMovieList();
     }
 
     @Override
     public void showMovieList() {
-        ArrayList<Movies> movieList = mPresenter.addDataToList();
         moviesRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
-
         MoviesRecyclerViewAdapter moviesRecyclerViewAdapter =
                 new MoviesRecyclerViewAdapter(getContext(), (MoviesPresenter) mPresenter);
-        moviesRecyclerViewAdapter.setMovieData(movieList);
+        moviesRecyclerViewAdapter.setMovieData(mPresenter.addDataToList());
 
         moviesRecyclerView.setAdapter(moviesRecyclerViewAdapter);
     }

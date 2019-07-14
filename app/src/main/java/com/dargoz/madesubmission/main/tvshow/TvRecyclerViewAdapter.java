@@ -70,7 +70,7 @@ public class TvRecyclerViewAdapter extends RecyclerView.Adapter<TvRecyclerViewAd
         @SuppressLint("DefaultLocale")
         void bindData(final TvShow tvShow){
             Glide.with(context)
-                    .load(tvShow.getImage())
+                    .load(Utils.getImageBitmap(tvShow))
                     .apply(new RequestOptions()
                             .override(context
                                             .getResources()
@@ -81,7 +81,7 @@ public class TvRecyclerViewAdapter extends RecyclerView.Adapter<TvRecyclerViewAd
                             .transform(new RoundedCorners(Utils.convertDpToPixel(10,context))))
                     .into(imageView);
             movieTitleText.setText(tvShow.getTitle());
-            movieReleaseDateText.setText(tvShow.getReleaseDate());
+            movieReleaseDateText.setText(Utils.formatDate(tvShow.getReleaseDate()));
             scoreText.setText(String.format("%.1f", tvShow.getScore()));
 
             imageContainer.setOnClickListener(new View.OnClickListener() {

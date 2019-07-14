@@ -2,18 +2,47 @@ package com.dargoz.madesubmission.main.movies.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class Movies implements Parcelable {
-    private String title;
-    private String desc;
-    private String genres;
-    private String releaseDate;
+    protected int id;
+    protected String title;
+    protected String desc;
+    private ArrayList<Genre> genres = new ArrayList<>();
+    protected String releaseDate;
     private String status;
     private String runtime;
-    private double score;
-    private int image;
+    protected double score;
+    protected String imagePath;
+    private int imageId;
+
+    public Movies(){
+
+    }
+
+    public Movies(@NonNull JSONObject movieOject){
+        try {
+            this.id = movieOject.getInt("id");
+            this.title = movieOject.getString("title");
+            this.desc = movieOject.getString("overview");
+            this.releaseDate = movieOject.getString("release_date");
+            this.score = movieOject.getDouble("vote_average");
+            this.imagePath = movieOject.getString("poster_path");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
 
+    public int getId() {
+        return id;
+    }
 
     public String getRuntime() {
         return runtime;
@@ -23,13 +52,10 @@ public class Movies implements Parcelable {
         this.runtime = runtime;
     }
 
-    public int getImage() {
-        return image;
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setImage(int image) {
-        this.image = image;
-    }
 
     public String getTitle() {
         return title;
@@ -47,12 +73,12 @@ public class Movies implements Parcelable {
         this.desc = desc;
     }
 
-    public String getGenres() {
-        return genres;
+    public void setGenres(ArrayList<Genre> genres) {
+        this.genres = genres;
     }
 
-    public void setGenres(String genres) {
-        this.genres = genres;
+    public ArrayList<Genre> getGenres() {
+        return genres;
     }
 
     public String getReleaseDate() {
@@ -78,6 +104,13 @@ public class Movies implements Parcelable {
     public void setScore(double score) {
         this.score = score;
     }
+    public int getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
+    }
 
 
     @Override
@@ -87,34 +120,36 @@ public class Movies implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
         dest.writeString(this.title);
         dest.writeString(this.desc);
-        dest.writeString(this.genres);
+        dest.writeList(this.genres);
         dest.writeString(this.releaseDate);
         dest.writeString(this.status);
         dest.writeString(this.runtime);
         dest.writeDouble(this.score);
-        dest.writeInt(this.image);
-    }
-
-    public Movies() {
+        dest.writeString(this.imagePath);
+        dest.writeInt(this.imageId);
     }
 
     protected Movies(Parcel in) {
+        this.id = in.readInt();
         this.title = in.readString();
         this.desc = in.readString();
-        this.genres = in.readString();
+        this.genres = new ArrayList<>();
+        in.readList(this.genres, Genre.class.getClassLoader());
         this.releaseDate = in.readString();
         this.status = in.readString();
         this.runtime = in.readString();
         this.score = in.readDouble();
-        this.image = in.readInt();
+        this.imagePath = in.readString();
+        this.imageId = in.readInt();
     }
 
-    public static final Creator<Movies> CREATOR = new Creator<Movies>() {
+    public static final Parcelable.Creator<Movies> CREATOR = new Parcelable.Creator<Movies>() {
         @Override
-        public Movies createFromParcel(Parcel in) {
-            return new Movies(in);
+        public Movies createFromParcel(Parcel source) {
+            return new Movies(source);
         }
 
         @Override
@@ -122,5 +157,4 @@ public class Movies implements Parcelable {
             return new Movies[size];
         }
     };
-
 }

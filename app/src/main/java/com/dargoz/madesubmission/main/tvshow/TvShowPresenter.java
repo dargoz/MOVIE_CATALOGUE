@@ -2,26 +2,34 @@ package com.dargoz.madesubmission.main.tvshow;
 
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.ANRequest;
+import com.androidnetworking.common.ANResponse;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.BitmapRequestListener;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.dargoz.madesubmission.Constant;
 import com.dargoz.madesubmission.R;
+import com.dargoz.madesubmission.Utils;
 import com.dargoz.madesubmission.detailmovielist.DetailMovieActivity;
+import com.dargoz.madesubmission.main.movies.model.Movies;
 import com.dargoz.madesubmission.main.tvshow.model.TvShow;
+import com.dargoz.madesubmission.repository.FilmImageRepository;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 public class TvShowPresenter implements TvShowContract.Presenter {
     private final TvShowContract.View mainView;
-
-    private String[] dataTvShowTitle;
-    private String[] dataTvShowReleaseDate;
-    private String[] dataTvShowDesc;
-    private String[] dataTvShowGenre;
-    private String[] dataTvShowStatus;
-    private String[] dataTvShowScore;
-    private String[] dataTvShowRuntime;
-    private String[] dataTvShowTotalEps;
-    private TypedArray dataPoster;
+    private ArrayList<TvShow> tvShowsList = new ArrayList<>();
 
     TvShowPresenter(TvShowContract.View view){
         this.mainView = view;
@@ -30,33 +38,68 @@ public class TvShowPresenter implements TvShowContract.Presenter {
 
     @Override
     public void prepareData() {
-        dataTvShowTitle = ((Fragment)mainView).getResources().getStringArray(R.array.tv_title);
-        dataTvShowReleaseDate = ((Fragment)mainView).getResources().getStringArray(R.array.tv_release_date);
-        dataTvShowDesc = ((Fragment)mainView).getResources().getStringArray(R.array.tv_desc);
-        dataTvShowGenre = ((Fragment)mainView).getResources().getStringArray(R.array.tv_genre);
-        dataTvShowStatus = ((Fragment)mainView).getResources().getStringArray(R.array.tv_release_status);
-        dataTvShowScore = ((Fragment)mainView).getResources().getStringArray(R.array.tv_score);
-        dataTvShowRuntime = ((Fragment)mainView).getResources().getStringArray(R.array.tv_runtime);
-        dataTvShowTotalEps = ((Fragment)mainView).getResources().getStringArray(R.array.tv_total_episode);
-        dataPoster = ((Fragment)mainView).getResources().obtainTypedArray(R.array.tv_image);
+        tvShowsList.clear();
+        String url =  "https://api.themoviedb.org/3/discover/tv?api_key=" +
+                Constant.API_KEY + "&language=en-US";
+        AndroidNetworking.get(url)
+                .setTag("test")
+                .setPriority(Priority.HIGH)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray results =  response.getJSONArray("results");
+                            Log.v("DRG","response : " + results);
+                            for(int i=0; i<results.length();i++) {
+                                JSONObject movieObject = results.getJSONObject(i);
+                                final TvShow tvShowItem = new TvShow(movieObject);
+                                AndroidNetworking.get(
+                                        Utils.getObjectImageUrl(
+                                                Constant.IMAGE_URL,
+                                                Constant.IMAGE_SIZE_W500,
+                                                tvShowItem.getImagePath()
+                                        ))
+                                        .setTag("imageRequestTag")
+                                        .setPriority(Priority.HIGH)
+                                        .setBitmapConfig(Bitmap.Config.ARGB_8888)
+                                        .build()
+                                        .getAsBitmap(new BitmapRequestListener() {
+                                            @Override
+                                            public void onResponse(Bitmap response) {
+                                                Log.d("DRG","success : ");
+                                                Bitmap image = response;
+                                                FilmImageRepository.imageList.add(image);
+                                                tvShowItem.setImageId(image.getGenerationId());
+                                                tvShowsList.add(tvShowItem);
+                                                mainView.showTvList();
+                                            }
+
+                                            @Override
+                                            public void onError(ANError anError) {
+                                                Log.w("DRG","Error getting Image : " + anError);
+                                            }
+                                        });
+
+
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        Log.v("DRG","Android Tv Network Finish Loading . . . ");
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        Log.w("DRG","ANError : " + anError);
+                    }
+                });
+
     }
 
     @Override
     public ArrayList<TvShow> addDataToList() {
-        ArrayList<TvShow> tvShowsList = new ArrayList<>();
-        for(int idx = 0; idx < dataTvShowTitle.length ; idx ++){
-            TvShow tvShow = new TvShow();
-            tvShow.setTitle(dataTvShowTitle[idx]);
-            tvShow.setReleaseDate(dataTvShowReleaseDate[idx]);
-            tvShow.setDesc(dataTvShowDesc[idx]);
-            tvShow.setGenres(dataTvShowGenre[idx]);
-            tvShow.setStatus(dataTvShowStatus[idx]);
-            tvShow.setScore(Double.parseDouble(dataTvShowScore[idx]));
-            tvShow.setRuntime(dataTvShowRuntime[idx]);
-            tvShow.setImage(dataPoster.getResourceId(idx,-1));
-            tvShow.setTotalEpisode(dataTvShowTotalEps[idx]);
-            tvShowsList.add(tvShow);
-        }
         return tvShowsList;
     }
 

@@ -3,20 +3,25 @@ package com.dargoz.madesubmission.detailmovielist;
 import android.annotation.SuppressLint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.androidnetworking.AndroidNetworking;
 import com.dargoz.madesubmission.R;
+import com.dargoz.madesubmission.Utils;
 import com.dargoz.madesubmission.customview.GenreTextView;
 import com.dargoz.madesubmission.main.movies.model.Movies;
 import com.dargoz.madesubmission.main.tvshow.model.TvShow;
+import com.dargoz.madesubmission.main.movies.model.Genre;
 
 import java.util.ArrayList;
 
 public class DetailMovieActivity extends AppCompatActivity implements DetailMovieContract.View {
+
     public static final String EXTRA_MOVIE = "movie";
     public static final String EXTRA_TV_SHOWS = "tv";
     private DetailMovieContract.Presenter mPresenter;
@@ -43,13 +48,8 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
         statusReleaseText = findViewById(R.id.status_text_view);
         scoreText = findViewById(R.id.score_text_view);
         runtimeText = findViewById(R.id.runtime_text_view);
+        AndroidNetworking.initialize(this);
         mPresenter = new DetailMoviePresenter(this);
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
         showMovieDetailInfo();
     }
 
@@ -64,19 +64,20 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
             movie = tvShow;
             episodeText.setText(String.format("Tv Shows | %s", tvShow.getTotalEpisode()));
         }
-        
-        moviePoster.setImageResource(movie.getImage());
 
+        mPresenter.prepareMovieDetails(movie);
+        moviePoster.setImageBitmap(Utils.getImageBitmap(movie));
         titleText.setText(movie.getTitle());
         descText.setText(movie.getDesc());
-
-        ArrayList<String> genreList = mPresenter.getListGenre(movie.getGenres());
-        showGenreList(genreList);
-
-        statusReleaseText.setText(movie.getStatus());
         scoreText.setText(String.format("%.1f", movie.getScore()));
-        runtimeText.setText(movie.getRuntime());
 
+    }
+
+    @Override
+    public void showMovieDetailsData(Movies movie) {
+        statusReleaseText.setText(movie.getStatus());
+        runtimeText.setText(movie.getRuntime());
+        showGenreList(movie.getGenres());
     }
 
     @Override
@@ -84,9 +85,11 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
         mPresenter = presenter;
     }
 
-    private void showGenreList(ArrayList<String> genreList){
+    private void showGenreList(ArrayList<Genre> genreList){
+        genreGridView.removeAllViews();
         LinearLayout row = new LinearLayout(this);
         for(int idx = 0; idx < genreList.size(); idx++){
+            Log.i("DRG","genre "+ idx +": " + genreList.get(idx).getName());
             if (idx % 3 == 0){
                 row = new LinearLayout(this);
                 LinearLayout.LayoutParams layoutParams =
@@ -95,7 +98,7 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
                 row.setLayoutParams(layoutParams);
             }
             GenreTextView genreText = new GenreTextView(this);
-            genreText.setText(genreList.get(idx));
+            genreText.setText(genreList.get(idx).getName());
             row.addView(genreText);
             if (idx % 3 == 0){
                 genreGridView.addView(row);
