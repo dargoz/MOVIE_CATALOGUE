@@ -3,11 +3,11 @@ package com.dargoz.madesubmission.detailmovielist;
 import android.annotation.SuppressLint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.androidnetworking.AndroidNetworking;
@@ -18,6 +18,7 @@ import com.dargoz.madesubmission.customview.GenreTextView;
 import com.dargoz.madesubmission.main.movies.model.Movies;
 import com.dargoz.madesubmission.main.tvshow.model.TvShow;
 import com.dargoz.madesubmission.main.movies.model.Genre;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.ArrayList;
 
@@ -36,6 +37,9 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
     private TextView scoreText;
     private TextView runtimeText;
 
+    private ShimmerFrameLayout shimmerLayout;
+    private ScrollView scrollView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +53,8 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
         statusReleaseText = findViewById(R.id.status_text_view);
         scoreText = findViewById(R.id.score_text_view);
         runtimeText = findViewById(R.id.runtime_text_view);
+        shimmerLayout = findViewById(R.id.shimmer_layout_detail_page);
+        scrollView = findViewById(R.id.detail_page_scroll_view);
         AndroidNetworking.initialize(this);
         mPresenter = new DetailMoviePresenter(this);
 
@@ -57,6 +63,7 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
     @Override
     protected void onResume() {
         super.onResume();
+        showLoading(true);
         showMovieDetailInfo();
     }
 
@@ -90,7 +97,20 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
         statusReleaseText.setText(((Movies)filmData).getStatus());
         runtimeText.setText(((Movies)filmData).getRuntime());
         showGenreList(((Movies)filmData).getGenres());
+        showLoading(false);
+    }
 
+    @Override
+    public void showLoading(boolean state) {
+        if(state){
+            shimmerLayout.startShimmerAnimation();
+            scrollView.setVisibility(View.GONE);
+            shimmerLayout.setVisibility(View.VISIBLE);
+        }else{
+            scrollView.setVisibility(View.VISIBLE);
+            shimmerLayout.stopShimmerAnimation();
+            shimmerLayout.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -102,7 +122,6 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
         genreGridView.removeAllViews();
         LinearLayout row = new LinearLayout(this);
         for(int idx = 0; idx < genreList.size(); idx++){
-            Log.i("DRG","genre "+ idx +": " + genreList.get(idx).getName());
             if (idx % 3 == 0){
                 row = new LinearLayout(this);
                 LinearLayout.LayoutParams layoutParams =

@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".detailmovielist.DetailMovieActivity"
     android:background="@color/softBlack"
     >
+
+    <ScrollView
+        android:id="@+id/detail_page_scroll_view"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".detailmovielist.DetailMovieActivity"
+
+        >
 
 
         <android.support.constraint.ConstraintLayout
@@ -178,7 +186,7 @@
                 app:layout_constraintTop_toTopOf="@id/line2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/guideline2"
-                 />
+                />
 
             <ImageView
                 android:id="@+id/runtime_icon"
@@ -290,4 +298,12 @@
 
         </android.support.constraint.ConstraintLayout>
 
-</ScrollView>
+    </ScrollView>
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_layout_detail_page"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include layout="@layout/activity_detail_movie_placeholder"/>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+</FrameLayout>

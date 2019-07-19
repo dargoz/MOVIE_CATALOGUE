@@ -13,6 +13,8 @@
         android:layout_height="?attr/actionBarSize"
         app:tabBackground="@color/colorPrimary"
         app:tabTextColor="@color/white"
+        app:tabMaxWidth="0dp"
+        app:tabGravity="fill"
         />
 
     <android.support.v4.view.ViewPager

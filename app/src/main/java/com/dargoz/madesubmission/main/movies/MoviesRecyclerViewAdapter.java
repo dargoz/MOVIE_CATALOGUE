@@ -2,7 +2,6 @@ package com.dargoz.madesubmission.main.movies;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,7 +17,6 @@ import com.bumptech.glide.request.RequestOptions;
 import com.dargoz.madesubmission.R;
 import com.dargoz.madesubmission.Utils;
 import com.dargoz.madesubmission.main.movies.model.Movies;
-import com.dargoz.madesubmission.repository.FilmImageRepository;
 
 import java.util.ArrayList;
 

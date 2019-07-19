@@ -11,6 +11,7 @@ public interface DetailMovieContract {
     interface View extends BaseView<Presenter>{
         void showMovieDetailInfo();
         void showFilmDetailsData(Object filmData);
+        void showLoading(boolean state);
     }
 
     interface Presenter extends BasePresenter{

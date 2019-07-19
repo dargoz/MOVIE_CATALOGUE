@@ -21,7 +21,7 @@ public class Movies implements Parcelable {
     protected String imagePath;
     private int imageId;
 
-    public Movies(){
+    protected Movies(){
 
     }
 

@@ -7,8 +7,10 @@
     <string name="template_movie_desc">As the Avengers and their allies have continued to protect the world from threats too large for any one hero to handle, a new danger has emerged from the cosmic shadows: Thanos. A despot of intergalactic infamy…</string>
     <string name="line_separator">line separator</string>
     <string name="overview_text">Overview</string>
+
     <string name="tab_title_movie">Movies</string>
     <string name="tab_title_tv_show">Tv Shows</string>
+
     <string name="template_genre_title_text">Genre</string>
     <string name="template_genre_text">Action</string>
     <string name="template_status_title_text">Status</string>
@@ -18,60 +20,12 @@
     <string name="template_score_text">8.3</string>
     <string name="template_runtime_text">2h 29m</string>
 
-    <string-array name="tv_release_date">
-        <item>9 April 2019</item>
-        <item>7 October 2014</item>
-        <item>10 October 2012</item>
-        <item>23 August 2015</item>
-        <item>24 September 2013</item>
-        <item>26 February 1986</item>
-        <item>27 March 2005</item>
-        <item>6 April 2013</item>
-        <item>17 April 2011</item>
-        <item>12 October 2009</item>
-    </string-array>
-
-
-    <string-array name="tv_release_status">
-        <item>Returning Series</item>
-        <item>Returning Series</item>
-        <item>Returning Series</item>
-        <item>Returning Series</item>
-        <item>Returning Series</item>
-        <item>Ended</item>
-        <item>Returning Series</item>
-        <item>Returning Series</item>
-        <item>Ended</item>
-        <item>Returning Series</item>
-    </string-array>
-
-    <string-array name="tv_runtime">
-        <item>24m</item>
-        <item>44m</item>
-        <item>42m</item>
-        <item>43m</item>
-        <item>43m</item>
-        <item>25m</item>
-        <item>43m</item>
-        <item>24m</item>
-        <item>60m</item>
-        <item>25m</item>
-    </string-array>
-
-    <string-array name="tv_total_episode">
-        <item>13 Episodes</item>
-        <item>22 Episodes</item>
-        <item>22 Episodes</item>
-        <item>8 Episodes</item>
-        <item>10 Episodes</item>
-        <item>153 Episodes</item>
-        <item>25 Episodes</item>
-        <item>24 Episodes</item>
-        <item>13 Episodes</item>
-        <item>250 Episodes</item>
-    </string-array>
     <string name="default_language">en</string>
     <string name="language_setting_text">Language Setting</string>
     <string name="star_icon_text_desc">star icon</string>
     <string name="template_episode_text">Tv Shows / Total : 22 Episodes</string>
+    <string name="runtime_icon_text">runtime icon</string>
+    <string name="background_desc">background</string>
+    <string name="bottom_margin_desc">bottom margin</string>
+    <string name="reload_text">reload</string>
 </resources>

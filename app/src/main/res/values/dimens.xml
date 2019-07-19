@@ -16,5 +16,6 @@
 
     <dimen name="main_poster_height">200dp</dimen>
     <dimen name="main_poster_width">130dp</dimen>
+    <dimen name="poster_placeholder_width">210dp</dimen>
     <dimen name="detail_poster_height">300dp</dimen>
 </resources>

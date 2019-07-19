@@ -1,8 +1,6 @@
 package com.dargoz.madesubmission.detailmovielist;
 
-import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
@@ -22,7 +20,7 @@ import java.util.ArrayList;
 
 
 public class DetailMoviePresenter implements DetailMovieContract.Presenter {
-    private DetailMovieContract.View mView;
+    private final DetailMovieContract.View mView;
     DetailMoviePresenter(DetailMovieContract.View view){
         mView = view;
         mView.setPresenter(this);
@@ -36,7 +34,6 @@ public class DetailMoviePresenter implements DetailMovieContract.Presenter {
                         category,
                         movie.getId(),
                         (DetailMovieActivity)mView);
-        Log.i("DRG","url detail movie : " + DETAIL_MOVIE_URL);
         AndroidNetworking.get(DETAIL_MOVIE_URL)
                 .setTag("test")
                 .setPriority(Priority.HIGH)
@@ -44,7 +41,6 @@ public class DetailMoviePresenter implements DetailMovieContract.Presenter {
                 .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("DRG","response : " + response);
                         try {
                             JSONArray genresListResponse = response.getJSONArray("genres");
                             ArrayList<Genre> genresList = new ArrayList<>();
@@ -76,13 +72,12 @@ public class DetailMoviePresenter implements DetailMovieContract.Presenter {
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Log.w("DRG","exception detail : " + e);
                         }
                     }
 
                     @Override
                     public void onError(ANError anError) {
-                        Log.w("DRG","Error fetch detail : " + anError);
+
                     }
                 });
 

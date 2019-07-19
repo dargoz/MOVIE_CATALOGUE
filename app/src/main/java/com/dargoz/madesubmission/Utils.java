@@ -1,13 +1,7 @@
 package com.dargoz.madesubmission;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.util.TypedValue;
-import android.view.WindowManager;
 
 import com.dargoz.madesubmission.main.movies.model.Movies;
 import com.dargoz.madesubmission.repository.FilmImageRepository;
