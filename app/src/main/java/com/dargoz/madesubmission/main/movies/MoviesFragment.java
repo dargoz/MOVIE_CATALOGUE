@@ -9,7 +9,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,9 +22,6 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 import java.util.ArrayList;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class MoviesFragment extends Fragment implements MoviesContract.View, View.OnClickListener {
     private MoviesContract.Presenter mPresenter;
     private RecyclerView moviesRecyclerView;
