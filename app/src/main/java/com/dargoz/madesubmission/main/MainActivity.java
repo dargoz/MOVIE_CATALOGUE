@@ -9,16 +9,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.androidnetworking.AndroidNetworking;
 import com.dargoz.madesubmission.R;
 
-public class MainActivity extends AppCompatActivity  {
-
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         TabLayout mainTabLayout = findViewById(R.id.main_tab_layout);
         final ViewPager mainViewPager = findViewById(R.id.main_view_pager);
 
@@ -43,6 +42,7 @@ public class MainActivity extends AppCompatActivity  {
             public void onTabReselected(TabLayout.Tab tab) { }
         });
         mainViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mainTabLayout));
+        AndroidNetworking.initialize(getApplicationContext());
     }
 
     @Override

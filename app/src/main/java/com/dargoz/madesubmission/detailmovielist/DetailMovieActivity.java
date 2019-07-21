@@ -7,16 +7,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.androidnetworking.AndroidNetworking;
+import com.dargoz.madesubmission.Constant;
 import com.dargoz.madesubmission.R;
+import com.dargoz.madesubmission.Utils;
 import com.dargoz.madesubmission.customview.GenreTextView;
 import com.dargoz.madesubmission.main.movies.model.Movies;
 import com.dargoz.madesubmission.main.tvshow.model.TvShow;
+import com.dargoz.madesubmission.main.movies.model.Genre;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.ArrayList;
 
 public class DetailMovieActivity extends AppCompatActivity implements DetailMovieContract.View {
+
     public static final String EXTRA_MOVIE = "movie";
     public static final String EXTRA_TV_SHOWS = "tv";
     private DetailMovieContract.Presenter mPresenter;
@@ -29,6 +36,9 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
     private TextView statusReleaseText;
     private TextView scoreText;
     private TextView runtimeText;
+
+    private ShimmerFrameLayout shimmerLayout;
+    private ScrollView scrollView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +53,9 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
         statusReleaseText = findViewById(R.id.status_text_view);
         scoreText = findViewById(R.id.score_text_view);
         runtimeText = findViewById(R.id.runtime_text_view);
+        shimmerLayout = findViewById(R.id.shimmer_layout_detail_page);
+        scrollView = findViewById(R.id.detail_page_scroll_view);
+        AndroidNetworking.initialize(this);
         mPresenter = new DetailMoviePresenter(this);
 
     }
@@ -50,6 +63,7 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
     @Override
     protected void onResume() {
         super.onResume();
+        showLoading(true);
         showMovieDetailInfo();
     }
 
@@ -58,25 +72,45 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
     public void showMovieDetailInfo() {
         Movies movie = mPresenter.retrieveIntentMovieData(getIntent());
         TvShow tvShow = mPresenter.retrieveIntentTvShowData(getIntent());
-
+        String category = Constant.URL_MOVIES;
         if(tvShow == null) episodeText.setVisibility(View.GONE);
         else {
             movie = tvShow;
+            category = Constant.URL_TV;
             episodeText.setText(String.format("Tv Shows | %s", tvShow.getTotalEpisode()));
         }
-        
-        moviePoster.setImageResource(movie.getImage());
 
+        mPresenter.prepareFilmDetails(movie,category);
+        moviePoster.setImageBitmap(Utils.getImageBitmap(movie));
         titleText.setText(movie.getTitle());
         descText.setText(movie.getDesc());
-
-        ArrayList<String> genreList = mPresenter.getListGenre(movie.getGenres());
-        showGenreList(genreList);
-
-        statusReleaseText.setText(movie.getStatus());
         scoreText.setText(String.format("%.1f", movie.getScore()));
-        runtimeText.setText(movie.getRuntime());
 
+    }
+
+    @Override
+    public void showFilmDetailsData(Object filmData) {
+        if(filmData instanceof TvShow){
+            episodeText.setText(String.format("Tv Shows | %s Episode",
+                    ((TvShow) filmData).getTotalEpisode()));
+        }
+        statusReleaseText.setText(((Movies)filmData).getStatus());
+        runtimeText.setText(((Movies)filmData).getRuntime());
+        showGenreList(((Movies)filmData).getGenres());
+        showLoading(false);
+    }
+
+    @Override
+    public void showLoading(boolean state) {
+        if(state){
+            shimmerLayout.startShimmerAnimation();
+            scrollView.setVisibility(View.GONE);
+            shimmerLayout.setVisibility(View.VISIBLE);
+        }else{
+            scrollView.setVisibility(View.VISIBLE);
+            shimmerLayout.stopShimmerAnimation();
+            shimmerLayout.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -84,7 +118,8 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
         mPresenter = presenter;
     }
 
-    private void showGenreList(ArrayList<String> genreList){
+    private void showGenreList(ArrayList<Genre> genreList){
+        genreGridView.removeAllViews();
         LinearLayout row = new LinearLayout(this);
         for(int idx = 0; idx < genreList.size(); idx++){
             if (idx % 3 == 0){
@@ -95,7 +130,7 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
                 row.setLayoutParams(layoutParams);
             }
             GenreTextView genreText = new GenreTextView(this);
-            genreText.setText(genreList.get(idx));
+            genreText.setText(genreList.get(idx).getName());
             row.addView(genreText);
             if (idx % 3 == 0){
                 genreGridView.addView(row);

@@ -4,6 +4,9 @@ import android.os.Parcel;
 
 import com.dargoz.madesubmission.main.movies.model.Movies;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class TvShow extends Movies {
     private String totalEpisode;
 
@@ -26,7 +29,18 @@ public class TvShow extends Movies {
         dest.writeString(this.totalEpisode);
     }
 
-    public TvShow() {
+    public TvShow(JSONObject tvObject){
+        try {
+            id = tvObject.getInt("id");
+            title = tvObject.getString("name");
+            desc = tvObject.getString("overview");
+            releaseDate = tvObject.getString("first_air_date");
+            score = tvObject.getDouble("vote_average");
+            imagePath = tvObject.getString("poster_path");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     protected TvShow(Parcel in) {

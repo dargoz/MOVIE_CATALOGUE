@@ -70,7 +70,7 @@ public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecycl
         @SuppressLint("DefaultLocale")
         void bindData(final Movies movie){
             Glide.with(context)
-                    .load(movie.getImage())
+                    .load(Utils.getImageBitmap(movie))
                     .apply(new RequestOptions()
                             .override(context
                                             .getResources()
@@ -78,10 +78,12 @@ public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecycl
                                     context
                                             .getResources()
                                             .getDimensionPixelSize(R.dimen.main_poster_height))
-                            .transform(new RoundedCorners(Utils.convertDpToPixel(10,context))))
+                            .transform(new RoundedCorners(context
+                                            .getResources()
+                                            .getDimensionPixelSize(R.dimen.poster_corner))))
                     .into(imageView);
             movieTitleText.setText(movie.getTitle());
-            movieReleaseDateText.setText(movie.getReleaseDate());
+            movieReleaseDateText.setText(Utils.formatDate(movie.getReleaseDate()));
             scoreText.setText(String.format("%.1f", movie.getScore()));
 
             imageContainer.setOnClickListener(new View.OnClickListener() {

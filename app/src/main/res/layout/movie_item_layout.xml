@@ -21,7 +21,7 @@
             android:layout_height="@dimen/main_poster_height"
             android:contentDescription="@string/movie_image_text_desc"
             android:scaleType="fitXY"
-            app:srcCompat="@drawable/poster_avengerinfinity" />
+            app:srcCompat="@drawable/sample_poster" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -78,11 +78,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/small_margin"
-        android:layout_marginBottom="@dimen/medium_margin"
+        android:paddingBottom="@dimen/medium_margin"
         android:text="@string/template_movie_title"
         android:textAlignment="center"
         android:textSize="@dimen/title_text_size"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:gravity="top"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/movie_image_container"
         app:layout_constraintStart_toStartOf="@+id/movie_image_container"
         app:layout_constraintTop_toBottomOf="@id/movie_image_container" />
