@@ -8,8 +8,10 @@
     <string name="line_separator">line separator</string>
     <string name="overview_text">Rangkuman</string>
 
+    <string name="favorite_title">Favorit</string>
     <string name="tab_title_movie">Film</string>
     <string name="tab_title_tv_show">Acara TV</string>
+    <string name="detail_film_title">Rincian Film</string>
 
     <string name="template_genre_title_text">Genre</string>
     <string name="template_genre_text">Action</string>
@@ -28,4 +30,8 @@
     <string name="background_desc">background</string>
     <string name="bottom_margin_desc">bottom margin</string>
     <string name="reload_text">muat ulang</string>
+
+    <string name="add_to_favorite_text">Tambahkan ke Favorit</string>
+    <string name="error_add_favorite_text">gagal menyimpan film ke menu favorit</string>
+    <string name="success_add_to_favorite_text">Film berhasil ke menu favorit</string>
 </resources>

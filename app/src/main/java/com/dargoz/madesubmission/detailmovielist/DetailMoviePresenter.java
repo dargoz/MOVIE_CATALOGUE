@@ -35,7 +35,7 @@ public class DetailMoviePresenter implements DetailMovieContract.Presenter {
                         movie.getId(),
                         (DetailMovieActivity)mView);
         AndroidNetworking.get(DETAIL_MOVIE_URL)
-                .setTag("test")
+                .setTag("filmDetail")
                 .setPriority(Priority.HIGH)
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {

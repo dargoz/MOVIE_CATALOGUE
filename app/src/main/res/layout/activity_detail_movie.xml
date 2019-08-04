@@ -149,7 +149,7 @@
                 app:layout_constraintEnd_toStartOf="@id/guideline2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="@id/runtime_icon"
-                app:srcCompat="@drawable/baseline_star_white_18dp"
+                app:srcCompat="@drawable/baseline_star_white_24"
                 />
 
             <TextView
@@ -197,7 +197,7 @@
                 app:layout_constraintTop_toBottomOf="@id/textView5"
                 app:layout_constraintStart_toEndOf="@id/guideline2"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:src="@drawable/baseline_access_time_white_18dp"
+                android:src="@drawable/baseline_access_time_white_24"
                 />
 
             <TextView

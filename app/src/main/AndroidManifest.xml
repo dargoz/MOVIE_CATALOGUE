@@ -10,7 +10,9 @@
         android:supportsRtl="true"
         android:largeHeap="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".detailmovielist.DetailMovieActivity" />
+        <activity android:name=".detailmovielist.DetailMovieActivity"
+            android:theme="@style/DetailPageThemeOff"
+            />
         <activity android:name=".main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
