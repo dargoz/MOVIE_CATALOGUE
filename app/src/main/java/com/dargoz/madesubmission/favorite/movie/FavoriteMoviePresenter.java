@@ -1,37 +1,36 @@
-package com.dargoz.madesubmission.favorite;
+package com.dargoz.madesubmission.favorite.movie;
 
-import android.util.Log;
+import android.content.Context;
+import android.content.Intent;
 
+import com.dargoz.madesubmission.detailmovielist.DetailMovieActivity;
 import com.dargoz.madesubmission.main.movies.model.Movies;
-import com.dargoz.madesubmission.repository.MovieEntity;
 
-import java.util.ArrayList;
-import java.util.List;
+public class FavoriteMoviePresenter implements FavoriteMovieContract.Presenter {
+    private final Context context;
+    private final FavoriteMovieContract.View mView;
 
-public class FavoritePresenter implements FavoriteContract.Presenter {
-    private FavoriteContract.View mView;
-    private List<MovieEntity> movieEntities = new ArrayList<>();
-
-    FavoritePresenter(FavoriteContract.View mView){
+    FavoriteMoviePresenter(FavoriteMovieContract.View mView, Context context){
+        this.context = context;
         this.mView = mView;
         this.mView.setPresenter(this);
     }
 
-    @Override
-    public void prepareData(FavoriteViewModel favoriteViewModel) {
-        favoriteViewModel.setMovie(mView);
+    FavoriteMovieContract.View getView() {
+        return mView;
     }
 
     @Override
-    public ArrayList<Movies> getFavoriteData() {
-        ArrayList<Movies> moviesArrayList = new ArrayList<>();
-        for(MovieEntity movieEntity : movieEntities){
-            Log.i("DRG","movies entity : " + movieEntity.getTitle());
-            Movies movie = new Movies();
-            movie.setTitle(movieEntity.getTitle());
-            movie.setReleaseDate(movieEntity.getReleaseDate());
-            movie.setRuntime(movieEntity.getRuntime());
-        }
-        return moviesArrayList;
+    public void prepareData(FavoriteMovieViewModel favoriteMovieViewModel) {
+        favoriteMovieViewModel.setMovie();
     }
+
+    @Override
+    public void navigateView(Movies movieData) {
+        Intent intent = new Intent(context, DetailMovieActivity.class);
+        intent.putExtra(DetailMovieActivity.EXTRA_MOVIE, movieData);
+        context.startActivity(intent);
+    }
+
+
 }

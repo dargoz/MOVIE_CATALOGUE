@@ -1,11 +1,11 @@
-package com.dargoz.madesubmission.main;
+package com.dargoz.madesubmission.favorite;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.dargoz.madesubmission.favorite.FavoriteFragment;
-import com.dargoz.madesubmission.main.tvshow.TvShowFragment;
+import com.dargoz.madesubmission.favorite.movie.FavoriteMovieFragment;
+import com.dargoz.madesubmission.favorite.tv.FavoriteTvFragment;
 
 public class FavoritePagerAdapter extends FragmentStatePagerAdapter {
     private final int pageCount;
@@ -23,9 +23,9 @@ public class FavoritePagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new FavoriteFragment();
+                return new FavoriteMovieFragment();
             case 1:
-                return new TvShowFragment();
+                return new FavoriteTvFragment();
             default:
                 return null;
         }
