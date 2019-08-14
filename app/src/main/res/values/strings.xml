@@ -31,6 +31,17 @@
     <string name="reload_text">reload</string>
 
     <string name="add_to_favorite_text">Add to Favorite</string>
+    <string name="success_remove_from_favorite_text">Film Removed from Favorite</string>
+    <string name="error_remove_from_favorite_text">Error Removed film from Favorite</string>
     <string name="error_add_favorite_text">Failed add to favorite</string>
     <string name="success_add_to_favorite_text">Success add to favorite</string>
+    <string name="home_tab_text">Home</string>
+    <string name="favorite_tab_text">Favorite</string>
+    <string name="alert_delete_title">Delete Film</string>
+    <string name="yes_button_text">YES</string>
+    <string name="no_button_text">NO</string>
+    <string name="delete_confirmation_message">Are you sure to delete film from favorite list?</string>
+    <string name="message_empty_favorite_list">Your favorite list is empty</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>

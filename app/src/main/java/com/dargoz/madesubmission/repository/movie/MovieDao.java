@@ -1,4 +1,4 @@
-package com.dargoz.madesubmission.repository;
+package com.dargoz.madesubmission.repository.movie;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;

@@ -71,6 +71,7 @@ public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecycl
         void bindData(final Movies movie){
             Glide.with(context)
                     .load(Utils.getImageBitmap(movie))
+                    .placeholder(R.drawable.baseline_broken_image_white_24)
                     .apply(new RequestOptions()
                             .override(context
                                             .getResources()

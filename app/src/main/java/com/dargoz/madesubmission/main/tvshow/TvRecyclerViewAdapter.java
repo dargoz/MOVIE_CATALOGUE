@@ -71,6 +71,7 @@ public class TvRecyclerViewAdapter extends RecyclerView.Adapter<TvRecyclerViewAd
         void bindData(final TvShow tvShow){
             Glide.with(context)
                     .load(Utils.getImageBitmap(tvShow))
+                    .placeholder(R.drawable.baseline_broken_image_white_24)
                     .apply(new RequestOptions()
                             .override(context
                                             .getResources()

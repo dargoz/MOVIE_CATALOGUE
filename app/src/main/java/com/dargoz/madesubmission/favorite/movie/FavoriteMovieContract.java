@@ -1,4 +1,4 @@
-package com.dargoz.madesubmission.main.favorite;
+package com.dargoz.madesubmission.favorite.movie;
 
 import com.dargoz.madesubmission.BasePresenter;
 import com.dargoz.madesubmission.BaseView;
@@ -11,10 +11,11 @@ public interface FavoriteContract {
     interface View extends BaseView<Presenter>{
         void initView();
         void showFavoriteData(ArrayList<Movies> moviesArrayList);
+        void showAlertDialog(Movies movie);
     }
 
     interface Presenter extends BasePresenter{
-        void prepareData(FavoriteViewModel favoriteViewModel);
-        ArrayList<Movies> getFavoriteData();
+        void prepareData(FavoriteMovieViewModel favoriteMovieViewModel);
+        void navigateView(Movies movieData);
     }
 }

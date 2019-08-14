@@ -1,4 +1,4 @@
-package com.dargoz.madesubmission.main.favorite;
+package com.dargoz.madesubmission.favorite;
 
 
 import android.arch.lifecycle.LiveData;

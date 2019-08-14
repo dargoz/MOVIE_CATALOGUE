@@ -4,7 +4,6 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.graphics.Bitmap;
-import android.util.Log;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
@@ -80,7 +79,8 @@ public class MoviesViewModel extends ViewModel {
 
                                             @Override
                                             public void onError(ANError anError) {
-                                                mView.showReloadButton(true);
+                                                loadedItemCounter++;
+
                                             }
                                         });
 

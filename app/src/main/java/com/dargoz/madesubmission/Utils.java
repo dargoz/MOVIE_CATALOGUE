@@ -3,11 +3,14 @@ package com.dargoz.madesubmission;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import com.dargoz.madesubmission.main.movies.model.Movies;
 import com.dargoz.madesubmission.repository.FilmImageRepository;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.ParseException;
@@ -20,14 +23,14 @@ public class Utils {
         return (int) (dp * context.getResources().getDisplayMetrics().density);
     }
 
-    public static String getObjectImageUrl(String url, String imageSize, String path){
-        return  url + imageSize + path;
+    public static String getObjectImageUrl(String url, String imageSize, String path) {
+        return url + imageSize + path;
     }
 
-    public static Bitmap getImageBitmap(Movies movie){
+    public static Bitmap getImageBitmap(Movies movie) {
         Bitmap getImage = null;
-        for(Bitmap image : FilmImageRepository.imageList){
-            if(image.getGenerationId() == movie.getImageId()){
+        for (Bitmap image : FilmImageRepository.imageList) {
+            if (image.getGenerationId() == movie.getImageId()) {
                 getImage = image;
                 break;
             }
@@ -35,14 +38,14 @@ public class Utils {
         return getImage;
     }
 
-    public static String formatRuntime(int runtime){
-        return String.format(Locale.getDefault(),"%dh %dm",runtime/60,runtime%60);
+    public static String formatRuntime(int runtime) {
+        return String.format(Locale.getDefault(), "%dh %dm", runtime / 60, runtime % 60);
     }
 
-    public static String formatDate(String dateString){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd",Locale.getDefault());
+    public static String formatDate(String dateString) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         try {
-            SimpleDateFormat newDateFormat = new SimpleDateFormat("dd MMM yyyy",Locale.getDefault());
+            SimpleDateFormat newDateFormat = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
             Date date = dateFormat.parse(dateString);
             return newDateFormat.format(date);
         } catch (ParseException e) {
@@ -51,28 +54,38 @@ public class Utils {
         return dateString;
     }
 
-    public static String saveToInternalStorage( Context context, Bitmap bitmapImage, String filename){
+    public static void saveToInternalStorage(Context context, Bitmap bitmapImage, String filename) {
         ContextWrapper cw = new ContextWrapper(context);
 
-        File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+        File directory = cw.getDir(Constant.LOCAL_IMAGE_FILE_PATH, Context.MODE_PRIVATE);
         // Create imageDir
-        File myPath = new File(directory,filename);
+        File myPath = new File(directory, filename);
 
         FileOutputStream fileOutputStream = null;
         try {
-            fileOutputStream = new FileOutputStream(myPath );
+            fileOutputStream = new FileOutputStream(myPath);
             // Use the compress method on the BitMap object to write image to the OutputStream
             bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {
-                if(fileOutputStream != null)
+                if (fileOutputStream != null)
                     fileOutputStream.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        return directory.getAbsolutePath();
+    }
+
+    public static Bitmap loadImageFromStorage(String path, String filename) {
+        try {
+            File file = new File(path, filename);
+            return BitmapFactory.decodeStream(new FileInputStream(file));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 }

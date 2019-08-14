@@ -1,4 +1,4 @@
-package com.dargoz.madesubmission.main.favorite;
+package com.dargoz.madesubmission.favorite;
 
 
 import android.arch.lifecycle.Observer;
@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 
 import com.dargoz.madesubmission.R;
 import com.dargoz.madesubmission.main.movies.model.Movies;
-import com.dargoz.madesubmission.main.movies.model.MoviesViewModel;
 
 import java.util.ArrayList;
 

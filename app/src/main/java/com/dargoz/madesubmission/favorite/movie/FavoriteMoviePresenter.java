@@ -1,10 +1,8 @@
-package com.dargoz.madesubmission.main.favorite;
+package com.dargoz.madesubmission.favorite;
 
 import android.util.Log;
 
-import com.dargoz.madesubmission.Constant;
 import com.dargoz.madesubmission.main.movies.model.Movies;
-import com.dargoz.madesubmission.repository.DaoTask;
 import com.dargoz.madesubmission.repository.MovieEntity;
 
 import java.util.ArrayList;

@@ -1,0 +1,54 @@
+package com.dargoz.madesubmission.repository.movie;
+
+import android.os.AsyncTask;
+
+import com.dargoz.madesubmission.Constant;
+import com.dargoz.madesubmission.MainActivity;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class MovieDaoTask extends AsyncTask<String,Void,List<MovieEntity>> {
+    private int id;
+    private List<MovieEntity> movieEntities = new ArrayList<>();
+
+    public void setId(int id ){
+        this.id = id;
+    }
+
+    public void setMovieEntities(MovieEntity... movieEntities) {
+        this.movieEntities.clear();
+        Collections.addAll(this.movieEntities, movieEntities);
+    }
+
+
+
+    @Override
+    protected List<MovieEntity> doInBackground(String... strings) {
+        for(String param : strings){
+            switch (param) {
+                case Constant.GET_FAVORITE_MOVIES:
+                    movieEntities = MainActivity.getDatabase().movieDao().getAll();
+                    break;
+                case Constant.INSERT_ALL_MOVIES:
+                    for (MovieEntity movieEntity : movieEntities)
+                        MainActivity.getDatabase().movieDao().insertAll(movieEntity);
+                    break;
+                case Constant.DELETE_MOVIE:
+                    MainActivity.getDatabase().movieDao().delete(movieEntities.get(0));
+                    break;
+                case Constant.FIND_MOVIE:
+                    try {
+                        movieEntities.clear();
+                        movieEntities.add(MainActivity.getDatabase().movieDao().find(id));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+            }
+        }
+        return movieEntities;
+    }
+
+}

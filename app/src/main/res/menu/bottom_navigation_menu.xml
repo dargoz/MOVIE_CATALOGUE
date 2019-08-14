@@ -2,12 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/action_home"
-        android:title="Home"
-        android:icon="@drawable/baseline_local_movies_24"
+        android:title="@string/home_tab_text"
+        android:icon="@drawable/bottom_view_film_item"
         />
     <item
         android:id="@+id/action_favorite"
-        android:title="Favorite"
-        android:icon="@drawable/baseline_favorite_24"
+        android:title="@string/favorite_tab_text"
+        android:icon="@drawable/bottom_view_favorite_item"
         />
 </menu>

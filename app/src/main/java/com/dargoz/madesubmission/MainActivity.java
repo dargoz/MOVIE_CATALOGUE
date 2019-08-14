@@ -1,8 +1,7 @@
-package com.dargoz.madesubmission.main;
+package com.dargoz.madesubmission;
 
 import android.arch.persistence.room.Room;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -10,19 +9,13 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.androidnetworking.AndroidNetworking;
-import com.dargoz.madesubmission.Constant;
-import com.dargoz.madesubmission.R;
-import com.dargoz.madesubmission.main.favorite.FavoriteFragment;
+import com.dargoz.madesubmission.favorite.FavoritePagerAdapter;
+import com.dargoz.madesubmission.main.MainPagerAdapter;
 import com.dargoz.madesubmission.repository.AppDatabase;
-import com.dargoz.madesubmission.repository.DaoTask;
-import com.dargoz.madesubmission.repository.MovieEntity;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private static AppDatabase database;
@@ -75,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-
         AndroidNetworking.initialize(getApplicationContext());
     }
 

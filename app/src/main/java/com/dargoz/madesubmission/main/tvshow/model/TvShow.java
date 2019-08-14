@@ -29,6 +29,8 @@ public class TvShow extends Movies {
         dest.writeString(this.totalEpisode);
     }
 
+    public TvShow(){}
+
     public TvShow(JSONObject tvObject){
         try {
             id = tvObject.getInt("id");

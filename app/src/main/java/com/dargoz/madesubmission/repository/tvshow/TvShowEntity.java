@@ -1,33 +1,38 @@
-package com.dargoz.madesubmission.repository;
+package com.dargoz.madesubmission.repository.tvshow;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
-@Entity(tableName = "movies")
-public class MovieEntity {
-
+@Entity(tableName = "tvShow")
+public class TvShowEntity {
     @PrimaryKey
     @ColumnInfo(name = "id")
-    private int id;
+    private final int id;
 
     @ColumnInfo(name = "title")
-    private String title;
+    private final String title;
 
     @ColumnInfo(name = "desc")
-    private String desc;
+    private final String desc;
 
     @ColumnInfo(name = "genre")
-    private String genre;
+    private final String genre;
 
     @ColumnInfo(name = "release_date")
-    protected String releaseDate;
+    protected final String releaseDate;
 
     @ColumnInfo(name = "status")
-    private String status;
+    private final String status;
 
     @ColumnInfo(name = "runtime")
-    private String runtime;
+    private final String runtime;
+
+    @ColumnInfo(name = "total_episode")
+    private final String totalEpisode;
+
+    @ColumnInfo(name = "score")
+    private final double score;
 
     public int getId() {
         return id;
@@ -57,7 +62,17 @@ public class MovieEntity {
         return runtime;
     }
 
-    public MovieEntity(int id, String title, String desc, String genre, String releaseDate, String status, String runtime) {
+    public String getTotalEpisode() {
+        return totalEpisode;
+    }
+
+    public double getScore() {
+        return score;
+    }
+
+    public TvShowEntity(int id, String title, String desc, String genre,
+                        String releaseDate, String status, String runtime,
+                        String totalEpisode, double score) {
         this.id = id;
         this.title = title;
         this.desc = desc;
@@ -65,5 +80,7 @@ public class MovieEntity {
         this.releaseDate = releaseDate;
         this.status = status;
         this.runtime = runtime;
+        this.totalEpisode = totalEpisode;
+        this.score = score;
     }
 }

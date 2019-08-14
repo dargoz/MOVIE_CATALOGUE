@@ -1,7 +1,6 @@
-package com.dargoz.madesubmission.main.favorite;
+package com.dargoz.madesubmission.favorite;
 
 import android.content.Context;
-import android.graphics.Movie;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,7 +11,6 @@ import android.widget.TextView;
 
 import com.dargoz.madesubmission.R;
 import com.dargoz.madesubmission.Utils;
-import com.dargoz.madesubmission.main.movies.MoviesRecyclerViewAdapter;
 import com.dargoz.madesubmission.main.movies.model.Movies;
 
 import java.util.ArrayList;

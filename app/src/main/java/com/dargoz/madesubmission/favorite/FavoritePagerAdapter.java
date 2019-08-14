@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.dargoz.madesubmission.main.favorite.FavoriteFragment;
+import com.dargoz.madesubmission.favorite.FavoriteFragment;
 import com.dargoz.madesubmission.main.tvshow.TvShowFragment;
 
 public class FavoritePagerAdapter extends FragmentStatePagerAdapter {
