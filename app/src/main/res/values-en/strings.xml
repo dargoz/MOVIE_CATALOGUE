@@ -8,8 +8,10 @@
     <string name="line_separator">line separator</string>
     <string name="overview_text">Overview</string>
 
+    <string name="favorite_title">Favorite</string>
     <string name="tab_title_movie">Movies</string>
     <string name="tab_title_tv_show">Tv Shows</string>
+    <string name="detail_film_title">Film Detail</string>
 
     <string name="template_genre_title_text">Genre</string>
     <string name="template_genre_text">Action</string>
@@ -28,4 +30,16 @@
     <string name="background_desc">background</string>
     <string name="bottom_margin_desc">bottom margin</string>
     <string name="reload_text">reload</string>
+
+    <string name="add_to_favorite_text">Add to Favorite</string>
+    <string name="success_remove_from_favorite_text">Film Removed from Favorite</string>
+    <string name="error_remove_from_favorite_text">Error Removed film from Favorite</string>
+    <string name="error_add_favorite_text">Failed add film to favorite</string>
+    <string name="success_add_to_favorite_text">Success add film to favorite</string>
+    <string name="home_tab_text">Home</string>
+    <string name="favorite_tab_text">Favorite</string>
+    <string name="alert_delete_title">Delete Film</string>
+    <string name="yes_button_text">YES</string>
+    <string name="no_button_text">NO</string>
+    <string name="delete_confirmation_message">Are you sure to delete film from favorite list?</string>
 </resources>

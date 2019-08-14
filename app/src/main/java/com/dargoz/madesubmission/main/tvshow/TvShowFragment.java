@@ -21,9 +21,7 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class TvShowFragment extends Fragment implements TvShowContract.View, View.OnClickListener {
     private TvShowContract.Presenter mPresenter;
     private RecyclerView tvRecyclerView;
@@ -33,7 +31,6 @@ public class TvShowFragment extends Fragment implements TvShowContract.View, Vie
     private TvShowViewModel tvShowViewModel;
 
     public TvShowFragment() {
-        // Required empty public constructor
         mPresenter = new TvShowPresenter(this);
     }
 

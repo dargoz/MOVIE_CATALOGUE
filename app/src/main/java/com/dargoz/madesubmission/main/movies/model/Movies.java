@@ -21,18 +21,18 @@ public class Movies implements Parcelable {
     protected String imagePath;
     private int imageId;
 
-    protected Movies(){
+    public Movies(){
 
     }
 
-    public Movies(@NonNull JSONObject movieOject){
+    public Movies(@NonNull JSONObject movieObject){
         try {
-            this.id = movieOject.getInt("id");
-            this.title = movieOject.getString("title");
-            this.desc = movieOject.getString("overview");
-            this.releaseDate = movieOject.getString("release_date");
-            this.score = movieOject.getDouble("vote_average");
-            this.imagePath = movieOject.getString("poster_path");
+            this.id = movieObject.getInt("id");
+            this.title = movieObject.getString("title");
+            this.desc = movieObject.getString("overview");
+            this.releaseDate = movieObject.getString("release_date");
+            this.score = movieObject.getDouble("vote_average");
+            this.imagePath = movieObject.getString("poster_path");
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -42,6 +42,10 @@ public class Movies implements Parcelable {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id){
+        this.id = id;
     }
 
     public String getRuntime() {
