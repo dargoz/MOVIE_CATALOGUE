@@ -3,11 +3,16 @@ package com.dargoz.madesubmission.widget;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Binder;
 import android.os.Bundle;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import com.dargoz.madesubmission.Constant;
+import com.dargoz.madesubmission.MainActivity;
 import com.dargoz.madesubmission.R;
+import com.dargoz.madesubmission.Utils;
+import com.dargoz.madesubmission.repository.movie.MovieEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,11 +32,21 @@ public class FavoriteStackRemoteViewFactory implements RemoteViewsService.Remote
 
     @Override
     public void onDataSetChanged() {
-       /* mWidgetItems.add(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.darth_vader));
-        mWidgetItems.add(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.star_wars_logo));
-        mWidgetItems.add(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.storm_trooper));
-        mWidgetItems.add(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.starwars));
-        mWidgetItems.add(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.falcon));*/
+
+        final long identityToken = Binder.clearCallingIdentity();
+
+        //query DB
+        List<MovieEntity> movieEntities = MainActivity.getDatabase().movieDao().getAll();
+        for(MovieEntity movieEntity : movieEntities){
+            mWidgetItems.add(
+                    Utils.loadImageFromStorage(
+                            mContext.getDir(Constant.LOCAL_IMAGE_FILE_PATH, Context.MODE_PRIVATE)
+                                    .getPath(),
+                            String.valueOf(movieEntity.getId())
+                    )
+            );
+        }
+        Binder.restoreCallingIdentity(identityToken);
     }
 
     @Override
@@ -46,15 +61,15 @@ public class FavoriteStackRemoteViewFactory implements RemoteViewsService.Remote
 
     @Override
     public RemoteViews getViewAt(int position) {
-        RemoteViews rv = new RemoteViews(mContext.getPackageName(), R.layout.movie_item_layout);
-        rv.setImageViewBitmap(R.id.imageView, mWidgetItems.get(position));
+        RemoteViews rv = new RemoteViews(mContext.getPackageName(), R.layout.film_widget_item);
+        rv.setImageViewBitmap(R.id.image_widget, mWidgetItems.get(position));
 
         Bundle extras = new Bundle();
-//        extras.putInt(FavoriteFilmWidget.EXTRA_ITEM, position);
+        extras.putInt(FavoriteFilmWidget.EXTRA_ITEM, position);
         Intent fillInIntent = new Intent();
         fillInIntent.putExtras(extras);
 
-        rv.setOnClickFillInIntent(R.id.imageView, fillInIntent);
+        rv.setOnClickFillInIntent(R.id.image_widget, fillInIntent);
         return rv;
     }
 

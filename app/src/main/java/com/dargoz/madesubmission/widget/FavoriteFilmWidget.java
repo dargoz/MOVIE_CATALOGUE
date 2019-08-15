@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 import com.dargoz.madesubmission.R;
 
@@ -14,7 +15,8 @@ import com.dargoz.madesubmission.R;
  * Implementation of App Widget functionality.
  */
 public class FavoriteFilmWidget extends AppWidgetProvider {
-    private static final String TOAST_ACTION = "com.dargoz.madesubmission.TOAST_ACTION";
+    private static final String TOAST_ACTION = "TOAST_ACTION";
+    public static final String EXTRA_ITEM = "item";
 
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
@@ -27,7 +29,7 @@ public class FavoriteFilmWidget extends AppWidgetProvider {
         CharSequence widgetText = context.getString(R.string.appwidget_text);
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.favorite_film_widget);
-        views.setTextViewText(R.id.appwidget_text, widgetText);
+//        views.setTextViewText(R.id.appwidget_text, widgetText);
         views.setRemoteAdapter(R.id.film_stack_view, intent);
 
         Intent toastIntent = new Intent(context, FavoriteFilmWidget.class);
@@ -46,6 +48,17 @@ public class FavoriteFilmWidget extends AppWidgetProvider {
         // There may be multiple widgets active, so update all of them
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);
+        }
+    }
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        super.onReceive(context, intent);
+        if (intent.getAction() != null) {
+            if (intent.getAction().equals(TOAST_ACTION)) {
+                int viewIndex = intent.getIntExtra(EXTRA_ITEM, 0);
+                Toast.makeText(context, "Touched view " + viewIndex, Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
