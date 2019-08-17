@@ -36,15 +36,10 @@ public class TvShowViewModel extends ViewModel {
         return loadedItemCounter;
     }
 
-    public void setTvShow(final TvShowContract.View mainView){
+    public void setTvShow(final TvShowContract.View mainView, String url){
         tvShowItemList.clear();
-        String url =  Constant.getUrlOf(
-                Constant.URL_TYPE_DISCOVER,
-                Constant.URL_TV,
-                0,
-                ((TvShowFragment)mainView).getContext());
         AndroidNetworking.get(url)
-                .setTag("test")
+                .setTag("tv")
                 .setPriority(Priority.HIGH)
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {
@@ -78,7 +73,7 @@ public class TvShowViewModel extends ViewModel {
 
                                             @Override
                                             public void onError(ANError anError) {
-                                                mainView.showReloadButton(true);
+                                                loadedItemCounter++;
                                             }
                                         });
 

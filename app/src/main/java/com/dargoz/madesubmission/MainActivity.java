@@ -3,22 +3,33 @@ package com.dargoz.madesubmission;
 import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.support.v7.widget.SearchView;
 
 import com.androidnetworking.AndroidNetworking;
 import com.dargoz.madesubmission.favorite.FavoritePagerAdapter;
 import com.dargoz.madesubmission.main.MainPagerAdapter;
+import com.dargoz.madesubmission.main.movies.MoviesFragment;
+import com.dargoz.madesubmission.main.tvshow.TvShowFragment;
 import com.dargoz.madesubmission.repository.AppDatabase;
 
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
     private static AppDatabase database;
+    private MoviesFragment getMovieFragment;
+    private TvShowFragment getTvShowFragment;
+
+    private long delayMilliSeconds = 800;
+    private long lastEditText = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,14 +44,16 @@ public class MainActivity extends AppCompatActivity {
         final BottomNavigationView bottomNavigationView =
                 findViewById(R.id.main_bottom_navigation_view);
 
-        mainTabLayout.addTab(mainTabLayout.newTab()
-                .setText(getResources()
-                .getString(R.string.tab_title_movie)));
-        mainTabLayout.addTab(mainTabLayout.newTab()
-                .setText(getResources()
-                .getString(R.string.tab_title_tv_show)));
-        mainViewPager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(),
-                mainTabLayout.getTabCount()));
+
+        final MainPagerAdapter pagerAdapter =
+                new MainPagerAdapter(getSupportFragmentManager(), mainTabLayout);
+
+        getMovieFragment = new MoviesFragment();
+        getTvShowFragment = new TvShowFragment();
+        pagerAdapter.addFragment(getMovieFragment, getResources().getString(R.string.tab_title_movie));
+        pagerAdapter.addFragment(getTvShowFragment, getResources().getString(R.string.tab_title_tv_show));
+
+        mainViewPager.setAdapter(pagerAdapter);
         mainTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -61,8 +74,7 @@ public class MainActivity extends AppCompatActivity {
                     mainViewPager.setAdapter(new FavoritePagerAdapter(getSupportFragmentManager(),2));
                     setTitle(R.string.favorite_title);
                 }else {
-                    mainViewPager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(),
-                            mainTabLayout.getTabCount()));
+                    mainViewPager.setAdapter(pagerAdapter);
                     setTitle(R.string.app_name);
                 }
                 return false;
@@ -74,6 +86,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu,menu);
+        MenuItem searchViewItem = menu.findItem(R.id.search_view);
+        SearchView searchView = (SearchView) searchViewItem.getActionView();
+        searchView.setQueryHint(getResources().getString(R.string.search_hint_text));
+        searchView.setOnQueryTextListener(this);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -88,5 +104,57 @@ public class MainActivity extends AppCompatActivity {
 
     public static AppDatabase getDatabase() {
         return database;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String keyword) {
+        if(keyword.isEmpty()){
+            showFullFilmList();
+        }else
+            searchFilmBy(keyword);
+        return true;
+    }
+
+    private void searchFilmBy(String keyword){
+        Log.d("DRG","Keyword : " + keyword);
+        final String urlSearchMovie = Constant.getUrlOf(
+                Constant.URL_TYPE_SEARCH,
+                Constant.URL_MOVIES,
+                keyword,
+                this
+        );
+        final String urlSearchTv = Constant.getUrlOf(
+                Constant.URL_TYPE_SEARCH,
+                Constant.URL_TV,
+                keyword,
+                this
+        );
+        lastEditText = System.currentTimeMillis();
+        Runnable userFinishTypingChecker = new Runnable() {
+            public void run() {
+                if (userStopTyping()) {
+                    Log.i("DRG","stop typing ");
+                    getMovieFragment.getMoviesViewModel().setMovie(getMovieFragment, urlSearchMovie);
+                    getTvShowFragment.getTvShowViewModel().setTvShow(getTvShowFragment, urlSearchTv);
+                }
+            }
+        };
+        Handler handler = new Handler();
+        handler.removeCallbacks(userFinishTypingChecker);
+        handler.postDelayed(userFinishTypingChecker, delayMilliSeconds);
+    }
+
+    private void showFullFilmList(){
+        getMovieFragment.getPresenter().prepareData(getMovieFragment.getMoviesViewModel());
+        getTvShowFragment.getPresenter().prepareData(getTvShowFragment.getTvShowViewModel());
+    }
+
+    private boolean userStopTyping(){
+        return System.currentTimeMillis() > (lastEditText + delayMilliSeconds - 100);
     }
 }

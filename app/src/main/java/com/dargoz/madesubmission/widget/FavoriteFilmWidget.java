@@ -40,6 +40,7 @@ public class FavoriteFilmWidget extends AppWidgetProvider {
         views.setPendingIntentTemplate(R.id.film_stack_view, toastPendingIntent);
 
         // Instruct the widget manager to update the widget
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId,R.id.film_stack_view);
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 
@@ -49,6 +50,7 @@ public class FavoriteFilmWidget extends AppWidgetProvider {
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);
         }
+
     }
 
     @Override

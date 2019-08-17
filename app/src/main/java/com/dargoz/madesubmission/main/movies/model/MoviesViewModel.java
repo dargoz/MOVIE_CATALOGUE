@@ -36,13 +36,8 @@ public class MoviesViewModel extends ViewModel {
         return loadedItemCounter;
     }
 
-    public void setMovie(final MoviesContract.View mView){
+    public void setMovie(final MoviesContract.View mView, String url){
         moviesItemList.clear();
-        String url =  Constant.getUrlOf(
-                Constant.URL_TYPE_DISCOVER,
-                Constant.URL_MOVIES,
-                0,
-                ((MoviesFragment)mView).getContext());
         AndroidNetworking.get(url)
                 .setTag("movies")
                 .setPriority(Priority.HIGH)

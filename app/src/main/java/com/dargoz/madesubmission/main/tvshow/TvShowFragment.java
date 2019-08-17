@@ -23,15 +23,23 @@ import java.util.ArrayList;
 
 
 public class TvShowFragment extends Fragment implements TvShowContract.View, View.OnClickListener {
-    private TvShowContract.Presenter mPresenter;
+    private TvShowContract.Presenter presenter;
     private RecyclerView tvRecyclerView;
     private ShimmerFrameLayout shimmerFrameLayout;
     private Button reloadButton;
 
     private TvShowViewModel tvShowViewModel;
 
+    public TvShowViewModel getTvShowViewModel() {
+        return tvShowViewModel;
+    }
+
+    public TvShowContract.Presenter getPresenter() {
+        return presenter;
+    }
+
     public TvShowFragment() {
-        mPresenter = new TvShowPresenter(this);
+        presenter = new TvShowPresenter(this);
     }
 
 
@@ -48,7 +56,7 @@ public class TvShowFragment extends Fragment implements TvShowContract.View, Vie
         reloadButton.setOnClickListener(this);
         tvShowViewModel = ViewModelProviders.of(this).get(TvShowViewModel.class);
         tvShowViewModel.getTvShowList().observe(this, getTvShow);
-        mPresenter.prepareData(tvShowViewModel);
+        presenter.prepareData(tvShowViewModel);
         return root;
     }
 
@@ -64,11 +72,11 @@ public class TvShowFragment extends Fragment implements TvShowContract.View, Vie
     @Override
     public void showTvList(ArrayList<TvShow> tvShowArrayList) {
         tvRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
-        TvRecyclerViewAdapter adapter = new TvRecyclerViewAdapter(getContext(), (TvShowPresenter) mPresenter);
+        TvRecyclerViewAdapter adapter = new TvRecyclerViewAdapter(getContext(), (TvShowPresenter) presenter);
         adapter.setTvData(tvShowArrayList);
         tvRecyclerView.setAdapter(adapter);
 
-        if(mPresenter.onAllDataFinishLoaded()){
+        if(presenter.onAllDataFinishLoaded()){
             shimmerFrameLayout.stopShimmerAnimation();
             shimmerFrameLayout.setVisibility(View.GONE);
         }
@@ -81,13 +89,13 @@ public class TvShowFragment extends Fragment implements TvShowContract.View, Vie
 
     @Override
     public void setPresenter(TvShowContract.Presenter presenter) {
-        mPresenter = presenter;
+        this.presenter = presenter;
     }
 
     @Override
     public void onClick(View view) {
         if(view.getId() == R.id.tv_reload_button){
-            mPresenter.prepareData(tvShowViewModel);
+            presenter.prepareData(tvShowViewModel);
             showReloadButton(false);
         }
     }

@@ -3,6 +3,7 @@ package com.dargoz.madesubmission.main.tvshow;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 
+import com.dargoz.madesubmission.Constant;
 import com.dargoz.madesubmission.detailmovielist.DetailMovieActivity;
 import com.dargoz.madesubmission.main.tvshow.model.TvShow;
 import com.dargoz.madesubmission.main.tvshow.model.TvShowViewModel;
@@ -20,7 +21,12 @@ public class TvShowPresenter implements TvShowContract.Presenter {
     @Override
     public void prepareData(TvShowViewModel tvShowViewModel) {
         this.tvShowViewModel = tvShowViewModel;
-        this.tvShowViewModel.setTvShow(mainView);
+        String url = Constant.getUrlOf(
+                Constant.URL_TYPE_DISCOVER,
+                Constant.URL_TV,
+                "",
+                ((TvShowFragment)mainView).getContext());
+        this.tvShowViewModel.setTvShow(mainView, url);
     }
 
     @Override

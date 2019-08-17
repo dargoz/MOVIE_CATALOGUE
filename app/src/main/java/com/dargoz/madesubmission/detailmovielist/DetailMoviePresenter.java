@@ -39,7 +39,7 @@ public class DetailMoviePresenter implements DetailMovieContract.Presenter {
                 Constant.getUrlOf(
                         Constant.URL_TYPE_DETAIL,
                         category,
-                        movie.getId(),
+                        String.valueOf(movie.getId()),
                         (DetailMovieActivity)mView);
         AndroidNetworking.get(DETAIL_MOVIE_URL)
                 .setTag("filmDetail")
