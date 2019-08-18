@@ -3,13 +3,20 @@ package com.dargoz.madesubmission.widget;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
+import com.dargoz.madesubmission.MainActivity;
 import com.dargoz.madesubmission.R;
+import com.dargoz.madesubmission.detailmovielist.DetailMovieActivity;
+import com.dargoz.madesubmission.main.movies.model.Movies;
+import com.dargoz.madesubmission.repository.AppDatabase;
+import com.dargoz.madesubmission.repository.movie.MovieDao;
+import com.dargoz.madesubmission.repository.movie.MovieEntity;
 
 /**
  * Implementation of App Widget functionality.
@@ -17,6 +24,7 @@ import com.dargoz.madesubmission.R;
 public class FavoriteFilmWidget extends AppWidgetProvider {
     private static final String TOAST_ACTION = "TOAST_ACTION";
     public static final String EXTRA_ITEM = "item";
+    private AppDatabase database;
 
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
@@ -54,12 +62,28 @@ public class FavoriteFilmWidget extends AppWidgetProvider {
     }
 
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(final Context context, Intent intent) {
         super.onReceive(context, intent);
         if (intent.getAction() != null) {
             if (intent.getAction().equals(TOAST_ACTION)) {
-                int viewIndex = intent.getIntExtra(EXTRA_ITEM, 0);
-                Toast.makeText(context, "Touched view " + viewIndex, Toast.LENGTH_SHORT).show();
+                final int viewImageId = intent.getIntExtra(EXTRA_ITEM, 0);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        database = Room.databaseBuilder(context.getApplicationContext(),
+                                AppDatabase.class, "movies").build();
+                        MovieEntity movieEntity = database.movieDao().find(viewImageId);
+                        Movies movie = new Movies();
+                        movie.setId(movieEntity.getId());
+                        movie.setTitle(movieEntity.getTitle());
+                        movie.setDesc(movieEntity.getDesc());
+                        movie.setScore(movieEntity.getScore());
+                        Intent activityIntent = new Intent(context, DetailMovieActivity.class);
+                        activityIntent.putExtra(DetailMovieActivity.EXTRA_MOVIE,movie);
+                        context.startActivity(activityIntent);
+                    }
+                }).start();
+
             }
         }
     }
