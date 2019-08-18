@@ -1,5 +1,6 @@
 package com.dargoz.madesubmission.widget;
 
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -12,6 +13,7 @@ import com.dargoz.madesubmission.Constant;
 import com.dargoz.madesubmission.MainActivity;
 import com.dargoz.madesubmission.R;
 import com.dargoz.madesubmission.Utils;
+import com.dargoz.madesubmission.repository.AppDatabase;
 import com.dargoz.madesubmission.repository.movie.MovieEntity;
 
 import java.util.ArrayList;
@@ -19,7 +21,9 @@ import java.util.List;
 
 public class FavoriteStackRemoteViewFactory implements RemoteViewsService.RemoteViewsFactory {
     private final List<Bitmap> mWidgetItems = new ArrayList<>();
+    private final ArrayList<Integer> ids = new ArrayList<>();
     private final Context mContext;
+    private AppDatabase database;
 
     FavoriteStackRemoteViewFactory(Context context) {
         mContext = context;
@@ -36,7 +40,9 @@ public class FavoriteStackRemoteViewFactory implements RemoteViewsService.Remote
         final long identityToken = Binder.clearCallingIdentity();
 
         //query DB
-        List<MovieEntity> movieEntities = MainActivity.getDatabase().movieDao().getAll();
+        database = Room.databaseBuilder(mContext.getApplicationContext(),
+                AppDatabase.class, "movies").build();
+        List<MovieEntity> movieEntities = database.movieDao().getAll();
         for(MovieEntity movieEntity : movieEntities){
             mWidgetItems.add(
                     Utils.loadImageFromStorage(
@@ -45,6 +51,7 @@ public class FavoriteStackRemoteViewFactory implements RemoteViewsService.Remote
                             String.valueOf(movieEntity.getId())
                     )
             );
+            ids.add(movieEntity.getId());
         }
         Binder.restoreCallingIdentity(identityToken);
     }
@@ -65,7 +72,7 @@ public class FavoriteStackRemoteViewFactory implements RemoteViewsService.Remote
         rv.setImageViewBitmap(R.id.image_widget, mWidgetItems.get(position));
 
         Bundle extras = new Bundle();
-        extras.putInt(FavoriteFilmWidget.EXTRA_ITEM, position);
+        extras.putInt(FavoriteFilmWidget.EXTRA_ITEM, ids.get(position));
         Intent fillInIntent = new Intent();
         fillInIntent.putExtras(extras);
 
