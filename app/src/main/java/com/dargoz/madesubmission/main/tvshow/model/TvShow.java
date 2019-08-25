@@ -45,7 +45,7 @@ public class TvShow extends Movies {
         }
     }
 
-    protected TvShow(Parcel in) {
+    private TvShow(Parcel in) {
         super(in);
         this.totalEpisode = in.readString();
     }

@@ -15,11 +15,7 @@ public class Constant {
     public static final String URL_TYPE_DETAIL = "detail";
     public static final String URL_MOVIES = "movie";
     public static final String URL_TV = "tv";
-    private static final String URL_SEARCH_MOVIE =
-            "https://api.themoviedb.org/3/search/movie?api_key="
-            + API_KEY + "&language=en-US&query={MOVIE NAME}";
-    private static final String URL_SEARCH_TV = "https://api.themoviedb.org/3/search/tv?api_key="
-            + API_KEY + "&language=en-US&query={TV SHOW NAME}";
+    String url = "https://api.themoviedb.org/3/discover/movie?api_key="+ Constant.API_KEY +"&primary_release_date.gte={TODAY DATE}&primary_release_date.lte={TODAY DATE}";
 
     // --Commented out by Inspection (8/7/2019 10:46 PM):public static final String KEY_OVERVIEW = "overview";
     // --Commented out by Inspection (8/7/2019 10:45 PM):public static final String MOVIES_KEY_TITLE = "title";
