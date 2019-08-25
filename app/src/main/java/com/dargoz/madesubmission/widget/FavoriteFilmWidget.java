@@ -24,17 +24,15 @@ public class FavoriteFilmWidget extends AppWidgetProvider {
     private AppDatabase database;
 
 
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
+    public static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
         Intent intent = new Intent(context, StackWidgetService.class);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
         intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
 
-        CharSequence widgetText = context.getString(R.string.appwidget_text);
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.favorite_film_widget);
-//        views.setTextViewText(R.id.appwidget_text, widgetText);
         views.setRemoteAdapter(R.id.film_stack_view, intent);
 
         Intent toastIntent = new Intent(context, FavoriteFilmWidget.class);
@@ -45,8 +43,8 @@ public class FavoriteFilmWidget extends AppWidgetProvider {
         views.setPendingIntentTemplate(R.id.film_stack_view, toastPendingIntent);
 
         // Instruct the widget manager to update the widget
-        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId,R.id.film_stack_view);
         appWidgetManager.updateAppWidget(appWidgetId, views);
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId,R.id.film_stack_view);
     }
 
     @Override
@@ -54,6 +52,7 @@ public class FavoriteFilmWidget extends AppWidgetProvider {
         // There may be multiple widgets active, so update all of them
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);
+            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId,R.id.film_stack_view);
         }
 
     }

@@ -34,7 +34,7 @@ public class FavoriteStackRemoteViewFactory implements RemoteViewsService.Remote
 
     @Override
     public void onDataSetChanged() {
-
+        mWidgetItems.clear();
         final long identityToken = Binder.clearCallingIdentity();
 
         //query DB
