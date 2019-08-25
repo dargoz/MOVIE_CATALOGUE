@@ -13,6 +13,7 @@ import com.dargoz.madesubmission.repository.movie.MovieEntity;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("WeakerAccess")
 public class FavoriteMovieViewModel extends ViewModel {
     private final MutableLiveData<ArrayList<Movies>> movieList = new MutableLiveData<>();
 

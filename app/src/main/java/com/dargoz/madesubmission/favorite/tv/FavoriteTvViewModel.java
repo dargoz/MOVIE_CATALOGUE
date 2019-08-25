@@ -12,6 +12,7 @@ import com.dargoz.madesubmission.repository.tvshow.TvShowEntity;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("WeakerAccess")
 public class FavoriteTvViewModel extends ViewModel {
     private final MutableLiveData<ArrayList<TvShow>> tvShowList = new MutableLiveData<>();
 

@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.dargoz.madesubmission.Constant;
 import com.dargoz.madesubmission.R;
+import com.dargoz.madesubmission.Utils;
 import com.dargoz.madesubmission.main.movies.model.Movies;
 import com.dargoz.madesubmission.repository.movie.MovieDaoTask;
 import com.dargoz.madesubmission.repository.movie.MovieEntity;
@@ -111,6 +112,7 @@ public class FavoriteMovieFragment extends Fragment implements FavoriteMovieCont
                                         movieDaoTask.setMovieEntities(movieEntity);
                                         movieDaoTask.execute(Constant.DELETE_MOVIE);
                                         mPresenter.prepareData(favoriteMovieViewModel);
+                                        Utils.updateWidget(getContext());
                                     }
                                 })
                         .setNegativeButton(getResources().getString(R.string.no_button_text),

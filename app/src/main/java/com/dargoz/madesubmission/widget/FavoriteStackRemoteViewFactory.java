@@ -18,6 +18,7 @@ import com.dargoz.madesubmission.repository.movie.MovieEntity;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("WeakerAccess")
 public class FavoriteStackRemoteViewFactory implements RemoteViewsService.RemoteViewsFactory {
     private final List<Bitmap> mWidgetItems = new ArrayList<>();
     private final ArrayList<Integer> ids = new ArrayList<>();
@@ -36,7 +37,6 @@ public class FavoriteStackRemoteViewFactory implements RemoteViewsService.Remote
     public void onDataSetChanged() {
         mWidgetItems.clear();
         final long identityToken = Binder.clearCallingIdentity();
-
         //query DB
         AppDatabase database = Room.databaseBuilder(mContext.getApplicationContext(),
                 AppDatabase.class, "movies").build();

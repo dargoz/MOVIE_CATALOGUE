@@ -125,7 +125,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     }
 
     private void searchFilmBy(String keyword){
-        Log.d("DRG","Keyword : " + keyword);
         final String urlSearchMovie = Constant.getUrlOf(
                 Constant.URL_TYPE_SEARCH,
                 Constant.URL_MOVIES,

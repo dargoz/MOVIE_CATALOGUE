@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">MADE SUBMISSION</string>
+    <string name="app_name">Movie Catalogue</string>
     <string name="movie_image_text_desc">movie image</string>
     <string name="template_movie_title">Avenger: Infinity War</string>
     <string name="template_movie_release_date">April 27, 2018</string>

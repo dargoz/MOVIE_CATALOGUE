@@ -1,5 +1,7 @@
 package com.dargoz.madesubmission;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.graphics.Bitmap;
@@ -7,6 +9,7 @@ import android.graphics.BitmapFactory;
 
 import com.dargoz.madesubmission.main.movies.model.Movies;
 import com.dargoz.madesubmission.repository.FilmImageRepository;
+import com.dargoz.madesubmission.widget.FavoriteFilmWidget;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -86,6 +89,20 @@ public class Utils {
             e.printStackTrace();
             return null;
         }
+    }
 
+    public static void updateWidget(Context context){
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        int[] widgetIds = appWidgetManager.getAppWidgetIds(
+                new ComponentName(
+                        (context),
+                        FavoriteFilmWidget.class)
+        );
+        for(int widgetId : widgetIds)
+            FavoriteFilmWidget.updateAppWidget(
+                    context,
+                    appWidgetManager,
+                    widgetId
+            );
     }
 }

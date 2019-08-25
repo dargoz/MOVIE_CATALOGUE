@@ -41,7 +41,6 @@ public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         String type = intent.getStringExtra(EXTRA_TYPE);
-        Log.i("DRG","type : " + type);
         if(type.equalsIgnoreCase(TYPE_DAILY_REMINDER))
             showReminderNotification(context);
         else
@@ -92,7 +91,6 @@ public class AlarmReceiver extends BroadcastReceiver {
                                             context.getResources().getString(R.string.notification_format_message),
                                             moviesItem.getTitle()
                                     );
-                                    Log.d("DRG","message" + message);
                                     showAlarmNotification(
                                             context,
                                             moviesItem.getTitle(),

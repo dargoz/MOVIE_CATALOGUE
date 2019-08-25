@@ -1,7 +1,5 @@
 package com.dargoz.madesubmission.detailmovielist;
 
-import android.appwidget.AppWidgetManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -19,7 +17,6 @@ import com.dargoz.madesubmission.repository.movie.MovieDaoTask;
 import com.dargoz.madesubmission.repository.movie.MovieEntity;
 import com.dargoz.madesubmission.repository.tvshow.TvDaoTask;
 import com.dargoz.madesubmission.repository.tvshow.TvShowEntity;
-import com.dargoz.madesubmission.widget.FavoriteFilmWidget;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -152,7 +149,7 @@ public class DetailMoviePresenter implements DetailMovieContract.Presenter {
             } catch (IllegalStateException e) {
                 e.printStackTrace();
             }
-            updateWidget();
+            Utils.updateWidget((Context)mView);
             mView.showToastMessage(Constant.SUCCESS_INSERT);
             mView.updateButtonImageState(true);
         } else {
@@ -160,20 +157,7 @@ public class DetailMoviePresenter implements DetailMovieContract.Presenter {
         }
     }
 
-    private void updateWidget(){
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance((Context) mView);
-        int[] widgetIds = appWidgetManager.getAppWidgetIds(
-                new ComponentName(
-                        ((Context) mView).getApplicationContext(),
-                        FavoriteFilmWidget.class)
-        );
-        for(int widgetId : widgetIds)
-            FavoriteFilmWidget.updateAppWidget(
-                    ((Context) mView),
-                    appWidgetManager,
-                    widgetId
-            );
-    }
+
 
     @Override
     public void removeFromTvFavorite(TvShow tvShow, Movies movieData) {
@@ -225,6 +209,7 @@ public class DetailMoviePresenter implements DetailMovieContract.Presenter {
             } catch (IllegalStateException e) {
                 e.printStackTrace();
             }
+            Utils.updateWidget((Context)mView);
             mView.showToastMessage(Constant.SUCCESS_DELETE);
             mView.updateButtonImageState(false);
         } else
