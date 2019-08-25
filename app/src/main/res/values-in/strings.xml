@@ -47,4 +47,10 @@
     <string name="add_widget">Add widget</string>
     <string name="search_title_text">cari</string>
     <string name="search_hint_text">cari film</string>
+    <string name="notification_reminder_message">Movie catalogue merindukanmu!</string>
+    <string name="notification_error_title">Unknown</string>
+    <string name="notification_error_message">Gagal memuat data film</string>
+    <string name="notification_format_message">%s telah rilis hari ini\n</string>
+    <string name="notification_empty_title">Tidak ada film baru</string>
+    <string name="notification_empty">Tidak ada film baru rilis hari ini</string>
 </resources>

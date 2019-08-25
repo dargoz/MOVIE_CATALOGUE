@@ -53,7 +53,7 @@ public class MoviesFragment extends Fragment implements MoviesContract.View, Vie
         reloadButton = root.findViewById(R.id.movie_reload_button);
 
         reloadButton.setOnClickListener(this);
-        shimmerFrameLayout.startShimmerAnimation();
+        shimmerFrameLayout.startShimmer();
 
         presenter = new MoviesPresenter(this, getContext());
         moviesViewModel = ViewModelProviders.of(this).get(MoviesViewModel.class);
@@ -74,7 +74,7 @@ public class MoviesFragment extends Fragment implements MoviesContract.View, Vie
     @Override
     public void onPause() {
         super.onPause();
-        shimmerFrameLayout.stopShimmerAnimation();
+        shimmerFrameLayout.stopShimmer();
     }
 
     @Override
@@ -86,7 +86,7 @@ public class MoviesFragment extends Fragment implements MoviesContract.View, Vie
 
         moviesRecyclerView.setAdapter(moviesRecyclerViewAdapter);
         if(presenter.onAllDataFinishLoaded()) {
-            shimmerFrameLayout.stopShimmerAnimation();
+            shimmerFrameLayout.stopShimmer();
             shimmerFrameLayout.setVisibility(View.GONE);
         }
     }

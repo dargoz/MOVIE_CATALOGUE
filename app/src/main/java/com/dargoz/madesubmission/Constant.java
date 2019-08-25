@@ -13,12 +13,10 @@ public class Constant {
     public static final String URL_TYPE_DISCOVER = "discover";
     public static final String URL_TYPE_SEARCH = "search";
     public static final String URL_TYPE_DETAIL = "detail";
+    public static final String URL_TYPE_NEW_RELEASE = "release";
     public static final String URL_MOVIES = "movie";
     public static final String URL_TV = "tv";
-    String url = "https://api.themoviedb.org/3/discover/movie?api_key="+ Constant.API_KEY +"&primary_release_date.gte={TODAY DATE}&primary_release_date.lte={TODAY DATE}";
 
-    // --Commented out by Inspection (8/7/2019 10:46 PM):public static final String KEY_OVERVIEW = "overview";
-    // --Commented out by Inspection (8/7/2019 10:45 PM):public static final String MOVIES_KEY_TITLE = "title";
     public static final String KEY_TOTAL_EPISODE = "number_of_episodes";
     public static final String MOVIES_KEY_RUNTIME = "runtime";
     public static final String TV_KEY_RUNTIME = "episode_run_time";
@@ -43,13 +41,19 @@ public class Constant {
     public static String getUrlOf(@NonNull String type, String category , String keyword, Context context){
         switch (type){
             case URL_TYPE_DISCOVER :
-                return "https://api.themoviedb.org/3/discover/"+ category +
-                        "?language=" + context.getResources().getString(R.string.default_language) +
-                        "&api_key=" + Constant.API_KEY;
+                return "https://api.themoviedb.org/3/discover/"+ category
+                        + "?language=" + context.getResources().getString(R.string.default_language)
+                        + "&api_key=" + API_KEY;
             case URL_TYPE_SEARCH :
-                return "https://api.themoviedb.org/3/search/"+ category + "?api_key="
-                        + API_KEY + "&language=" + context.getResources().getString(R.string.default_language) +
-                        "&query=" + keyword;
+                return "https://api.themoviedb.org/3/search/"+ category
+                        + "?api_key=" + API_KEY
+                        + "&language=" + context.getResources().getString(R.string.default_language)
+                        + "&query=" + keyword;
+            case URL_TYPE_NEW_RELEASE:
+                return "https://api.themoviedb.org/3/discover/movie"
+                        + "?api_key=" + API_KEY
+                        + "&primary_release_date.gte=" + keyword
+                        + "&primary_release_date.lte=" + keyword;
             default:
                 return "https://api.themoviedb.org/3/"+ category + "/" + keyword +
                         "?language=" + context.getResources().getString(R.string.default_language) +

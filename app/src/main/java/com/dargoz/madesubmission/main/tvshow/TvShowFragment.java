@@ -52,7 +52,7 @@ public class TvShowFragment extends Fragment implements TvShowContract.View, Vie
         shimmerFrameLayout = root.findViewById(R.id.shimmer_layout_tv);
         reloadButton = root.findViewById(R.id.tv_reload_button);
 
-        shimmerFrameLayout.startShimmerAnimation();
+        shimmerFrameLayout.startShimmer();
         reloadButton.setOnClickListener(this);
         tvShowViewModel = ViewModelProviders.of(this).get(TvShowViewModel.class);
         tvShowViewModel.getTvShowList().observe(this, getTvShow);
@@ -77,7 +77,7 @@ public class TvShowFragment extends Fragment implements TvShowContract.View, Vie
         tvRecyclerView.setAdapter(adapter);
 
         if(presenter.onAllDataFinishLoaded()){
-            shimmerFrameLayout.stopShimmerAnimation();
+            shimmerFrameLayout.stopShimmer();
             shimmerFrameLayout.setVisibility(View.GONE);
         }
     }

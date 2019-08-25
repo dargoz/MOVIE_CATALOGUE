@@ -20,6 +20,7 @@ import com.dargoz.madesubmission.favorite.FavoritePagerAdapter;
 import com.dargoz.madesubmission.main.MainPagerAdapter;
 import com.dargoz.madesubmission.main.movies.MoviesFragment;
 import com.dargoz.madesubmission.main.tvshow.TvShowFragment;
+import com.dargoz.madesubmission.reminder.AlarmReceiver;
 import com.dargoz.madesubmission.repository.AppDatabase;
 
 
@@ -81,6 +82,10 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             }
         });
         AndroidNetworking.initialize(getApplicationContext());
+        AlarmReceiver alarmReceiver = new AlarmReceiver();
+
+        alarmReceiver.setRepeatingAlarm(this, AlarmReceiver.TYPE_DAILY_REMINDER,"07:00:00");
+        alarmReceiver.setRepeatingAlarm(this, AlarmReceiver.TYPE_RELEASE_TODAY, "08:00:00");
     }
 
     @Override
@@ -138,7 +143,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         Runnable userFinishTypingChecker = new Runnable() {
             public void run() {
                 if (userStopTyping()) {
-                    Log.i("DRG","stop typing ");
                     getMovieFragment.getMoviesViewModel().setMovie(getMovieFragment, urlSearchMovie);
                     getTvShowFragment.getTvShowViewModel().setTvShow(getTvShowFragment, urlSearchTv);
                 }

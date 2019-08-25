@@ -47,4 +47,10 @@
     <string name="add_widget">Add widget</string>
     <string name="search_title_text">search</string>
     <string name="search_hint_text">Search film</string>
+    <string name="notification_reminder_message">Movie catalogue missing you!</string>
+    <string name="notification_error_title">Unknown</string>
+    <string name="notification_error_message">Failed to retrieve film data</string>
+    <string name="notification_format_message">%s has been released today\n</string>
+    <string name="notification_empty_title">No new film</string>
+    <string name="notification_empty">No new film released today</string>
 </resources>

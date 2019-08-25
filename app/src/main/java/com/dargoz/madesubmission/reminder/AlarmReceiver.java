@@ -13,15 +13,27 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.dargoz.madesubmission.Constant;
 import com.dargoz.madesubmission.R;
+import com.dargoz.madesubmission.main.movies.model.Movies;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 public class AlarmReceiver extends BroadcastReceiver {
-    public static final String TYPE_DAILY_REMINDER = "Daily";
+    public static final String TYPE_DAILY_REMINDER = "Daily Reminder";
     public static final String TYPE_RELEASE_TODAY = "New Release";
-    public static final String EXTRA_MESSAGE = "message";
     public static final String EXTRA_TYPE = "type";
     private final int ID_REMINDER = 101;
     private final int ID_RELEASE = 100;
@@ -29,9 +41,82 @@ public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         String type = intent.getStringExtra(EXTRA_TYPE);
-        String message = intent.getStringExtra(EXTRA_MESSAGE);
-        String title = type.equalsIgnoreCase(TYPE_DAILY_REMINDER) ? TYPE_DAILY_REMINDER : TYPE_RELEASE_TODAY;
-        showAlarmNotification(context, title, message, ID_REMINDER);
+        Log.i("DRG","type : " + type);
+        if(type.equalsIgnoreCase(TYPE_DAILY_REMINDER))
+            showReminderNotification(context);
+        else
+            showNewFilmNotification(context);
+    }
+
+    private void showReminderNotification(Context context){
+        String message =
+                context.getResources().getString(R.string.notification_reminder_message);
+        showAlarmNotification(context, TYPE_DAILY_REMINDER, message, ID_REMINDER);
+    }
+
+    private void showNewFilmNotification(Context context){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        String date = dateFormat.format(Calendar.getInstance().getTime());
+        String url = Constant.getUrlOf(
+                Constant.URL_TYPE_NEW_RELEASE,
+                Constant.URL_MOVIES,
+                date,
+                context
+        );
+        getMovies(context, url);
+    }
+
+    private void getMovies(final Context context, String url){
+        AndroidNetworking.get(url)
+                .setTag("movies")
+                .setPriority(Priority.HIGH)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray results =  response.getJSONArray("results");
+                            int totalItem = results.length();
+                            if(totalItem == 0)
+                                showAlarmNotification(
+                                        context,
+                                        context.getResources().getString(R.string.notification_empty_title),
+                                        context.getResources().getString(R.string.notification_empty),
+                                        ID_RELEASE
+                                );
+                            else
+                                for(int i=0; i< totalItem;i++) {
+                                    JSONObject movieObject = results.getJSONObject(i);
+                                    final Movies moviesItem = new Movies(movieObject);
+                                    String message = String.format(
+                                            context.getResources().getString(R.string.notification_format_message),
+                                            moviesItem.getTitle()
+                                    );
+                                    Log.d("DRG","message" + message);
+                                    showAlarmNotification(
+                                            context,
+                                            moviesItem.getTitle(),
+                                            message,
+                                            moviesItem.getId()
+                                    );
+                                }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        String title = context.getResources().getString(R.string.notification_error_title);
+                        String message = context.getResources().getString(R.string.notification_error_message);
+                        showAlarmNotification(
+                                context,
+                                title,
+                                message,
+                                ID_RELEASE
+                        );
+                    }
+                });
     }
 
     private void showAlarmNotification(Context context, String title, String message, int notifyId) {
@@ -42,7 +127,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setSmallIcon(R.drawable.baseline_access_time_white_24)
+                .setSmallIcon(R.drawable.baseline_movie_creation_24)
                 .setContentTitle(title)
                 .setContentText(message)
                 .setColor(ContextCompat.getColor(context, android.R.color.transparent))
@@ -73,10 +158,9 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     }
 
-    private void setRepeatingAlarm(Context context, String type, String time, String message){
+    public void setRepeatingAlarm(Context context, String type, String time){
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmReceiver.class);
-        intent.putExtra(EXTRA_MESSAGE, message);
         intent.putExtra(EXTRA_TYPE, type);
 
         String[] timeArray = time.split(":");
@@ -86,7 +170,8 @@ public class AlarmReceiver extends BroadcastReceiver {
         calendar.set(Calendar.MINUTE, Integer.parseInt(timeArray[1]));
         calendar.set(Calendar.SECOND, 0);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, ID_REMINDER, intent, 0);
+        int requestCode = type.equalsIgnoreCase(TYPE_DAILY_REMINDER) ? ID_REMINDER : ID_RELEASE;
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, 0);
         if (alarmManager != null) {
             alarmManager.setInexactRepeating(
                     AlarmManager.RTC_WAKEUP,

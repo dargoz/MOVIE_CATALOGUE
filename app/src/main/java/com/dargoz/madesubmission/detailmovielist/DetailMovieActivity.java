@@ -169,12 +169,12 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
     @Override
     public void showLoading(boolean state) {
         if (state) {
-            shimmerLayout.startShimmerAnimation();
+            shimmerLayout.startShimmer();
             scrollView.setVisibility(View.GONE);
             shimmerLayout.setVisibility(View.VISIBLE);
         } else {
             scrollView.setVisibility(View.VISIBLE);
-            shimmerLayout.stopShimmerAnimation();
+            shimmerLayout.startShimmer();
             shimmerLayout.setVisibility(View.GONE);
         }
     }
