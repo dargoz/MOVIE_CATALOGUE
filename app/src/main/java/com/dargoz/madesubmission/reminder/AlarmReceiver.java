@@ -181,4 +181,15 @@ public class AlarmReceiver extends BroadcastReceiver {
             );
         }
     }
+
+    public void cancelAlarm(Context context, String type){
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, AlarmReceiver.class);
+        int requestCode = type.equalsIgnoreCase(TYPE_DAILY_REMINDER) ? ID_REMINDER : ID_RELEASE;
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, 0);
+        pendingIntent.cancel();
+        if (alarmManager != null) {
+            alarmManager.cancel(pendingIntent);
+        }
+    }
 }

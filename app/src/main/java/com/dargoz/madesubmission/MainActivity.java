@@ -21,6 +21,7 @@ import com.dargoz.madesubmission.main.MainPagerAdapter;
 import com.dargoz.madesubmission.main.movies.MoviesFragment;
 import com.dargoz.madesubmission.main.tvshow.TvShowFragment;
 import com.dargoz.madesubmission.reminder.AlarmReceiver;
+import com.dargoz.madesubmission.reminder.ReminderSettingActivity;
 import com.dargoz.madesubmission.repository.AppDatabase;
 
 
@@ -84,8 +85,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         AndroidNetworking.initialize(getApplicationContext());
         AlarmReceiver alarmReceiver = new AlarmReceiver();
 
-        alarmReceiver.setRepeatingAlarm(this, AlarmReceiver.TYPE_DAILY_REMINDER,"07:00:00");
-        alarmReceiver.setRepeatingAlarm(this, AlarmReceiver.TYPE_RELEASE_TODAY, "08:00:00");
     }
 
     @Override
@@ -102,6 +101,9 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.language_setting){
             Intent intent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
+            startActivity(intent);
+        }else if(item.getItemId() == R.id.alarm_setting){
+            Intent intent = new Intent(this, ReminderSettingActivity.class);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);

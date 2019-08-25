@@ -10,12 +10,15 @@ public class Constant {
     public static final String IMAGE_URL = "https://image.tmdb.org/t/p/";
     public static String LOCAL_IMAGE_FILE_PATH = "imageDir";
 
+    static final String URL_TYPE_SEARCH = "search";
     public static final String URL_TYPE_DISCOVER = "discover";
-    public static final String URL_TYPE_SEARCH = "search";
     public static final String URL_TYPE_DETAIL = "detail";
     public static final String URL_TYPE_NEW_RELEASE = "release";
     public static final String URL_MOVIES = "movie";
     public static final String URL_TV = "tv";
+
+    public static final String save_daily_reminder_value = "daily reminder value";
+    public static final String save_release_reminder_value = "release reminder value";
 
     public static final String KEY_TOTAL_EPISODE = "number_of_episodes";
     public static final String MOVIES_KEY_RUNTIME = "runtime";
