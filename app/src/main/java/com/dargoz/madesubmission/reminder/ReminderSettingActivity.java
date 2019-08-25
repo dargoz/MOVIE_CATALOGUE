@@ -20,7 +20,7 @@ public class ReminderSettingActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder_setting);
         alarmReceiver = new AlarmReceiver();
-        sharedPreferences = getSharedPreferences("myPreferences", Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(Constant.PREFERENCE_NAME, Context.MODE_PRIVATE);
 
         Switch dailySwitch = findViewById(R.id.daily_setting_switch);
         Switch releaseSwitch = findViewById(R.id.release_setting_switch);

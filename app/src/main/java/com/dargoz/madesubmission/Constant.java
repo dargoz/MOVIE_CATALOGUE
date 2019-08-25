@@ -9,6 +9,7 @@ public class Constant {
     public static final String IMAGE_SIZE_W500 = "w500";
     public static final String IMAGE_URL = "https://image.tmdb.org/t/p/";
     public static final String LOCAL_IMAGE_FILE_PATH = "imageDir";
+    public static final String PREFERENCE_NAME = "myPreferences";
 
     static final String URL_TYPE_SEARCH = "search";
     public static final String URL_TYPE_DISCOVER = "discover";
