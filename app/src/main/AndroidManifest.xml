@@ -30,7 +30,8 @@
         <receiver
             android:name=".reminder.AlarmReceiver"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="true"
+            android:permission="TODO" />
         <receiver android:name=".widget.FavoriteFilmWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

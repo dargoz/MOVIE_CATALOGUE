@@ -9,6 +9,7 @@
         android:id="@+id/image_widget"
         android:layout_width="@dimen/main_poster_width"
         android:layout_height="@dimen/main_poster_height"
+        android:contentDescription="@string/movie_image_text_desc"
         android:src="@drawable/sample_poster"
         />
 </LinearLayout>
