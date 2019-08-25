@@ -34,7 +34,7 @@ import java.util.Locale;
 public class AlarmReceiver extends BroadcastReceiver {
     public static final String TYPE_DAILY_REMINDER = "Daily Reminder";
     public static final String TYPE_RELEASE_TODAY = "New Release";
-    public static final String EXTRA_TYPE = "type";
+    private final String EXTRA_TYPE = "type";
     private final int ID_REMINDER = 101;
     private final int ID_RELEASE = 100;
 

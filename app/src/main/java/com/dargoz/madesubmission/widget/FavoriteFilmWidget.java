@@ -8,14 +8,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.widget.RemoteViews;
-import android.widget.Toast;
 
-import com.dargoz.madesubmission.MainActivity;
 import com.dargoz.madesubmission.R;
 import com.dargoz.madesubmission.detailmovielist.DetailMovieActivity;
 import com.dargoz.madesubmission.main.movies.model.Movies;
 import com.dargoz.madesubmission.repository.AppDatabase;
-import com.dargoz.madesubmission.repository.movie.MovieDao;
 import com.dargoz.madesubmission.repository.movie.MovieEntity;
 
 /**

@@ -10,7 +10,6 @@ import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.dargoz.madesubmission.Constant;
-import com.dargoz.madesubmission.MainActivity;
 import com.dargoz.madesubmission.R;
 import com.dargoz.madesubmission.Utils;
 import com.dargoz.madesubmission.repository.AppDatabase;
@@ -23,7 +22,6 @@ public class FavoriteStackRemoteViewFactory implements RemoteViewsService.Remote
     private final List<Bitmap> mWidgetItems = new ArrayList<>();
     private final ArrayList<Integer> ids = new ArrayList<>();
     private final Context mContext;
-    private AppDatabase database;
 
     FavoriteStackRemoteViewFactory(Context context) {
         mContext = context;
@@ -40,7 +38,7 @@ public class FavoriteStackRemoteViewFactory implements RemoteViewsService.Remote
         final long identityToken = Binder.clearCallingIdentity();
 
         //query DB
-        database = Room.databaseBuilder(mContext.getApplicationContext(),
+        AppDatabase database = Room.databaseBuilder(mContext.getApplicationContext(),
                 AppDatabase.class, "movies").build();
         List<MovieEntity> movieEntities = database.movieDao().getAll();
         for(MovieEntity movieEntity : movieEntities){

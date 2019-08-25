@@ -20,7 +20,7 @@ public class TvShowEntity {
     private final String genre;
 
     @ColumnInfo(name = "release_date")
-    protected final String releaseDate;
+    private final String releaseDate;
 
     @ColumnInfo(name = "status")
     private final String status;

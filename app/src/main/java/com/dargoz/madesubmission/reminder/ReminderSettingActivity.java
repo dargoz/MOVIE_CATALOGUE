@@ -12,9 +12,8 @@ import com.dargoz.madesubmission.R;
 
 public class ReminderSettingActivity extends AppCompatActivity
         implements Switch.OnCheckedChangeListener {
-    AlarmReceiver alarmReceiver;
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
+    private AlarmReceiver alarmReceiver;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +38,7 @@ public class ReminderSettingActivity extends AppCompatActivity
 
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
-        editor = sharedPreferences.edit();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         switch (compoundButton.getId()){
             case R.id.daily_setting_switch:
                 editor.putBoolean(Constant.save_daily_reminder_value, checked);

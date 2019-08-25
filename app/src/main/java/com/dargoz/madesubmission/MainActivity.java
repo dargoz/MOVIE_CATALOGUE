@@ -20,7 +20,6 @@ import com.dargoz.madesubmission.favorite.FavoritePagerAdapter;
 import com.dargoz.madesubmission.main.MainPagerAdapter;
 import com.dargoz.madesubmission.main.movies.MoviesFragment;
 import com.dargoz.madesubmission.main.tvshow.TvShowFragment;
-import com.dargoz.madesubmission.reminder.AlarmReceiver;
 import com.dargoz.madesubmission.reminder.ReminderSettingActivity;
 import com.dargoz.madesubmission.repository.AppDatabase;
 
@@ -30,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     private MoviesFragment getMovieFragment;
     private TvShowFragment getTvShowFragment;
 
-    private long delayMilliSeconds = 800;
+    private final long delayMilliSeconds = 800;
     private long lastEditText = 0;
 
     @Override
@@ -83,8 +82,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             }
         });
         AndroidNetworking.initialize(getApplicationContext());
-        AlarmReceiver alarmReceiver = new AlarmReceiver();
-
     }
 
     @Override

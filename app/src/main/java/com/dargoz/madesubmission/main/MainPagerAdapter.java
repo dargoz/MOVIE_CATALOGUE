@@ -8,8 +8,8 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import java.util.ArrayList;
 
 public class MainPagerAdapter extends FragmentStatePagerAdapter {
-    private ArrayList<Fragment> fragments = new ArrayList<>();
-    private TabLayout tabLayout;
+    private final ArrayList<Fragment> fragments = new ArrayList<>();
+    private final TabLayout tabLayout;
     public MainPagerAdapter(FragmentManager fm, TabLayout tabLayout) {
         super(fm);
         this.tabLayout = tabLayout;

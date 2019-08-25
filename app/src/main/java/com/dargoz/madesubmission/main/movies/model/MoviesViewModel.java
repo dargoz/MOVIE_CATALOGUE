@@ -13,7 +13,6 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.dargoz.madesubmission.Constant;
 import com.dargoz.madesubmission.Utils;
 import com.dargoz.madesubmission.main.movies.MoviesContract;
-import com.dargoz.madesubmission.main.movies.MoviesFragment;
 import com.dargoz.madesubmission.repository.FilmImageRepository;
 
 import org.json.JSONArray;

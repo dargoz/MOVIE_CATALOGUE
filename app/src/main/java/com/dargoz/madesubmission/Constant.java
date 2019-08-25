@@ -8,7 +8,7 @@ public class Constant {
     private static final String API_KEY = "043a5f6ab7599c142a42ec784d0aaf08";
     public static final String IMAGE_SIZE_W500 = "w500";
     public static final String IMAGE_URL = "https://image.tmdb.org/t/p/";
-    public static String LOCAL_IMAGE_FILE_PATH = "imageDir";
+    public static final String LOCAL_IMAGE_FILE_PATH = "imageDir";
 
     static final String URL_TYPE_SEARCH = "search";
     public static final String URL_TYPE_DISCOVER = "discover";
