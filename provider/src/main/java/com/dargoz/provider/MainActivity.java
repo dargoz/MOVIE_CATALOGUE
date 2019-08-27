@@ -1,4 +1,4 @@
-package com.dargoz.myfavoritefilm;
+package com.dargoz.provider;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

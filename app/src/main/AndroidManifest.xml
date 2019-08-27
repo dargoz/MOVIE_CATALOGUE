@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.dargoz.madesubmission">
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.dargoz.provider.READ_DATABASE"/>
+    <uses-permission android:name="com.dargoz.provider.WRITE_DATABASE"/>
     <application
         android:allowBackup="true"
         android:hardwareAccelerated="true"
