@@ -4,6 +4,8 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.content.ContentValues;
+import android.database.Cursor;
+import static com.dargoz.provider.db.DatabaseContract.*;
 
 @Entity(tableName = MovieEntity.TABLE_NAME)
 public class MovieEntity {
@@ -101,5 +103,16 @@ public class MovieEntity {
         this.status =values.containsKey(COLUMN_STATUS) ? values.getAsString(COLUMN_STATUS) : "";
         this.runtime =values.containsKey(COLUMN_RUNTIME) ? values.getAsString(COLUMN_TITLE) : "";
         this.score =values.containsKey(COLUMN_SCORE) ? values.getAsDouble(COLUMN_SCORE) : 0.0;
+    }
+
+    public MovieEntity(Cursor cursor){
+        this.id = getColumnInt(cursor, COLUMN_ID);
+        this.title = getColumnString(cursor, COLUMN_TITLE);
+        this.desc =getColumnString(cursor, COLUMN_DESC);
+        this.genre =getColumnString(cursor, COLUMN_GENRE);
+        this.releaseDate =getColumnString(cursor, COLUMN_RELEASE_DATE);
+        this.status =getColumnString(cursor, COLUMN_STATUS);
+        this.runtime =getColumnString(cursor, COLUMN_RUNTIME);
+        this.score = getColumnInt(cursor, COLUMN_SCORE);
     }
 }
