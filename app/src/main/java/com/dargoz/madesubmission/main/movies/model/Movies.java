@@ -10,7 +10,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class Movies implements Parcelable {
-    protected int id;
+    protected long id;
     protected String title;
     protected String desc;
     private ArrayList<Genre> genres = new ArrayList<>();
@@ -40,11 +40,11 @@ public class Movies implements Parcelable {
     }
 
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id){
+    public void setId(long id){
         this.id = id;
     }
 
@@ -124,7 +124,7 @@ public class Movies implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.id);
+        dest.writeLong(this.id);
         dest.writeString(this.title);
         dest.writeString(this.desc);
         dest.writeList(this.genres);
@@ -137,7 +137,7 @@ public class Movies implements Parcelable {
     }
 
     protected Movies(Parcel in) {
-        this.id = in.readInt();
+        this.id = in.readLong();
         this.title = in.readString();
         this.desc = in.readString();
         this.genres = new ArrayList<>();

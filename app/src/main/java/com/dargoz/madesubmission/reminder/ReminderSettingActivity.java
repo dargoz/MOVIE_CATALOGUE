@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
-import com.dargoz.madesubmission.Constant;
+import com.dargoz.madesubmission.utilities.Constant;
 import com.dargoz.madesubmission.R;
 
 public class ReminderSettingActivity extends AppCompatActivity

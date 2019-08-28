@@ -8,7 +8,7 @@ import android.arch.persistence.room.PrimaryKey;
 public class TvShowEntity {
     @PrimaryKey
     @ColumnInfo(name = "id")
-    private final int id;
+    private final long id;
 
     @ColumnInfo(name = "title")
     private final String title;
@@ -34,7 +34,7 @@ public class TvShowEntity {
     @ColumnInfo(name = "score")
     private final double score;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -70,7 +70,7 @@ public class TvShowEntity {
         return score;
     }
 
-    public TvShowEntity(int id, String title, String desc, String genre,
+    public TvShowEntity(long id, String title, String desc, String genre,
                         String releaseDate, String status, String runtime,
                         String totalEpisode, double score) {
         this.id = id;

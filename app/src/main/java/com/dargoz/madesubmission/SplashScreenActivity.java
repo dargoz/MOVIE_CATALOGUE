@@ -5,6 +5,8 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.dargoz.madesubmission.utilities.Constant;
+
 public class SplashScreenActivity extends AppCompatActivity {
 
     @Override
@@ -17,6 +19,6 @@ public class SplashScreenActivity extends AppCompatActivity {
             public void run() {
                 startActivity(intent);
             }
-        },Constant.SPLASH_SCREEN_DURATION);
+        }, Constant.SPLASH_SCREEN_DURATION);
     }
 }

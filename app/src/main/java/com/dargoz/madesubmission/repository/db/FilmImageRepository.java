@@ -1,4 +1,4 @@
-package com.dargoz.madesubmission.repository;
+package com.dargoz.madesubmission.repository.db;
 
 import android.graphics.Bitmap;
 

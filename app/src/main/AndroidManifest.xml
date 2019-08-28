@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.dargoz.madesubmission">
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="com.dargoz.provider.READ_DATABASE"/>
-    <uses-permission android:name="com.dargoz.provider.WRITE_DATABASE"/>
+    <permission android:name="com.dargoz.madesubmission.READ_DATABASE" android:protectionLevel="normal"/>
+    <permission android:name="com.dargoz.madesubmission.WRITE_DATABASE" android:protectionLevel="normal"/>
     <application
         android:allowBackup="true"
         android:hardwareAccelerated="true"
@@ -29,7 +29,12 @@
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="adjustNothing"/>
-
+        <provider
+            android:authorities="com.dargoz.madesubmission"
+            android:name=".repository.provider.FilmProvider"
+            android:exported="true"
+            android:readPermission="com.dargoz.madesubmission.READ_DATABASE"
+            android:writePermission="com.dargoz.madesubmission.WRITE_DATABASE" />
         <receiver
             android:name=".reminder.AlarmReceiver"
             android:enabled="true"

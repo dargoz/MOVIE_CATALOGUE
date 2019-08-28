@@ -10,7 +10,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v7.widget.SearchView;
@@ -22,6 +21,7 @@ import com.dargoz.madesubmission.main.movies.MoviesFragment;
 import com.dargoz.madesubmission.main.tvshow.TvShowFragment;
 import com.dargoz.madesubmission.reminder.ReminderSettingActivity;
 import com.dargoz.madesubmission.repository.AppDatabase;
+import com.dargoz.madesubmission.utilities.Constant;
 
 
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {

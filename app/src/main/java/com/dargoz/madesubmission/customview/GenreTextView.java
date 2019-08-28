@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 import android.view.ViewGroup;
 
 import com.dargoz.madesubmission.R;
-import com.dargoz.madesubmission.Utils;
+import com.dargoz.madesubmission.utilities.Utils;
 
 public class GenreTextView extends android.support.v7.widget.AppCompatTextView {
     public GenreTextView(Context context) {

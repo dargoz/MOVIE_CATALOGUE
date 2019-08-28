@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.dargoz.madesubmission.Constant;
+import com.dargoz.madesubmission.utilities.Constant;
 
 import com.dargoz.madesubmission.R;
 import com.dargoz.madesubmission.main.tvshow.model.TvShow;

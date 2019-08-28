@@ -1,42 +1,29 @@
-package com.dargoz.madesubmission.repository.movie;
+package com.dargoz.myfavoritefilm.model;
 
-import android.arch.persistence.room.ColumnInfo;
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.PrimaryKey;
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-import com.dargoz.madesubmission.repository.db.DatabaseContract;
+import com.dargoz.myfavoritefilm.db.DatabaseContract;
 
-import static com.dargoz.madesubmission.utilities.Constant.*;
+import static com.dargoz.myfavoritefilm.Constant.COLUMN_DESC;
+import static com.dargoz.myfavoritefilm.Constant.COLUMN_GENRE;
+import static com.dargoz.myfavoritefilm.Constant.COLUMN_ID;
+import static com.dargoz.myfavoritefilm.Constant.COLUMN_RELEASE_DATE;
+import static com.dargoz.myfavoritefilm.Constant.COLUMN_RUNTIME;
+import static com.dargoz.myfavoritefilm.Constant.COLUMN_SCORE;
+import static com.dargoz.myfavoritefilm.Constant.COLUMN_STATUS;
+import static com.dargoz.myfavoritefilm.Constant.COLUMN_TITLE;
 
-
-@Entity(tableName = TABLE_NAME)
-public class MovieEntity {
-
-    @PrimaryKey
-    @ColumnInfo(name = COLUMN_ID)
+public class MovieItem implements Parcelable {
     private long id;
-
-    @ColumnInfo(name = COLUMN_TITLE)
     private final String title;
-
-    @ColumnInfo(name = COLUMN_DESC)
     private final String desc;
-
-    @ColumnInfo(name = COLUMN_GENRE)
     private final String genre;
-
-    @ColumnInfo(name = COLUMN_RELEASE_DATE)
     private final String releaseDate;
-
-    @ColumnInfo(name = COLUMN_STATUS)
     private final String status;
-
-    @ColumnInfo(name = COLUMN_RUNTIME)
     private final String runtime;
-
-    @ColumnInfo(name = COLUMN_SCORE)
     private final double score;
 
     public long getId() {
@@ -75,10 +62,10 @@ public class MovieEntity {
         this.id = id;
     }
 
-    public MovieEntity(long id, String title, String desc, String genre,
+    public MovieItem(long id, String title, String desc, String genre,
                        String releaseDate, String status, String runtime,
                        double score
-                       ) {
+    ) {
         this.id = id;
         this.title = title;
         this.desc = desc;
@@ -89,18 +76,18 @@ public class MovieEntity {
         this.score = score;
     }
 
-    public MovieEntity(ContentValues values){
+    public MovieItem(ContentValues values){
         this.id = values.containsKey(COLUMN_ID) ? values.getAsLong(COLUMN_ID) : 0;
         this.title = values.containsKey(COLUMN_TITLE) ? values.getAsString(COLUMN_TITLE) : "";
         this.desc =values.containsKey(COLUMN_DESC) ? values.getAsString(COLUMN_DESC) : "";
         this.genre =values.containsKey(COLUMN_GENRE) ? values.getAsString(COLUMN_GENRE) : "";
         this.releaseDate =values.containsKey(COLUMN_RELEASE_DATE) ? values.getAsString(COLUMN_RELEASE_DATE) : "";
         this.status =values.containsKey(COLUMN_STATUS) ? values.getAsString(COLUMN_STATUS) : "";
-        this.runtime =values.containsKey(COLUMN_RUNTIME) ? values.getAsString(COLUMN_RUNTIME) : "";
+        this.runtime =values.containsKey(COLUMN_RUNTIME) ? values.getAsString(COLUMN_TITLE) : "";
         this.score =values.containsKey(COLUMN_SCORE) ? values.getAsDouble(COLUMN_SCORE) : 0.0;
     }
 
-    public MovieEntity(Cursor cursor){
+    public MovieItem(Cursor cursor){
         this.id = DatabaseContract.getColumnLong(cursor, COLUMN_ID);
         this.title = DatabaseContract.getColumnString(cursor, COLUMN_TITLE);
         this.desc = DatabaseContract.getColumnString(cursor, COLUMN_DESC);
@@ -110,4 +97,44 @@ public class MovieEntity {
         this.runtime = DatabaseContract.getColumnString(cursor, COLUMN_RUNTIME);
         this.score = DatabaseContract.getColumnInt(cursor, COLUMN_SCORE);
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(this.id);
+        dest.writeString(this.title);
+        dest.writeString(this.desc);
+        dest.writeString(this.genre);
+        dest.writeString(this.releaseDate);
+        dest.writeString(this.status);
+        dest.writeString(this.runtime);
+        dest.writeDouble(this.score);
+    }
+
+    private MovieItem(Parcel in) {
+        this.id = in.readLong();
+        this.title = in.readString();
+        this.desc = in.readString();
+        this.genre = in.readString();
+        this.releaseDate = in.readString();
+        this.status = in.readString();
+        this.runtime = in.readString();
+        this.score = in.readDouble();
+    }
+
+    public static final Parcelable.Creator<MovieItem> CREATOR = new Parcelable.Creator<MovieItem>() {
+        @Override
+        public MovieItem createFromParcel(Parcel source) {
+            return new MovieItem(source);
+        }
+
+        @Override
+        public MovieItem[] newArray(int size) {
+            return new MovieItem[size];
+        }
+    };
 }

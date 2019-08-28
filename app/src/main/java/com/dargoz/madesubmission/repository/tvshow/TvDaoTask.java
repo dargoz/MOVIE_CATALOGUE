@@ -2,7 +2,7 @@ package com.dargoz.madesubmission.repository.tvshow;
 
 import android.os.AsyncTask;
 
-import com.dargoz.madesubmission.Constant;
+import com.dargoz.madesubmission.utilities.Constant;
 import com.dargoz.madesubmission.MainActivity;
 
 import java.util.ArrayList;
@@ -10,10 +10,10 @@ import java.util.Collections;
 import java.util.List;
 
 public class TvDaoTask extends AsyncTask<String,Void, List<TvShowEntity>> {
-    private int id;
+    private long id;
     private List<TvShowEntity> tvShowEntities = new ArrayList<>();
 
-    public void setId(int id ){
+    public void setId(long id ){
         this.id = id;
     }
 

@@ -3,7 +3,7 @@ package com.dargoz.madesubmission.main.movies;
 import android.content.Context;
 import android.content.Intent;
 
-import com.dargoz.madesubmission.Constant;
+import com.dargoz.madesubmission.utilities.Constant;
 import com.dargoz.madesubmission.detailmovielist.DetailMovieActivity;
 import com.dargoz.madesubmission.main.movies.model.Movies;
 import com.dargoz.madesubmission.main.movies.model.MoviesViewModel;

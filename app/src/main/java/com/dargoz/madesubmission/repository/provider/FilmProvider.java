@@ -1,4 +1,4 @@
-package com.dargoz.provider;
+package com.dargoz.madesubmission.repository.provider;
 
 import android.arch.persistence.room.Room;
 import android.content.ContentProvider;
@@ -8,20 +8,21 @@ import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.dargoz.provider.db.AppDatabase;
-import com.dargoz.provider.db.MovieDao;
-import com.dargoz.provider.db.MovieEntity;
+import com.dargoz.madesubmission.repository.AppDatabase;
+import com.dargoz.madesubmission.repository.movie.MovieEntity;
 
 import java.util.Objects;
 
+import static com.dargoz.madesubmission.utilities.Constant.TABLE_NAME;
 
 public class FilmProvider extends ContentProvider {
-    public static final String AUTHORITY = "com.dargoz.provider";
+    public static final String AUTHORITY = "com.dargoz.madesubmission";
     public static final Uri URI_MENU = Uri.parse(
-            "content://" + AUTHORITY + "/" + MovieEntity.TABLE_NAME);
+            "content://" + AUTHORITY + "/" + TABLE_NAME);
     private static final int DIR = 1;
     private static final int DIR_ID = 2;
     private static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -85,7 +86,7 @@ public class FilmProvider extends ContentProvider {
                 }
                 final long id = database.movieDao().insertAll(new MovieEntity(contentValues));
 
-                context.getContentResolver().notifyChange(uri, null);
+                context.getContentResolver().notifyChange(uri, new DataObserver(new Handler(),getContext()));
                 return ContentUris.withAppendedId(uri, id);
             case DIR_ID:
                 throw new IllegalArgumentException("Invalid URI, cannot insert with ID: " + uri);
@@ -93,7 +94,6 @@ public class FilmProvider extends ContentProvider {
                 throw new IllegalArgumentException("Unknown URI: " + uri);
         }
     }
-
 
     @Override
     public int update(@NonNull Uri uri, ContentValues values, @Nullable String selection,
@@ -109,7 +109,7 @@ public class FilmProvider extends ContentProvider {
                 final MovieEntity movieEntity = new MovieEntity(values);
                 movieEntity.setId(ContentUris.parseId(uri));
                 final int count = database.movieDao().update(movieEntity);
-                context.getContentResolver().notifyChange(uri, null);
+                context.getContentResolver().notifyChange(uri, new DataObserver(new Handler(),getContext()));
                 return count;
             default:
                 throw new IllegalArgumentException("Unknown URI: " + uri);
@@ -128,7 +128,7 @@ public class FilmProvider extends ContentProvider {
                     return 0;
                 }
                 final int count = database.movieDao().deleteById(ContentUris.parseId(uri));
-                context.getContentResolver().notifyChange(uri, null);
+                context.getContentResolver().notifyChange(uri, new DataObserver(new Handler(),getContext()));
                 return count;
             default:
                 throw new IllegalArgumentException("Unknown URI: " + uri);

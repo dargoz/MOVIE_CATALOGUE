@@ -16,9 +16,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.dargoz.madesubmission.Constant;
+import com.dargoz.madesubmission.utilities.Constant;
 import com.dargoz.madesubmission.R;
-import com.dargoz.madesubmission.Utils;
+import com.dargoz.madesubmission.utilities.Utils;
 import com.dargoz.madesubmission.main.movies.model.Movies;
 import com.dargoz.madesubmission.repository.movie.MovieDaoTask;
 import com.dargoz.madesubmission.repository.movie.MovieEntity;

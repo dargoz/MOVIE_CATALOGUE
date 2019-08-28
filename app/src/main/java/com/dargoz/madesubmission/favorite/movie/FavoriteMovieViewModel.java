@@ -5,10 +5,10 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
-import com.dargoz.madesubmission.Constant;
+import com.dargoz.madesubmission.utilities.Constant;
 import com.dargoz.madesubmission.main.movies.model.Movies;
-import com.dargoz.madesubmission.repository.movie.MovieDaoTask;
 import com.dargoz.madesubmission.repository.movie.MovieEntity;
+import com.dargoz.madesubmission.repository.movie.MovieDaoTask;
 
 import java.util.ArrayList;
 import java.util.List;

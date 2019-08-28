@@ -1,7 +1,9 @@
-package com.dargoz.madesubmission;
+package com.dargoz.madesubmission.utilities;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+
+import com.dargoz.madesubmission.R;
 
 
 public class Constant {
@@ -12,7 +14,7 @@ public class Constant {
     public static final String LOCAL_IMAGE_FILE_PATH = "imageDir";
     public static final String PREFERENCE_NAME = "myPreferences";
 
-    static final String URL_TYPE_SEARCH = "search";
+    public static final String URL_TYPE_SEARCH = "search";
     public static final String URL_TYPE_DISCOVER = "discover";
     public static final String URL_TYPE_DETAIL = "detail";
     public static final String URL_TYPE_NEW_RELEASE = "release";
@@ -41,6 +43,16 @@ public class Constant {
     public static final String FAILED_INSERT = "failed insert";
     public static final String SUCCESS_DELETE = "success delete";
     public static final String FAILED_DELETE = "failed delete";
+
+    public static final String TABLE_NAME = "movies";
+    public static final String COLUMN_ID = "id";
+    public static final String COLUMN_TITLE = "title";
+    public static final String COLUMN_DESC = "desc";
+    public static final String COLUMN_GENRE = "genre";
+    public static final String COLUMN_RELEASE_DATE = "release_date";
+    public static final String COLUMN_STATUS = "status";
+    public static final String COLUMN_RUNTIME = "runtime";
+    public static final String COLUMN_SCORE = "score";
 
     @NonNull
     public static String getUrlOf(@NonNull String type, String category , String keyword, Context context){

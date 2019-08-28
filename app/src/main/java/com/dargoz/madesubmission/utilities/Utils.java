@@ -1,4 +1,4 @@
-package com.dargoz.madesubmission;
+package com.dargoz.madesubmission.utilities;
 
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
@@ -8,7 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import com.dargoz.madesubmission.main.movies.model.Movies;
-import com.dargoz.madesubmission.repository.FilmImageRepository;
+import com.dargoz.madesubmission.repository.db.FilmImageRepository;
 import com.dargoz.madesubmission.widget.FavoriteFilmWidget;
 
 import java.io.File;

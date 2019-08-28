@@ -10,10 +10,10 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.BitmapRequestListener;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
-import com.dargoz.madesubmission.Constant;
-import com.dargoz.madesubmission.Utils;
+import com.dargoz.madesubmission.utilities.Constant;
+import com.dargoz.madesubmission.utilities.Utils;
 import com.dargoz.madesubmission.main.movies.MoviesContract;
-import com.dargoz.madesubmission.repository.FilmImageRepository;
+import com.dargoz.madesubmission.repository.db.FilmImageRepository;
 
 import org.json.JSONArray;
 import org.json.JSONException;

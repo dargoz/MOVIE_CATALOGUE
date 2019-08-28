@@ -13,13 +13,12 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
-import com.dargoz.madesubmission.Constant;
+import com.dargoz.madesubmission.utilities.Constant;
 import com.dargoz.madesubmission.R;
 import com.dargoz.madesubmission.main.movies.model.Movies;
 
@@ -95,7 +94,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                                             context,
                                             moviesItem.getTitle(),
                                             message,
-                                            moviesItem.getId()
+                                            (int) moviesItem.getId()
                                     );
                                 }
                         } catch (JSONException e) {

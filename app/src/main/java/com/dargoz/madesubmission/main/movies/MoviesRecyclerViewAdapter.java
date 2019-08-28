@@ -15,7 +15,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.dargoz.madesubmission.R;
-import com.dargoz.madesubmission.Utils;
+import com.dargoz.madesubmission.utilities.Utils;
 import com.dargoz.madesubmission.main.movies.model.Movies;
 
 import java.util.ArrayList;

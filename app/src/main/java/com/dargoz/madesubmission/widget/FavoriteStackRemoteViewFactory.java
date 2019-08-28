@@ -9,9 +9,9 @@ import android.os.Bundle;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
-import com.dargoz.madesubmission.Constant;
+import com.dargoz.madesubmission.utilities.Constant;
 import com.dargoz.madesubmission.R;
-import com.dargoz.madesubmission.Utils;
+import com.dargoz.madesubmission.utilities.Utils;
 import com.dargoz.madesubmission.repository.AppDatabase;
 import com.dargoz.madesubmission.repository.movie.MovieEntity;
 
@@ -49,7 +49,7 @@ public class FavoriteStackRemoteViewFactory implements RemoteViewsService.Remote
                             String.valueOf(movieEntity.getId())
                     )
             );
-            ids.add(movieEntity.getId());
+            ids.add((int) movieEntity.getId());
         }
         Binder.restoreCallingIdentity(identityToken);
     }

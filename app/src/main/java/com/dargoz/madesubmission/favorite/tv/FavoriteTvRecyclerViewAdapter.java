@@ -11,9 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.dargoz.madesubmission.Constant;
+import com.dargoz.madesubmission.utilities.Constant;
 import com.dargoz.madesubmission.R;
-import com.dargoz.madesubmission.Utils;
+import com.dargoz.madesubmission.utilities.Utils;
 import com.dargoz.madesubmission.main.tvshow.model.TvShow;
 
 import java.util.ArrayList;
