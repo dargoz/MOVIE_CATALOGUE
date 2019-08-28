@@ -18,6 +18,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             @Override
             public void run() {
                 startActivity(intent);
+                finish();
             }
         }, Constant.SPLASH_SCREEN_DURATION);
     }

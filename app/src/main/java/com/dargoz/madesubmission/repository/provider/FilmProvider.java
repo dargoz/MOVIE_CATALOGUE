@@ -26,7 +26,7 @@ public class FilmProvider extends ContentProvider {
     private static final int DIR = 1;
     private static final int DIR_ID = 2;
     private static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-    AppDatabase database;
+    private AppDatabase database;
 
     static {
         // content://com.dargoz.provider/movies

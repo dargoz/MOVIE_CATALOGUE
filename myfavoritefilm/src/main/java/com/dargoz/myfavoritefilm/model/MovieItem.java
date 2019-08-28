@@ -1,6 +1,5 @@
 package com.dargoz.myfavoritefilm.model;
 
-import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -17,7 +16,7 @@ import static com.dargoz.myfavoritefilm.Constant.COLUMN_STATUS;
 import static com.dargoz.myfavoritefilm.Constant.COLUMN_TITLE;
 
 public class MovieItem implements Parcelable {
-    private long id;
+    private final long id;
     private final String title;
     private final String desc;
     private final String genre;
@@ -25,10 +24,6 @@ public class MovieItem implements Parcelable {
     private final String status;
     private final String runtime;
     private final double score;
-
-    public long getId() {
-        return id;
-    }
 
     public String getTitle() {
         return title;
@@ -46,45 +41,12 @@ public class MovieItem implements Parcelable {
         return releaseDate;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
     public String getRuntime() {
         return runtime;
     }
 
     public double getScore() {
         return score;
-    }
-
-    public void setId(long id){
-        this.id = id;
-    }
-
-    public MovieItem(long id, String title, String desc, String genre,
-                       String releaseDate, String status, String runtime,
-                       double score
-    ) {
-        this.id = id;
-        this.title = title;
-        this.desc = desc;
-        this.genre = genre;
-        this.releaseDate = releaseDate;
-        this.status = status;
-        this.runtime = runtime;
-        this.score = score;
-    }
-
-    public MovieItem(ContentValues values){
-        this.id = values.containsKey(COLUMN_ID) ? values.getAsLong(COLUMN_ID) : 0;
-        this.title = values.containsKey(COLUMN_TITLE) ? values.getAsString(COLUMN_TITLE) : "";
-        this.desc =values.containsKey(COLUMN_DESC) ? values.getAsString(COLUMN_DESC) : "";
-        this.genre =values.containsKey(COLUMN_GENRE) ? values.getAsString(COLUMN_GENRE) : "";
-        this.releaseDate =values.containsKey(COLUMN_RELEASE_DATE) ? values.getAsString(COLUMN_RELEASE_DATE) : "";
-        this.status =values.containsKey(COLUMN_STATUS) ? values.getAsString(COLUMN_STATUS) : "";
-        this.runtime =values.containsKey(COLUMN_RUNTIME) ? values.getAsString(COLUMN_TITLE) : "";
-        this.score =values.containsKey(COLUMN_SCORE) ? values.getAsDouble(COLUMN_SCORE) : 0.0;
     }
 
     public MovieItem(Cursor cursor){

@@ -1,8 +1,7 @@
 package com.dargoz.myfavoritefilm;
 
 public class Constant {
-    public static final String THREAD_NAME = "DataObserver";
-
+    static final String THREAD_NAME = "DataObserver";
     public static final String TABLE_NAME = "movies";
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_TITLE = "title";
@@ -12,4 +11,6 @@ public class Constant {
     public static final String COLUMN_STATUS = "status";
     public static final String COLUMN_RUNTIME = "runtime";
     public static final String COLUMN_SCORE = "score";
+
+
 }

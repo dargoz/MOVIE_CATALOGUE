@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -16,9 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
-import com.dargoz.madesubmission.utilities.Constant;
 import com.dargoz.madesubmission.R;
-import com.dargoz.madesubmission.utilities.Utils;
 import com.dargoz.madesubmission.customview.GenreTextView;
 import com.dargoz.madesubmission.main.movies.model.Genre;
 import com.dargoz.madesubmission.main.movies.model.Movies;
@@ -28,6 +25,8 @@ import com.dargoz.madesubmission.repository.movie.MovieDaoTask;
 import com.dargoz.madesubmission.repository.movie.MovieEntity;
 import com.dargoz.madesubmission.repository.tvshow.TvDaoTask;
 import com.dargoz.madesubmission.repository.tvshow.TvShowEntity;
+import com.dargoz.madesubmission.utilities.Constant;
+import com.dargoz.madesubmission.utilities.Utils;
 import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.ArrayList;
@@ -270,11 +269,10 @@ public class DetailMovieActivity extends AppCompatActivity
         while(film.moveToNext()){
             int id = film.getInt(film.getColumnIndexOrThrow(COLUMN_ID));
             String title = film.getString(film.getColumnIndexOrThrow(COLUMN_TITLE));
-            Log.i("DRG","film : " + title);
             String description = film.getString(film.getColumnIndexOrThrow(COLUMN_DESC));
             String date = film.getString(film.getColumnIndexOrThrow(COLUMN_RELEASE_DATE));
             String runtime = film.getString(film.getColumnIndexOrThrow(COLUMN_RUNTIME));
-            Log.d("DRG"," film runtime : " + runtime);
+
         }
 
     }

@@ -7,6 +7,7 @@ import android.content.ContextWrapper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import com.dargoz.madesubmission.main.movies.model.Genre;
 import com.dargoz.madesubmission.main.movies.model.Movies;
 import com.dargoz.madesubmission.repository.db.FilmImageRepository;
 import com.dargoz.madesubmission.widget.FavoriteFilmWidget;
@@ -18,6 +19,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -43,6 +45,13 @@ public class Utils {
 
     public static String formatRuntime(int runtime) {
         return String.format(Locale.getDefault(), "%dh %dm", runtime / 60, runtime % 60);
+    }
+
+    public static String getGenreList(ArrayList<Genre> genreArrayList){
+        StringBuilder genreList = new StringBuilder();
+        for(Genre genre : genreArrayList)
+            genreList.append(genre.getName()).append(", ");
+        return genreList.substring(0,genreList.length()-2);
     }
 
     public static String formatDate(String dateString) {

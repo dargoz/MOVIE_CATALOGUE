@@ -17,20 +17,4 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="DetailPageThemeOff" parent="AppTheme">
-        <item name="actionOverflowButtonStyle">@style/actionButtonOverflowOff</item>
-    </style>
-    <style name="DetailPageThemeOn" parent="AppTheme">
-        <item name="actionOverflowButtonStyle">@style/actionButtonOverflowOn</item>
-    </style>
-    <style name="actionButtonOverflowOff" parent="android:style/Widget.Holo.Light.ActionButton.Overflow">
-        <item name="android:src">@drawable/baseline_favorite_border_24</item>
-        <item name="android:background">?android:attr/actionBarItemBackground</item>
-        <item name="android:contentDescription">not in favorite list</item>
-    </style>
-    <style name="actionButtonOverflowOn" parent="android:style/Widget.Holo.Light.ActionButton.Overflow">
-        <item name="android:src">@drawable/baseline_favorite_24</item>
-        <item name="android:background">?android:attr/actionBarItemBackground</item>
-        <item name="android:contentDescription">in favorite list</item>
-    </style>
 </resources>

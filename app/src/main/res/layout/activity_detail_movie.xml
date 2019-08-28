@@ -206,7 +206,6 @@
                 />
 
             <TextView
-                android:id="@+id/textView4"
                 style="@style/common_text_style"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
