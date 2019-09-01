@@ -4,7 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
-import com.dargoz.madesubmission.Constant;
+import com.dargoz.madesubmission.utilities.Constant;
 import com.dargoz.madesubmission.main.tvshow.model.TvShow;
 import com.dargoz.madesubmission.repository.tvshow.TvDaoTask;
 import com.dargoz.madesubmission.repository.tvshow.TvShowEntity;
@@ -12,6 +12,7 @@ import com.dargoz.madesubmission.repository.tvshow.TvShowEntity;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("WeakerAccess")
 public class FavoriteTvViewModel extends ViewModel {
     private final MutableLiveData<ArrayList<TvShow>> tvShowList = new MutableLiveData<>();
 

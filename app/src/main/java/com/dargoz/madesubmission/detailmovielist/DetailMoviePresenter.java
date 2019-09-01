@@ -1,28 +1,43 @@
 package com.dargoz.madesubmission.detailmovielist;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
-import com.dargoz.madesubmission.Constant;
-import com.dargoz.madesubmission.Utils;
+import com.dargoz.madesubmission.main.movies.model.Genre;
 import com.dargoz.madesubmission.main.movies.model.Movies;
 import com.dargoz.madesubmission.main.tvshow.model.TvShow;
-import com.dargoz.madesubmission.main.movies.model.Genre;
 import com.dargoz.madesubmission.repository.movie.MovieDaoTask;
 import com.dargoz.madesubmission.repository.movie.MovieEntity;
+import com.dargoz.madesubmission.repository.provider.DataObserver;
 import com.dargoz.madesubmission.repository.tvshow.TvDaoTask;
 import com.dargoz.madesubmission.repository.tvshow.TvShowEntity;
+import com.dargoz.madesubmission.utilities.Constant;
+import com.dargoz.madesubmission.utilities.Utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import static com.dargoz.madesubmission.repository.db.DatabaseContract.CONTENT_URI;
+import static com.dargoz.madesubmission.utilities.Constant.COLUMN_DESC;
+import static com.dargoz.madesubmission.utilities.Constant.COLUMN_GENRE;
+import static com.dargoz.madesubmission.utilities.Constant.COLUMN_ID;
+import static com.dargoz.madesubmission.utilities.Constant.COLUMN_RELEASE_DATE;
+import static com.dargoz.madesubmission.utilities.Constant.COLUMN_RUNTIME;
+import static com.dargoz.madesubmission.utilities.Constant.COLUMN_SCORE;
+import static com.dargoz.madesubmission.utilities.Constant.COLUMN_STATUS;
+import static com.dargoz.madesubmission.utilities.Constant.COLUMN_TITLE;
 
 
 public class DetailMoviePresenter implements DetailMovieContract.Presenter {
@@ -39,7 +54,7 @@ public class DetailMoviePresenter implements DetailMovieContract.Presenter {
                 Constant.getUrlOf(
                         Constant.URL_TYPE_DETAIL,
                         category,
-                        movie.getId(),
+                        String.valueOf(movie.getId()),
                         (DetailMovieActivity)mView);
         AndroidNetworking.get(DETAIL_MOVIE_URL)
                 .setTag("filmDetail")
@@ -80,9 +95,7 @@ public class DetailMoviePresenter implements DetailMovieContract.Presenter {
                     }
 
                     @Override
-                    public void onError(ANError anError) {
-
-                    }
+                    public void onError(ANError anError) { }
                 });
 
     }
@@ -129,32 +142,46 @@ public class DetailMoviePresenter implements DetailMovieContract.Presenter {
 
     @Override
     public void addToMovieFavorite(Movies movie, Movies movieData) {
-        MovieDaoTask task = new MovieDaoTask();
+        HandlerThread handlerThread = new HandlerThread("DataObserver");
+        handlerThread.start();
+        Handler handler = new Handler(handlerThread.getLooper());
+        DataObserver myObserver = new DataObserver(handler, (Context) mView);
+        ((Context)mView).getContentResolver()
+                .registerContentObserver(CONTENT_URI, true, myObserver);
         Bitmap image = Utils.getImageBitmap(movie);
         Utils.saveToInternalStorage( (Context)mView, image, String.valueOf(movie.getId()));
         if (movieData != null) {
-            final MovieEntity movieEntity = new MovieEntity(
-                    movie.getId(),
-                    movie.getTitle(),
-                    movie.getDesc(),
-                    movieData.getGenres().toString(),
-                    movie.getReleaseDate(),
-                    movieData.getStatus(),
-                    movieData.getRuntime(),
-                    movieData.getScore()
-            );
+            final ContentValues values = new ContentValues();
+            values.put(COLUMN_ID,movie.getId());
+            values.put(COLUMN_TITLE,movie.getTitle());
+            values.put(COLUMN_DESC,movie.getDesc());
+            values.put(COLUMN_GENRE,Utils.getGenreList(movieData.getGenres()));
+            values.put(COLUMN_RELEASE_DATE,movie.getReleaseDate());
+            values.put(COLUMN_STATUS,movieData.getStatus());
+            values.put(COLUMN_RUNTIME,movieData.getRuntime());
+            values.put(COLUMN_SCORE,movieData.getScore());
             try {
-                task.setMovieEntities(movieEntity);
-                task.execute(Constant.INSERT_ALL_MOVIES);
+                new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Looper.prepare();
+                                ((Context) mView).getContentResolver().insert(CONTENT_URI,values);
+                            }
+                        }
+                ).start();
+
             } catch (IllegalStateException e) {
                 e.printStackTrace();
             }
+            Utils.updateWidget((Context)mView);
             mView.showToastMessage(Constant.SUCCESS_INSERT);
             mView.updateButtonImageState(true);
         } else {
             mView.showToastMessage(Constant.FAILED_INSERT);
         }
     }
+
+
 
     @Override
     public void removeFromTvFavorite(TvShow tvShow, Movies movieData) {
@@ -206,6 +233,7 @@ public class DetailMoviePresenter implements DetailMovieContract.Presenter {
             } catch (IllegalStateException e) {
                 e.printStackTrace();
             }
+            Utils.updateWidget((Context)mView);
             mView.showToastMessage(Constant.SUCCESS_DELETE);
             mView.updateButtonImageState(false);
         } else

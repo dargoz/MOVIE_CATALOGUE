@@ -3,6 +3,7 @@ package com.dargoz.madesubmission.main.movies;
 import android.content.Context;
 import android.content.Intent;
 
+import com.dargoz.madesubmission.utilities.Constant;
 import com.dargoz.madesubmission.detailmovielist.DetailMovieActivity;
 import com.dargoz.madesubmission.main.movies.model.Movies;
 import com.dargoz.madesubmission.main.movies.model.MoviesViewModel;
@@ -22,7 +23,12 @@ public class MoviesPresenter implements MoviesContract.Presenter {
     @Override
     public void prepareData(MoviesViewModel moviesViewModel) {
         this.moviesViewModel = moviesViewModel;
-        this.moviesViewModel.setMovie(mView);
+        String url = Constant.getUrlOf(
+                Constant.URL_TYPE_DISCOVER,
+                Constant.URL_MOVIES,
+                "",
+                ((MoviesFragment)mView).getContext());
+        this.moviesViewModel.setMovie(mView, url);
     }
 
     @Override

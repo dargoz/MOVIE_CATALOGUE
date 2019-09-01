@@ -39,6 +39,6 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
     implementation 'com.loopj.android:android-async-http:1.4.9'
     implementation 'com.amitshekhar.android:android-networking:1.0.2'
-    implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
+    implementation 'com.facebook.shimmer:shimmer:0.4.0@aar'
     implementation 'android.arch.lifecycle:extensions:1.1.1'
 }

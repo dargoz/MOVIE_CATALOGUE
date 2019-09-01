@@ -1,40 +1,42 @@
-package com.dargoz.madesubmission.favorite;
+package com.dargoz.madesubmission.favorite.movie;
 
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
-import android.util.Log;
 
-import com.dargoz.madesubmission.Constant;
+import com.dargoz.madesubmission.utilities.Constant;
 import com.dargoz.madesubmission.main.movies.model.Movies;
-import com.dargoz.madesubmission.repository.DaoTask;
-import com.dargoz.madesubmission.repository.MovieEntity;
+import com.dargoz.madesubmission.repository.movie.MovieEntity;
+import com.dargoz.madesubmission.repository.movie.MovieDaoTask;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FavoriteViewModel extends ViewModel {
+@SuppressWarnings("WeakerAccess")
+public class FavoriteMovieViewModel extends ViewModel {
     private final MutableLiveData<ArrayList<Movies>> movieList = new MutableLiveData<>();
 
 
-    public void setMovie(FavoriteContract.View mView) {
-        DaoTask task = new DaoTask();
+    public void setMovie() {
+        MovieDaoTask task = new MovieDaoTask();
         try{
             movieList.setValue(getFavoriteData(task.execute(Constant.GET_FAVORITE_MOVIES).get()));
         }catch (Exception e){
-            Log.w("DRG","DAO Exception : " + e);
+            e.printStackTrace();
         }
     }
 
     private ArrayList<Movies> getFavoriteData(List<MovieEntity> movieEntities) {
         ArrayList<Movies> moviesArrayList = new ArrayList<>();
         for(MovieEntity movieEntity : movieEntities){
-            Log.i("DRG","movies entity : " + movieEntity.getTitle());
             Movies movie = new Movies();
+            movie.setId(movieEntity.getId());
             movie.setTitle(movieEntity.getTitle());
+            movie.setDesc(movieEntity.getDesc());
             movie.setReleaseDate(movieEntity.getReleaseDate());
             movie.setRuntime(movieEntity.getRuntime());
+            movie.setScore(movieEntity.getScore());
             moviesArrayList.add(movie);
         }
         return moviesArrayList;

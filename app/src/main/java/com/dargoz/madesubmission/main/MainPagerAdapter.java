@@ -1,34 +1,33 @@
 package com.dargoz.madesubmission.main;
 
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.dargoz.madesubmission.main.movies.MoviesFragment;
-import com.dargoz.madesubmission.main.tvshow.TvShowFragment;
+import java.util.ArrayList;
 
 public class MainPagerAdapter extends FragmentStatePagerAdapter {
-    private final int pageCount;
-    public MainPagerAdapter(FragmentManager fm, int pageCount) {
+    private final ArrayList<Fragment> fragments = new ArrayList<>();
+    private final TabLayout tabLayout;
+    public MainPagerAdapter(FragmentManager fm, TabLayout tabLayout) {
         super(fm);
-        this.pageCount = pageCount;
+        this.tabLayout = tabLayout;
     }
+
+    public void addFragment(Fragment fragment, String title) {
+        fragments.add(fragment);
+        tabLayout.addTab(tabLayout.newTab().setText(title));
+    }
+
 
     @Override
     public int getCount() {
-        return pageCount;
+        return fragments.size();
     }
 
     @Override
     public Fragment getItem(int position) {
-        switch (position){
-            case 0:
-                return new MoviesFragment();
-            case 1:
-                return new TvShowFragment();
-                default:
-                    return null;
-        }
-
+        return fragments.get(position);
     }
 }

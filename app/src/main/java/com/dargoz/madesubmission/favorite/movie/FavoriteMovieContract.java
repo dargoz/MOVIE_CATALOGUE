@@ -6,7 +6,7 @@ import com.dargoz.madesubmission.main.movies.model.Movies;
 
 import java.util.ArrayList;
 
-public interface FavoriteContract {
+public interface FavoriteMovieContract {
 
     interface View extends BaseView<Presenter>{
         void initView();

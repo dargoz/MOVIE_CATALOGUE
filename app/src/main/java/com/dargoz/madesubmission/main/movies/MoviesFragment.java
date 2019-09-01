@@ -23,12 +23,20 @@ import java.util.ArrayList;
 
 
 public class MoviesFragment extends Fragment implements MoviesContract.View, View.OnClickListener {
-    private MoviesContract.Presenter mPresenter;
+    private MoviesContract.Presenter presenter;
     private RecyclerView moviesRecyclerView;
     private ShimmerFrameLayout shimmerFrameLayout;
     private Button reloadButton;
 
     private MoviesViewModel moviesViewModel;
+
+    public MoviesViewModel getMoviesViewModel() {
+        return moviesViewModel;
+    }
+
+    public MoviesContract.Presenter getPresenter() {
+        return presenter;
+    }
 
     public MoviesFragment() {
         // Required empty public constructor
@@ -45,12 +53,12 @@ public class MoviesFragment extends Fragment implements MoviesContract.View, Vie
         reloadButton = root.findViewById(R.id.movie_reload_button);
 
         reloadButton.setOnClickListener(this);
-        shimmerFrameLayout.startShimmerAnimation();
+        shimmerFrameLayout.startShimmer();
 
-        mPresenter = new MoviesPresenter(this, getContext());
+        presenter = new MoviesPresenter(this, getContext());
         moviesViewModel = ViewModelProviders.of(this).get(MoviesViewModel.class);
         moviesViewModel.getMovieList().observe(this,getMovie);
-        mPresenter.prepareData(moviesViewModel);
+        presenter.prepareData(moviesViewModel);
         return root;
     }
 
@@ -66,19 +74,19 @@ public class MoviesFragment extends Fragment implements MoviesContract.View, Vie
     @Override
     public void onPause() {
         super.onPause();
-        shimmerFrameLayout.stopShimmerAnimation();
+        shimmerFrameLayout.stopShimmer();
     }
 
     @Override
     public void showMovieList(ArrayList<Movies> moviesArrayList) {
         moviesRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
         MoviesRecyclerViewAdapter moviesRecyclerViewAdapter =
-                new MoviesRecyclerViewAdapter(getContext(), (MoviesPresenter) mPresenter);
+                new MoviesRecyclerViewAdapter(getContext(), (MoviesPresenter) presenter);
         moviesRecyclerViewAdapter.setMovieData(moviesArrayList);
 
         moviesRecyclerView.setAdapter(moviesRecyclerViewAdapter);
-        if(mPresenter.onAllDataFinishLoaded()) {
-            shimmerFrameLayout.stopShimmerAnimation();
+        if(presenter.onAllDataFinishLoaded()) {
+            shimmerFrameLayout.stopShimmer();
             shimmerFrameLayout.setVisibility(View.GONE);
         }
     }
@@ -90,13 +98,13 @@ public class MoviesFragment extends Fragment implements MoviesContract.View, Vie
 
     @Override
     public void setPresenter(MoviesContract.Presenter presenter) {
-        mPresenter = presenter;
+        this.presenter = presenter;
     }
 
     @Override
     public void onClick(View view) {
         if(view.getId() == R.id.movie_reload_button){
-            mPresenter.prepareData(moviesViewModel);
+            presenter.prepareData(moviesViewModel);
             showReloadButton(false);
         }
     }

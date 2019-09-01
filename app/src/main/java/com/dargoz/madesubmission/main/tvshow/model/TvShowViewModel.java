@@ -10,11 +10,10 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.BitmapRequestListener;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
-import com.dargoz.madesubmission.Constant;
-import com.dargoz.madesubmission.Utils;
+import com.dargoz.madesubmission.utilities.Constant;
+import com.dargoz.madesubmission.utilities.Utils;
 import com.dargoz.madesubmission.main.tvshow.TvShowContract;
-import com.dargoz.madesubmission.main.tvshow.TvShowFragment;
-import com.dargoz.madesubmission.repository.FilmImageRepository;
+import com.dargoz.madesubmission.repository.db.FilmImageRepository;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,15 +35,10 @@ public class TvShowViewModel extends ViewModel {
         return loadedItemCounter;
     }
 
-    public void setTvShow(final TvShowContract.View mainView){
+    public void setTvShow(final TvShowContract.View mainView, String url){
         tvShowItemList.clear();
-        String url =  Constant.getUrlOf(
-                Constant.URL_TYPE_DISCOVER,
-                Constant.URL_TV,
-                0,
-                ((TvShowFragment)mainView).getContext());
         AndroidNetworking.get(url)
-                .setTag("test")
+                .setTag("tv")
                 .setPriority(Priority.HIGH)
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {
@@ -78,7 +72,7 @@ public class TvShowViewModel extends ViewModel {
 
                                             @Override
                                             public void onError(ANError anError) {
-                                                mainView.showReloadButton(true);
+                                                loadedItemCounter++;
                                             }
                                         });
 

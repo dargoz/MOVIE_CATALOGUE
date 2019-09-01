@@ -19,6 +19,6 @@ public interface TvShowDao {
     void delete(TvShowEntity tvShowEntity);
 
     @Query("SELECT * FROM tvShow WHERE id = :id")
-    TvShowEntity find(int id);
+    TvShowEntity find(long id);
 
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">MADE SUBMISSION</string>
+    <string name="app_name">Movie Catalogue</string>
     <string name="movie_image_text_desc">movie image</string>
     <string name="template_movie_title">Avenger: Infinity War</string>
     <string name="template_movie_release_date">April 27, 2018</string>
@@ -14,7 +14,6 @@
     <string name="detail_film_title">Rincian Film</string>
 
     <string name="template_genre_title_text">Genre</string>
-    <string name="template_genre_text">Action</string>
     <string name="template_status_title_text">Status</string>
     <string name="template_status_text">Rilis</string>
     <string name="template_score_title_text">Nilai</string>
@@ -42,4 +41,20 @@
     <string name="yes_button_text">YA</string>
     <string name="no_button_text">TIDAK</string>
     <string name="delete_confirmation_message">Apakah anda yakin ingin menghapus film dari daftar favorit?</string>
+    <string name="message_empty_favorite_list">List favorit anda kosong.</string>
+    <string name="appwidget_text">Film Favorit</string>
+    <string name="search_title_text">cari</string>
+    <string name="search_hint_text">cari film</string>
+    <!--NOTIFICATION RESOURCES-->
+    <string name="notification_reminder_message">Movie catalogue merindukanmu!</string>
+    <string name="notification_error_title">Unknown</string>
+    <string name="notification_error_message">Gagal memuat data film</string>
+    <string name="notification_format_message">%s telah rilis hari ini\n</string>
+    <string name="notification_empty_title">Tidak ada film baru</string>
+    <string name="notification_empty">Tidak ada film baru rilis hari ini</string>
+    <string name="notification_setting_text">Hidup/Matikan notifikasi</string>
+    <string name="daily_reminder_title_text">Pengingat Harian</string>
+    <string name="daily_reminder_desc_text">Pengingat untuk kembali ke aplikasi setiap hari</string>
+    <string name="release_reminder_title_text">Pengingat Rilis Film</string>
+    <string name="release_reminder_desc_text">Pengingat menampilkan film yang rilis hari itu</string>
 </resources>

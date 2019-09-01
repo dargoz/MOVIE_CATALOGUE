@@ -2,6 +2,7 @@ package com.dargoz.madesubmission.detailmovielist;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,23 +15,31 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
-import com.dargoz.madesubmission.Constant;
 import com.dargoz.madesubmission.R;
-import com.dargoz.madesubmission.Utils;
 import com.dargoz.madesubmission.customview.GenreTextView;
 import com.dargoz.madesubmission.main.movies.model.Genre;
 import com.dargoz.madesubmission.main.movies.model.Movies;
 import com.dargoz.madesubmission.main.tvshow.model.TvShow;
+import com.dargoz.madesubmission.repository.db.LoadFilmCallback;
 import com.dargoz.madesubmission.repository.movie.MovieDaoTask;
 import com.dargoz.madesubmission.repository.movie.MovieEntity;
 import com.dargoz.madesubmission.repository.tvshow.TvDaoTask;
 import com.dargoz.madesubmission.repository.tvshow.TvShowEntity;
+import com.dargoz.madesubmission.utilities.Constant;
+import com.dargoz.madesubmission.utilities.Utils;
 import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DetailMovieActivity extends AppCompatActivity implements DetailMovieContract.View, View.OnClickListener {
+import static com.dargoz.madesubmission.utilities.Constant.COLUMN_DESC;
+import static com.dargoz.madesubmission.utilities.Constant.COLUMN_ID;
+import static com.dargoz.madesubmission.utilities.Constant.COLUMN_RELEASE_DATE;
+import static com.dargoz.madesubmission.utilities.Constant.COLUMN_RUNTIME;
+import static com.dargoz.madesubmission.utilities.Constant.COLUMN_TITLE;
+
+public class DetailMovieActivity extends AppCompatActivity
+        implements DetailMovieContract.View, View.OnClickListener, LoadFilmCallback {
 
     public static final String EXTRA_MOVIE = "movie";
     public static final String EXTRA_TV_SHOWS = "tv";
@@ -91,7 +100,7 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
     private boolean checkMovieOnFavoriteList(Movies movie) {
         MovieDaoTask task = new MovieDaoTask();
         try {
-            int findId = 0;
+            long findId = 0;
             task.setId(movie.getId());
             List<MovieEntity> findEntity = task.execute(Constant.FIND_MOVIE).get();
             if (!findEntity.isEmpty())
@@ -107,7 +116,7 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
     private boolean checkTvOnFavoriteList(TvShow tvShow) {
         TvDaoTask task = new TvDaoTask();
         try {
-            int findId = 0;
+            long findId = 0;
             task.setId(tvShow.getId());
             List<TvShowEntity> findTvEntity = task.execute(Constant.FIND_TV_SHOW).get();
             if (!findTvEntity.isEmpty())
@@ -169,12 +178,12 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
     @Override
     public void showLoading(boolean state) {
         if (state) {
-            shimmerLayout.startShimmerAnimation();
+            shimmerLayout.startShimmer();
             scrollView.setVisibility(View.GONE);
             shimmerLayout.setVisibility(View.VISIBLE);
         } else {
             scrollView.setVisibility(View.VISIBLE);
-            shimmerLayout.stopShimmerAnimation();
+            shimmerLayout.startShimmer();
             shimmerLayout.setVisibility(View.GONE);
         }
     }
@@ -248,5 +257,23 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
             }
 
         }
+    }
+
+    @Override
+    public void preExecute() {
+
+    }
+
+    @Override
+    public void postExecute(Cursor film) {
+        while(film.moveToNext()){
+            int id = film.getInt(film.getColumnIndexOrThrow(COLUMN_ID));
+            String title = film.getString(film.getColumnIndexOrThrow(COLUMN_TITLE));
+            String description = film.getString(film.getColumnIndexOrThrow(COLUMN_DESC));
+            String date = film.getString(film.getColumnIndexOrThrow(COLUMN_RELEASE_DATE));
+            String runtime = film.getString(film.getColumnIndexOrThrow(COLUMN_RUNTIME));
+
+        }
+
     }
 }

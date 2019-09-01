@@ -10,11 +10,10 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.BitmapRequestListener;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
-import com.dargoz.madesubmission.Constant;
-import com.dargoz.madesubmission.Utils;
+import com.dargoz.madesubmission.utilities.Constant;
+import com.dargoz.madesubmission.utilities.Utils;
 import com.dargoz.madesubmission.main.movies.MoviesContract;
-import com.dargoz.madesubmission.main.movies.MoviesFragment;
-import com.dargoz.madesubmission.repository.FilmImageRepository;
+import com.dargoz.madesubmission.repository.db.FilmImageRepository;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,13 +35,8 @@ public class MoviesViewModel extends ViewModel {
         return loadedItemCounter;
     }
 
-    public void setMovie(final MoviesContract.View mView){
+    public void setMovie(final MoviesContract.View mView, String url){
         moviesItemList.clear();
-        String url =  Constant.getUrlOf(
-                Constant.URL_TYPE_DISCOVER,
-                Constant.URL_MOVIES,
-                0,
-                ((MoviesFragment)mView).getContext());
         AndroidNetworking.get(url)
                 .setTag("movies")
                 .setPriority(Priority.HIGH)
